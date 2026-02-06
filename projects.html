@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Panashe Sanyanga | Projects</title>
+    <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <meta
+      name="description"
+      content="Selected software projects by Panashe Sanyanga: NovaBank and ChatWire, plus university coursework."
+    />
+    <meta property="og:title" content="Panashe Sanyanga | Projects" />
+    <meta property="og:type" content="website" />
+    <link rel="stylesheet" href="styles.css?v=13" />
+  </head>
+  <body>
+    <div class="floating-orbs" aria-hidden="true"></div>
+
+    <header>
+      <div class="container header-bar">
+        <div class="logo">PS</div>
+        <nav class="nav">
+          <a href="index.html">HOME</a>
+          <a href="projects.html" class="active">PROJECTS</a>
+          <a href="about.html">ABOUT</a>
+          <a href="contact.html">CONTACT</a>
+          <a href="cv.html" target="_blank" rel="noopener noreferrer" class="button-link">CV</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      <h2 class="projects-hero-intro">Projects</h2>
+
+      <h3 class="project-section-heading" id="selected">Selected work</h3>
+      <div class="project-grid">
+        <article class="project-card project-card-featured" id="novabank">
+          <div class="project-gallery">
+            <img
+              src="images/novabank-dashboard.png"
+              alt="NovaBank dashboard with balances and spending chart"
+              class="project-screenshot"
+              loading="lazy"
+            />
+            <img
+              src="images/novabank-pots.png"
+              alt="NovaBank savings pots with round-ups and progress bars"
+              class="project-screenshot"
+              loading="lazy"
+            />
+            <img
+              src="images/novabank-cards.png"
+              alt="NovaBank debit card page with freeze control"
+              class="project-screenshot"
+              loading="lazy"
+            />
+          </div>
+          <h3>NovaBank</h3>
+          <p class="project-card-date">Jun-Jul 2026 · personal</p>
+          <p>
+            Online banking app for customers and admins. Register, deposit,
+            withdraw, transfer, view statements, freeze a card, set up savings
+            pots with round-ups, and check a spending breakdown. Admins get a
+            customer search, account freeze, and an audit log. Every transfer
+            is a double-entry ledger write inside one database transaction, so
+            a failure partway through cannot leave one side updated and the
+            other not.
+          </p>
+          <div class="project-tech">
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">FastAPI</span>
+            <span class="tech-tag">SQLAlchemy</span>
+            <span class="tech-tag">PostgreSQL</span>
+            <span class="tech-tag">JWT</span>
+            <span class="tech-tag">WebSockets</span>
+            <span class="tech-tag">Docker</span>
+          </div>
+          <div class="project-links">
+            <a
+              href="https://novabank-client-production.up.railway.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="button-link"
+              >Live demo</a
+            >
+            <a
+              class="button-link secondary is-disabled"
+              aria-disabled="true"
+              title="Repo is still being tidied up, not public yet"
+              >GitHub · soon</a
+            >
+            <a href="about.html#novabank" class="button-link secondary">Notes</a>
+          </div>
+          <span class="label-github-only">Live: novabank-client-production.up.railway.app</span>
+        </article>
+
+        <article class="project-card project-card-featured" id="chatwire">
+          <div class="project-gallery">
+            <img
+              src="images/chatwire-join.png"
+              alt="ChatWire join screen"
+              class="project-screenshot"
+              loading="lazy"
+            />
+            <img
+              src="images/chatwire-chat.png"
+              alt="ChatWire live chat with communities and channels"
+              class="project-screenshot"
+              loading="lazy"
+            />
+            <img
+              src="images/chatwire-timeline.png"
+              alt="ChatWire timeline feed"
+              class="project-screenshot"
+              loading="lazy"
+            />
+            <img
+              src="images/chatwire-light.png"
+              alt="ChatWire light theme"
+              class="project-screenshot"
+              loading="lazy"
+            />
+          </div>
+          <h3>ChatWire</h3>
+          <p class="project-card-date">May 2026 · personal</p>
+          <p>
+            Multi-user chat with communities, channels, direct messages,
+            reactions, stories, and WebRTC calls. Flask-SocketIO for live
+            updates; SQLite for accounts and message history.
+          </p>
+          <div class="project-tech">
+            <span class="tech-tag">Flask-SocketIO</span>
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">SQLite</span>
+            <span class="tech-tag">WebRTC</span>
+            <span class="tech-tag">pytest</span>
+          </div>
+          <div class="project-links">
+            <a
+              href="https://chatwire-production.up.railway.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="button-link"
+              >Live demo</a
+            >
+            <a
+              class="button-link secondary is-disabled"
+              aria-disabled="true"
+              title="Repo is still being tidied up, not public yet"
+              >GitHub · soon</a
+            >
+            <a href="about.html#chatwire" class="button-link secondary">Notes</a>
+          </div>
+          <span class="label-github-only">Live: chatwire-production.up.railway.app · demo / demo123456</span>
+        </article>
+      </div>
+
+      <h3 class="project-section-heading" id="year-2">Year 2</h3>
+      <div class="project-grid">
+        <article class="project-card" id="whats-for-dinner">
+          <div class="project-gallery">
+            <img
+              src="images/whatsfordinner-home.png"
+              alt="What's For Dinner homepage"
+              class="project-screenshot"
+              loading="lazy"
+            />
+            <img
+              src="images/whatsfordinner-recipes.png"
+              alt="What's For Dinner recipes page"
+              class="project-screenshot"
+              loading="lazy"
+            />
+          </div>
+          <h3>What’s For Dinner</h3>
+          <p class="project-card-date">Year 2 · group project</p>
+          <p>
+            Recipe finder by ingredients or mood. HTML, CSS, JavaScript frontend
+            with a Python backend.
+          </p>
+          <div class="project-tech">
+            <span class="tech-tag">HTML</span>
+            <span class="tech-tag">CSS</span>
+            <span class="tech-tag">JavaScript</span>
+            <span class="tech-tag">Python</span>
+          </div>
+          <div class="project-links">
+            <a
+              href="https://github.com/code-by-panashe-sanyanga/WHATS-FOR-DINNER"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="button-link"
+              >GitHub</a
+            >
+          </div>
+        </article>
+        <article class="project-card" id="ads-queue">
+          <h3>Emergency Call Queue</h3>
+          <p class="project-card-date">Year 2 · ADS</p>
+          <p>Custom circular queue ADT for calls by type and severity.</p>
+          <div class="project-tech"><span class="tech-tag">C#</span><span class="tech-tag">Queues</span></div>
+          <div class="project-links">
+            <a href="https://github.com/code-by-panashe-sanyanga/ADS-Queues-Emergency-Call-System" target="_blank" rel="noopener noreferrer" class="button-link">GitHub</a>
+          </div>
+        </article>
+        <article class="project-card" id="ads-trees">
+          <h3>Video Game Catalogue</h3>
+          <p class="project-card-date">Year 2 · ADS</p>
+          <p>BST and AVL tree logic for search, update, and removal.</p>
+          <div class="project-tech"><span class="tech-tag">C#</span><span class="tech-tag">BST/AVL</span></div>
+          <div class="project-links">
+            <a href="https://github.com/code-by-panashe-sanyanga/ADS-Trees-Video-Game-Manager" target="_blank" rel="noopener noreferrer" class="button-link">GitHub</a>
+          </div>
+        </article>
+        <article class="project-card" id="ads-sort">
+          <h3>Aid Distribution Optimiser</h3>
+          <p class="project-card-date">Year 2 · ADS</p>
+          <p>QuickSort plus greedy selection within a weight limit.</p>
+          <div class="project-tech"><span class="tech-tag">C#</span><span class="tech-tag">Sorting</span></div>
+          <div class="project-links">
+            <a href="https://github.com/code-by-panashe-sanyanga/ADS-Sorting-and-Greedy-Algorithms" target="_blank" rel="noopener noreferrer" class="button-link">GitHub</a>
+          </div>
+        </article>
+        <article class="project-card" id="ads-graphs">
+          <h3>Metro Network Route Planner</h3>
+          <p class="project-card-date">Year 2 · ADS</p>
+          <p>Graph ADT with BFS, DFS, and shortest-path routing.</p>
+          <div class="project-tech"><span class="tech-tag">C#</span><span class="tech-tag">Graphs</span></div>
+          <div class="project-links">
+            <a href="https://github.com/code-by-panashe-sanyanga/ADS-Graphs-Transport-Network" target="_blank" rel="noopener noreferrer" class="button-link">GitHub</a>
+          </div>
+        </article>
+      </div>
+
+      <h3 class="project-section-heading" id="year-1">Year 1</h3>
+      <div class="project-grid">
+        <article class="project-card" id="vault-comics">
+          <div class="project-gallery">
+            <img src="images/vaultcomics-home.png" alt="Vault Comics home" class="project-screenshot" loading="lazy" />
+            <img src="images/vaultcomics-catalogue.png" alt="Vault Comics catalogue" class="project-screenshot" loading="lazy" />
+          </div>
+          <h3>Vault Comics</h3>
+          <p class="project-card-date">Year 1 · web module</p>
+          <p>Client-only comic shop: catalogue, basket, checkout.</p>
+          <div class="project-tech"><span class="tech-tag">HTML</span><span class="tech-tag">CSS</span><span class="tech-tag">JavaScript</span></div>
+          <div class="project-links">
+            <a href="https://github.com/code-by-panashe-sanyanga/Vault-Comics" target="_blank" rel="noopener noreferrer" class="button-link">GitHub</a>
+          </div>
+        </article>
+        <article class="project-card" id="space-survival">
+          <div class="project-gallery">
+            <img src="images/spacesurvival-menu.png" alt="Space Survival menu" class="project-screenshot" loading="lazy" />
+            <img src="images/spacesurvival-play.png" alt="Space Survival gameplay" class="project-screenshot" loading="lazy" />
+          </div>
+          <h3>Space Survival</h3>
+          <p class="project-card-date">Year 1 · programming module</p>
+          <p>2D arcade survival game in Processing with OOP entities and particle hits.</p>
+          <div class="project-tech"><span class="tech-tag">Processing</span><span class="tech-tag">Java</span></div>
+          <div class="project-links">
+            <a href="https://github.com/code-by-panashe-sanyanga/Space-Survival" target="_blank" rel="noopener noreferrer" class="button-link">GitHub</a>
+          </div>
+        </article>
+      </div>
+    </main>
+
+    <footer>
+      &copy; <span id="footer-year">2026</span>
+      <strong>Panashe Sanyanga</strong>
+    </footer>
+    <script src="script.js"></script>
+  </body>
+</html>
