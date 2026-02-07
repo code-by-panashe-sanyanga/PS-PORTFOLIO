@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Panashe Sanyanga | About</title>
+    <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <meta
+      name="description"
+      content="About Panashe Sanyanga. Computer Science student at MMU. Notes on NovaBank and ChatWire."
+    />
+    <link rel="stylesheet" href="styles.css?v=13" />
+  </head>
+  <body>
+    <div class="floating-orbs" aria-hidden="true"></div>
+
+    <header>
+      <div class="container header-bar">
+        <div class="logo">PS</div>
+        <nav class="nav">
+          <a href="index.html">HOME</a>
+          <a href="projects.html">PROJECTS</a>
+          <a href="about.html" class="active">ABOUT</a>
+          <a href="contact.html">CONTACT</a>
+          <a href="cv.html" target="_blank" rel="noopener noreferrer" class="button-link">CV</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      <div class="insights-intro">
+        <h1>About</h1>
+      </div>
+
+      <div class="about-intro">
+        <p>
+          I’m a Computer Science student at Manchester Metropolitan University.
+          Final year starts October 2026; I graduate in 2027.
+        </p>
+        <p>
+          Most of my project work is backend: APIs, databases, auth, and
+          keeping money and chat state consistent when things fail mid-request.
+        </p>
+        <p>
+          I work as a campus IT Advisor. Before university I worked in retail
+          and loss prevention. Looking for software engineering graduate roles
+          from 2027.
+        </p>
+      </div>
+
+      <div class="insights-intro">
+        <h1>Project notes</h1>
+      </div>
+
+      <article class="insight-article" id="novabank">
+        <h2>NovaBank</h2>
+        <div class="project-overview">
+          <h3>Brief</h3>
+          <p>
+            A small online banking app with customer and admin roles. Built to
+            practise transfers, auth, and database transactions properly, the
+            way a real bank would need to handle them.
+          </p>
+          <h3>Features</h3>
+          <ul>
+            <li>Register and login (bcrypt + JWT); new users get a current account, a savings account, and a debit card</li>
+            <li>Deposit, withdraw, and transfer by account number, with statement filters and CSV export</li>
+            <li>Savings pots with optional targets, round-ups on card payments, and a spending breakdown by category</li>
+            <li>Card freeze/unfreeze, spending limits, and merchant category blocks</li>
+            <li>Session management: see active devices, log out everywhere, review recent login activity</li>
+            <li>Admin panel: customer search, account freeze, transaction audit log, flagged-transaction review</li>
+          </ul>
+          <h3>Implementation notes</h3>
+          <p>
+            Money movement uses double-entry bookkeeping: every transfer
+            writes a balanced debit and credit into an immutable ledger table
+            inside one database transaction, so a failure partway through
+            cannot leave one side updated and the other not. Balances are
+            stored as Decimal, never float. Card numbers are masked in every
+            API response, and account and card routes check that the
+            logged-in user actually owns the resource before returning
+            anything. pytest covers the ledger and transfer logic; Docker
+            Compose runs PostgreSQL locally.
+          </p>
+          <p>
+            <a
+              href="https://novabank-client-production.up.railway.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="button-link"
+              >Live demo</a
+            >
+            <a
+              class="button-link secondary is-disabled"
+              aria-disabled="true"
+              title="Repo is still being tidied up, not public yet"
+              >GitHub · soon</a
+            >
+          </p>
+        </div>
+      </article>
+
+      <article class="insight-article" id="chatwire">
+        <h2>ChatWire</h2>
+        <div class="project-overview">
+          <h3>Brief</h3>
+          <p>
+            A chat app where the server pushes updates to clients. Built after
+            mostly doing request/response HTTP work, and a chance to focus on
+            auth and permission checks outside of a banking context.
+          </p>
+          <h3>Features</h3>
+          <ul>
+            <li>Communities, channels, DMs, reactions, stories, friends list, typing, edit/delete</li>
+            <li>Flask-SocketIO for live events; SQLite for accounts, messages, friends, and the feed</li>
+            <li>WebRTC calls (mic, camera, screen share); presence kept in memory</li>
+            <li>Dark/light theme, file attachments, quick switcher; pytest on message handlers and auth</li>
+          </ul>
+          <h3>Implementation notes</h3>
+          <p>
+            Channel history is loaded once, then only new events are appended,
+            so switching rooms doesn't replay the same messages. Passwords are
+            hashed with bcrypt; sessions use signed, expiring tokens rather
+            than storing the password client-side. Repeated failed logins
+            trigger a short account lockout, and that same check protects the
+            change-password endpoint so it can't be used to brute-force a
+            password either. The friends-only feed and story views check that
+            the viewer is actually the author or a friend before returning
+            anything, not just when listing the normal feed. Online status is
+            kept in memory because it changes every second and does not need
+            to survive a restart.
+          </p>
+          <p>
+            <a
+              href="https://chatwire-production.up.railway.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="button-link"
+              >Live demo</a
+            >
+            <a
+              class="button-link secondary is-disabled"
+              aria-disabled="true"
+              title="Repo is still being tidied up, not public yet"
+              >GitHub · soon</a
+            >
+          </p>
+        </div>
+      </article>
+    </main>
+
+    <footer>
+      &copy; <span id="footer-year">2026</span>
+      <strong>Panashe Sanyanga</strong>
+    </footer>
+    <script src="script.js"></script>
+  </body>
+</html>
