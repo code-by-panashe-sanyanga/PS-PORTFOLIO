@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Panashe Sanyanga | CV</title>
+    <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
+    <style>
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      body {
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        color: #111;
+        line-height: 1.4;
+        max-width: 780px;
+        margin: 0 auto;
+        padding: 1.75rem 1.5rem 2.5rem;
+        font-size: 0.92rem;
+      }
+      h1 { font-size: 1.65rem; letter-spacing: -0.02em; margin-bottom: 0.15rem; }
+      h2 {
+        font-size: 0.78rem;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: #0b5cab;
+        border-bottom: 1px solid #ccc;
+        margin: 0.95rem 0 0.4rem;
+        padding-bottom: 0.15rem;
+      }
+      .subtitle { color: #444; margin-bottom: 0.35rem; font-size: 0.95rem; }
+      .contact { color: #333; font-size: 0.85rem; }
+      .contact a { color: #0b5cab; text-decoration: none; }
+      ul { margin-left: 1.1rem; }
+      li { margin-bottom: 0.22rem; }
+      .entry { margin-bottom: 0.55rem; }
+      .entry-title { font-weight: 650; }
+      .entry-meta { color: #555; font-size: 0.84rem; }
+      .skills-line { margin-bottom: 0.25rem; }
+      .skills-line strong { font-weight: 650; }
+      .back-link {
+        margin-bottom: 1rem;
+        padding: 0.65rem 0.9rem;
+        background: #f0f2f5;
+        border-radius: 6px;
+        font-size: 0.85rem;
+        display: inline-block;
+        text-decoration: none;
+        color: #0b5cab;
+      }
+      @media print {
+        .back-link { display: none; }
+        body { padding: 0; font-size: 10.5pt; max-width: none; }
+        h2 { margin-top: 0.7rem; }
+      }
+    </style>
+  </head>
+  <body>
+    <a class="back-link" href="index.html">← Back to portfolio</a>
+
+    <h1>Panashe Sanyanga</h1>
+    <p class="subtitle">
+      BSc Computer Science · Manchester Metropolitan University · Graduating 2027
+    </p>
+    <p class="contact">
+      <a href="mailto:panashe.sanyanga@hotmail.com">panashe.sanyanga@hotmail.com</a>
+      · Manchester, UK
+      · <a href="https://github.com/code-by-panashe-sanyanga">GitHub</a>
+      · <a href="https://www.linkedin.com/in/panashe-l-s">LinkedIn</a>
+      · <a href="https://code-by-panashe-sanyanga.github.io/PS-PORTFOLIO/">Portfolio</a>
+    </p>
+
+    <h2>Profile</h2>
+    <p>
+      Computer Science student graduating 2027. Recent projects: NovaBank (online
+      banking with transactional transfers) and ChatWire (real-time chat with
+      Flask-SocketIO and SQLite). Seeking software engineering graduate roles.
+    </p>
+
+    <h2>Technical skills</h2>
+    <p class="skills-line"><strong>Languages:</strong> JavaScript, Python, SQL, HTML, CSS, C#, Java</p>
+    <p class="skills-line"><strong>Backend:</strong> FastAPI, Flask, Flask-SocketIO, SQLite, PostgreSQL, REST, JWT</p>
+    <p class="skills-line"><strong>Frontend:</strong> HTML, CSS, JavaScript</p>
+    <p class="skills-line"><strong>Tooling:</strong> Git, Docker Compose, pytest</p>
+
+    <h2>Selected projects</h2>
+
+    <div class="entry">
+      <div class="entry-title">NovaBank: online banking app</div>
+      <div class="entry-meta">Jun-Jul 2026 · Python · FastAPI · SQLAlchemy · PostgreSQL · GitHub (soon) · <a href="https://novabank-client-production.up.railway.app">Live demo</a></div>
+      <ul>
+        <li>Accounts, transfers, savings pots with round-ups, spending insights, card freeze, admin audit panel</li>
+        <li>Double-entry ledger: every transfer writes a balanced debit and credit in one database transaction</li>
+        <li>JWT auth, bcrypt password hashing, rate-limited login, masked card numbers, ownership checks on every route</li>
+        <li>pytest for the ledger and transfer logic; Docker Compose for local PostgreSQL</li>
+      </ul>
+    </div>
+
+    <div class="entry">
+      <div class="entry-title">ChatWire: multi-user chat</div>
+      <div class="entry-meta">May 2026 · Flask-SocketIO · Python · SQLite · JavaScript · GitHub (soon) · <a href="https://chatwire-production.up.railway.app">Live demo</a></div>
+      <ul>
+        <li>Communities, channels, DMs, reactions, stories, presence, typing, WebRTC calls</li>
+        <li>SQLite for accounts and messages; Socket.IO for live events; HTTP for auth and uploads</li>
+        <li>bcrypt password hashing, signed session tokens, login lockout after repeated failed attempts</li>
+        <li>pytest for message handlers and auth</li>
+      </ul>
+    </div>
+
+    <h2>Experience</h2>
+
+    <div class="entry">
+      <div class="entry-title">IT Advisor, Manchester Metropolitan University</div>
+      <div class="entry-meta">2025/26 academic year</div>
+      <ul>
+        <li>Hardware, software, account, and network support for staff and students</li>
+        <li>PC imaging, SCCM software deploy, service-desk tickets</li>
+      </ul>
+    </div>
+
+    <div class="entry">
+      <div class="entry-title">Sales Advisor, Belstaff</div>
+      <div class="entry-meta">2024-2025</div>
+      <ul>
+        <li>Customer service and sales floor support during peak trading</li>
+      </ul>
+    </div>
+
+    <div class="entry">
+      <div class="entry-title">Supervisor, Origin Kicks</div>
+      <div class="entry-meta">2023-2024</div>
+      <ul>
+        <li>Staff training on till process; floor supervision and stock accuracy</li>
+      </ul>
+    </div>
+
+    <h2>Education</h2>
+    <div class="entry">
+      <div class="entry-title">BSc (Hons) Computer Science, Manchester Metropolitan University</div>
+      <div class="entry-meta">Sep 2023 - 2027 (expected) · Final year from Oct 2026</div>
+      <ul>
+        <li>Modules include Data Structures and Algorithms, OOP, Database Systems, Software Engineering</li>
+        <li>ADS coursework in C# (queues, trees, graphs, sorting) on GitHub</li>
+      </ul>
+    </div>
+    <div class="entry">
+      <div class="entry-title">BTEC Level 3 Extended Diploma in Engineering, Milton Keynes College</div>
+      <div class="entry-meta">2013-2015 · DDD</div>
+    </div>
+
+    <h2>Additional</h2>
+    <ul>
+      <li>Open to software engineering graduate programmes starting 2027</li>
+      <li>Interests: fitness, live music, cinema</li>
+    </ul>
+  </body>
+</html>
