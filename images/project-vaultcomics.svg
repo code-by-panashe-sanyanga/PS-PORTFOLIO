@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200" role="img" aria-label="VaultComics preview">
+  <rect width="400" height="200" fill="#1a1a2e"/>
+  <text x="30" y="45" fill="#e94560" font-family="Arial,sans-serif" font-size="22" font-weight="bold">VaultComics</text>
+  <rect x="30" y="65" width="90" height="110" rx="4" fill="#16213e" stroke="#e94560"/>
+  <rect x="135" y="65" width="90" height="110" rx="4" fill="#16213e" stroke="#e94560"/>
+  <rect x="240" y="65" width="90" height="110" rx="4" fill="#16213e" stroke="#e94560"/>
+  <rect x="45" y="80" width="60" height="70" fill="#0f3460"/>
+  <rect x="150" y="80" width="60" height="70" fill="#0f3460"/>
+  <rect x="255" y="80" width="60" height="70" fill="#0f3460"/>
+</svg>

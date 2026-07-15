@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200" role="img" aria-label="Banking microservice preview">
+  <rect width="400" height="200" fill="#0d2137"/>
+  <rect x="20" y="20" width="360" height="28" rx="4" fill="#1a3a5c"/>
+  <text x="30" y="39" fill="#7ec8ff" font-family="Arial,sans-serif" font-size="13" font-weight="bold">REST API Service</text>
+  <rect x="40" y="65" width="320" height="22" rx="3" fill="#1a3a5c"/>
+  <text x="52" y="80" fill="#00c853" font-family="monospace" font-size="11">GET /api/v1/accounts</text>
+  <rect x="40" y="95" width="320" height="22" rx="3" fill="#1a3a5c"/>
+  <text x="52" y="110" fill="#ffb74d" font-family="monospace" font-size="11">POST /api/v1/transfers</text>
+  <rect x="40" y="125" width="320" height="22" rx="3" fill="#1a3a5c"/>
+  <text x="52" y="140" fill="#7ec8ff" font-family="monospace" font-size="11">POST /api/v1/auth/token</text>
+  <circle cx="350" cy="170" r="8" fill="#00c853"/>
+  <text x="310" y="174" fill="#a8d4ff" font-family="Arial,sans-serif" font-size="10">200 OK</text>
+</svg>

@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Panashe Sanyanga | About Me</title>
+    <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css?v=6" />
+    <meta
+      name="description"
+      content="About Panashe Sanyanga: curiosity-led path into coding, from Excel and CNC through to Computer Science at MMU."
+    />
+  </head>
+  <body>
+    <div class="floating-orbs"></div>
+
+    <header>
+      <div class="container header-bar">
+        <div class="logo">PS <br />PROJECTS</div>
+        <nav class="nav" role="navigation">
+          <a href="index.html">HOME</a>
+          <a href="projects.html">PROJECTS</a>
+          <a href="about.html" class="active">ABOUT</a>
+          <a href="contact.html">CONTACT</a>
+          <a href="cv.html" target="_blank" rel="noopener noreferrer">CV</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container about-page" role="main">
+      <section class="about-intro">
+        <h1>About Me</h1>
+        <p>
+          I've always been curious about how things work. Coding stuck because
+          it turned that curiosity into something I could actually build. Early
+          on it was small wins: Excel formulas that ran a spreadsheet for me,
+          CNC machines that cut what I'd programmed. When I started asking
+          <em>why</em> those tools behaved the way they did, the bigger picture
+          clicked. Code sits under almost everything now, and once you see that
+          it's hard to unsee.
+        </p>
+        <p>
+          That pull is what pushed me into Computer Science at Manchester
+          Metropolitan University. I'm starting final year in October and
+          graduating in 2027. The projects on this site are me following the
+          same habit: pick something interesting, open it up, and work out how
+          to make it myself.
+        </p>
+        <p>
+          Where I want to end up is simple. I want a job where I build things
+          that might spark the same reaction in someone else, that moment of
+          “how does that work?” that made me fall into this. If someone tries
+          coding because something I made got them curious, that's the dream.
+        </p>
+      </section>
+
+      <section class="insights-section" aria-label="Project Insights">
+        <h2>Project Insights</h2>
+
+        <article class="insight-article" id="novabank-insight">
+          <div class="article-header">
+            <h3>NovaBank: online banking app</h3>
+          </div>
+          <div class="article-content">
+            <div class="project-overview">
+              <h4>Why I Built It</h4>
+              <p>
+                I wanted a bigger project with a real database, auth, two user
+                roles, and a frontend I could demo. A bank made sense because
+                the hard parts are clear: money can't vanish between two
+                accounts, and customers shouldn't see each other's statements.
+                First time using TypeScript, Next.js, Prisma and PostgreSQL
+                together.
+              </p>
+            </div>
+            <div class="technical-details">
+              <h4>What I Built</h4>
+              <ul>
+                <li>Register/login with bcrypt and JWT. New users automatically get a current account, savings account and debit card</li>
+                <li>Deposits, withdrawals and transfers by account number, all recorded with references like a real bank</li>
+                <li>Dashboard with balances, recent activity and a monthly spending chart (Chart.js)</li>
+                <li>Statement page with type and date filters, search, pagination and CSV export</li>
+                <li>Card freeze/unfreeze, notifications, dark mode</li>
+                <li>Admin panel with customer search, account freezing, every transaction in the bank, and an audit log</li>
+                <li>Rate limiting on the auth routes and login history tracking</li>
+              </ul>
+            </div>
+            <div class="challenges-solutions">
+              <h4>What I Learned</h4>
+              <p>
+                The transfer logic was the bit I sweated over: taking money out
+                of one account and putting it in another has to happen together
+                or not at all, so both updates run inside one Prisma database
+                transaction. I also learned to store money as decimals instead
+                of floats, to never send full card numbers to the frontend, and
+                to check ownership on every single route. Early on you could
+                read anyone's statement just by changing the id in the URL,
+                which is exactly the kind of bug that looks fine until someone
+                tries it.
+              </p>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/code-by-panashe-sanyanga/NovaBank" target="_blank" rel="noopener noreferrer" class="button-link">View on GitHub</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="insight-article" id="luckyreels-insight">
+          <div class="article-header">
+            <h3>LuckyReels: online casino</h3>
+          </div>
+          <div class="article-content">
+            <div class="project-overview">
+              <h4>Why I Built It</h4>
+              <p>
+                It started as a frontend-only slot machine: three reels, CSS
+                animations, Web Audio sound effects. Fun, but there was a
+                problem: the balance lived in the browser, so anyone could open
+                devtools and give themselves money. That's the exact reason
+                real betting sites never trust the client, so I rebuilt it the
+                way they work: the browser just animates, and a Node server
+                decides every outcome and owns every balance.
+              </p>
+            </div>
+            <div class="technical-details">
+              <h4>What I Built</h4>
+              <ul>
+                <li>Three games (slots, hi-lo cards, and a lucky wheel), all decided server-side with crypto-secure randomness</li>
+                <li>Accounts with bcrypt hashing, JWT in httpOnly cookies, and a 15-minute lockout after five failed logins</li>
+                <li>An 18+ date-of-birth check at registration, like UK casinos are required to have</li>
+                <li>A cashier: Luhn-validated cards (only the last 4 digits stored), deposits, withdrawals back to the card, and a full statement</li>
+                <li>Every penny recorded in a ledger. One atomic function moves all money, so the balance and statement can never disagree</li>
+                <li>Daily deposit limits enforced on the server</li>
+                <li>Rate limiting, whitelisted bet amounts, and Helmet security headers</li>
+              </ul>
+            </div>
+            <div class="challenges-solutions">
+              <h4>What I Learned</h4>
+              <p>
+                Where trust sits in a client/server app. The browser asks to
+                spin; the server debits the bet, rolls the symbols with
+                crypto.randomInt, credits any winnings inside a SQLite
+                transaction, and only then tells the frontend what to animate.
+                I also worked out the expected value of each game: the wheel
+                returns about 87p per £1 long-term, and learned to store money
+                as integer pennies, because floats and money don't mix.
+              </p>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/code-by-panashe-sanyanga/LuckyReels" target="_blank" rel="noopener noreferrer" class="button-link">View on GitHub</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="insight-article" id="chatwire-insight">
+          <div class="article-header">
+            <h3>ChatWire: real-time chat</h3>
+          </div>
+          <div class="article-content">
+            <div class="project-overview">
+              <h4>Why I Built It</h4>
+              <p>
+                Everything else I'd built was request/response: the browser asks,
+                the server answers, done. Chat doesn't work that way. Messages
+                have to appear for everyone in the room as they happen, without
+                refreshing. I wanted to learn websockets properly, so I built a
+                room chat with Flask-SocketIO and tested it with two browser
+                tabs open like two different users.
+              </p>
+            </div>
+            <div class="technical-details">
+              <h4>What I Built</h4>
+              <ul>
+                <li>Join a named room with a display name</li>
+                <li>Live message send and receive across all clients in that room</li>
+                <li>System messages when someone joins or leaves</li>
+                <li>Flask-SocketIO backend with an HTML, CSS and JavaScript client</li>
+                <li>Separate handling for loading recent history vs appending new live messages</li>
+              </ul>
+            </div>
+            <div class="challenges-solutions">
+              <h4>What I Learned</h4>
+              <p>
+                Socket events are not REST. If you treat every message like a
+                normal HTTP response, the UI drifts: history loads twice, or a
+                message shows in one tab and not the other. I had to keep room
+                state clear on the server and make the client append only new
+                events after the initial history load. Testing with two tabs
+                open made those bugs obvious quickly.
+              </p>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/code-by-panashe-sanyanga/ChatWire" target="_blank" rel="noopener noreferrer" class="button-link">View on GitHub</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="insight-article" id="shopsphere-insight">
+          <div class="article-header">
+            <h3>ShopSphere: online shop</h3>
+          </div>
+          <div class="article-content">
+            <div class="project-overview">
+              <h4>Why I Built It</h4>
+              <p>
+                VaultComics in first year stored the basket in the browser. I
+                wanted the same shop idea, but with the cart living on the
+                server so it survived a refresh and couldn't be edited from
+                DevTools. Flask sessions were enough for that without standing
+                up another database.
+              </p>
+            </div>
+            <div class="technical-details">
+              <h4>What I Built</h4>
+              <ul>
+                <li>Product catalogue with images, prices and search</li>
+                <li>Session cart: add items, change quantities, clear, and checkout</li>
+                <li>Server-side totals so the basket can't be faked in the browser</li>
+                <li>Flask backend with HTML, CSS and JavaScript frontend</li>
+              </ul>
+            </div>
+            <div class="challenges-solutions">
+              <h4>What I Learned</h4>
+              <p>
+                Sessions feel simple until you hit edge cases: empty cart,
+                quantity zero, checkout with nothing in it. Keeping the cart
+                shape consistent on the server and re-rendering the basket page
+                from that state was cleaner than trying to sync two copies of
+                the data. It was also a useful step between a static shop and
+                something with a real database.
+              </p>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/code-by-panashe-sanyanga/ShopSphere" target="_blank" rel="noopener noreferrer" class="button-link">View on GitHub</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="insight-article" id="streamflix-insight">
+          <div class="article-header">
+            <h3>StreamFlix: movie streaming app</h3>
+          </div>
+          <div class="article-content">
+            <div class="project-overview">
+              <h4>Why I Built It</h4>
+              <p>
+                I wanted a full web project with a real backend, not just static
+                pages. A movie browser with search, login and a watchlist was a
+                clear brief: Node.js and Express on the back end, JWT for auth,
+                and vanilla HTML/CSS/JavaScript on the front talking to the API
+                over HTTP.
+              </p>
+            </div>
+            <div class="technical-details">
+              <h4>What I Built</h4>
+              <ul>
+                <li>Node.js and Express REST API with register/login</li>
+                <li>JWT auth so protected routes reject requests without a valid token</li>
+                <li>Movie browse and search against JSON movie data</li>
+                <li>Watchlist add/remove wired through the API</li>
+                <li>Vanilla frontend: fetch on load, forms, and DOM updates without a framework</li>
+              </ul>
+            </div>
+            <div class="challenges-solutions">
+              <h4>What I Learned</h4>
+              <p>
+                This is where frontend and backend stopped being separate
+                exercises. Keeping a JWT in localStorage, sending it on each
+                request, and handling expired or missing tokens taught me why
+                auth errors need clear status codes and UI feedback. JSON was
+                fine for movie data here; I learned later (NovaBank) why a real
+                database matters once you need relations and transactions.
+              </p>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/code-by-panashe-sanyanga/StreamFlix" target="_blank" rel="noopener noreferrer" class="button-link">View on GitHub</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="insight-article" id="wavebox-insight">
+          <div class="article-header">
+            <h3>WaveBox: music player</h3>
+          </div>
+          <div class="article-content">
+            <div class="project-overview">
+              <h4>Why I Built It</h4>
+              <p>
+                After StreamFlix I wanted something with a Python backend.
+                FastAPI made it quick to serve track data as JSON, and a plain
+                HTML/CSS/JavaScript player on the front was enough to practise
+                fetching structured data and driving playback controls from the
+                DOM.
+              </p>
+            </div>
+            <div class="technical-details">
+              <h4>What I Built</h4>
+              <ul>
+                <li>FastAPI endpoints that return track and album data as JSON</li>
+                <li>Album grid and track list UI</li>
+                <li>Play, pause and track selection in vanilla JavaScript</li>
+                <li>Now-playing state updated from the API response</li>
+              </ul>
+            </div>
+            <div class="challenges-solutions">
+              <h4>What I Learned</h4>
+              <p>
+                Small APIs still need a clear shape. Once the frontend expected
+                a consistent JSON structure, changing a field name broke the
+                player until I matched both sides. It was a good warm-up for
+                treating the backend as the source of truth and the browser as
+                something that only renders what it receives.
+              </p>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/code-by-panashe-sanyanga/WaveBox" target="_blank" rel="noopener noreferrer" class="button-link">View on GitHub</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="insight-article" id="portfolio-insight">
+          <div class="article-header">
+            <h3>Building This Portfolio</h3>
+          </div>
+          <div class="article-content">
+            <div class="project-overview">
+              <h4>Why I Built It</h4>
+              <p>
+                Sending people a list of GitHub repos is messy. I wanted one
+                link with projects, a CV, and short write-ups. Built in plain
+                HTML, CSS and JavaScript so I control every page, and hosted on
+                GitHub Pages so it stays free and easy to update.
+              </p>
+            </div>
+            <div class="technical-details">
+              <h4>What I Built</h4>
+              <ul>
+                <li>Multi-page layout with shared styles</li>
+                <li>Project grid with screenshots, tech tags and GitHub links</li>
+                <li>Timeline grouped by degree year and personal work</li>
+                <li>About page with these project notes</li>
+                <li>Contact page and a printable CV</li>
+              </ul>
+            </div>
+            <div class="challenges-solutions">
+              <h4>What I Learned</h4>
+              <p>
+                The hard part wasn't the CSS. It was deciding what to show and
+                how much to say without repeating myself across home, projects,
+                about and the CV. Keeping the elevator pitch on the home page
+                and deeper notes here made the site clearer for anyone skimming
+                under time pressure.
+              </p>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/code-by-panashe-sanyanga/PS-PORTFOLIO" target="_blank" rel="noopener noreferrer" class="button-link">View on GitHub</a>
+              <a href="https://code-by-panashe-sanyanga.github.io/PS-PORTFOLIO/" target="_blank" rel="noopener noreferrer" class="button-link secondary">Live Demo</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="insight-article" id="whatsfordinner-insight">
+          <div class="article-header">
+            <h3>What's For Dinner: recipe finder</h3>
+          </div>
+          <div class="article-content">
+            <div class="project-overview">
+              <h4>Why I Built It</h4>
+              <p>
+                Year 2 group project at Manchester Metropolitan University. The
+                brief was a responsive recipe
+                site that helps people decide what to cook from ingredients or
+                mood. Working in a team meant agreeing on layout, splitting
+                pages, and keeping the frontend and Python backend in sync.
+              </p>
+            </div>
+            <div class="technical-details">
+              <h4>What I Built</h4>
+              <ul>
+                <li>Homepage and meal inspiration pages with a clear layout</li>
+                <li>Search and browse flows for recipes</li>
+                <li>Responsive HTML and CSS that worked on phone and desktop</li>
+                <li>Python backend support for the recipe data</li>
+                <li>Shared work across the group with one repo and consistent styling</li>
+              </ul>
+            </div>
+            <div class="challenges-solutions">
+              <h4>What I Learned</h4>
+              <p>
+                Group projects force clearer communication than solo work. If
+                two people style the same page differently, it shows. We had to
+                agree naming, file structure and who owned which section before
+                the UI felt like one product. That mattered as much as the code.
+              </p>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/code-by-panashe-sanyanga/WHATS-FOR-DINNER" target="_blank" rel="noopener noreferrer" class="button-link">View on GitHub</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="insight-article" id="ads-insight">
+          <div class="article-header">
+            <h3>Algorithms &amp; Data Structures (Year 2)</h3>
+          </div>
+          <div class="article-content">
+            <div class="project-overview">
+              <h4>Why I Built It</h4>
+              <p>
+                Four timed C# exercises from the Algorithms &amp; Data
+                Structures module. Each repo came with starter code (menus,
+                class shells, project structure). My job was to implement the
+                core data structures and algorithms inside that framework.
+              </p>
+            </div>
+            <div class="technical-details">
+              <h4>What I Built</h4>
+              <ul>
+                <li>Emergency Call Queue System: custom queue ADT for calls by type and severity</li>
+                <li>Video Game Catalogue Manager: BST and AVL tree logic for search, update and removal</li>
+                <li>Aid Distribution Optimiser: QuickSort plus a greedy selector within a weight limit</li>
+                <li>Metro Network Route Planner: graph ADT with BFS, DFS and shortest-path routing</li>
+              </ul>
+            </div>
+            <div class="challenges-solutions">
+              <h4>What I Learned</h4>
+              <p>
+                Working inside someone else's starter code is different from
+                building from scratch. You have to read the given structure,
+                implement only what the brief asks for, and still make the
+                algorithms correct under a deadline. The ADS set was useful
+                practice for that, and for seeing how queues, trees, sorting and
+                graphs show up in small console apps.
+              </p>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/code-by-panashe-sanyanga/ADS-Queues-Emergency-Call-System" target="_blank" rel="noopener noreferrer" class="button-link">Queues</a>
+              <a href="https://github.com/code-by-panashe-sanyanga/ADS-Trees-Video-Game-Manager" target="_blank" rel="noopener noreferrer" class="button-link">Trees</a>
+              <a href="https://github.com/code-by-panashe-sanyanga/ADS-Sorting-and-Greedy-Algorithms" target="_blank" rel="noopener noreferrer" class="button-link">Sorting</a>
+              <a href="https://github.com/code-by-panashe-sanyanga/ADS-Graphs-Transport-Network" target="_blank" rel="noopener noreferrer" class="button-link">Graphs</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="insight-article" id="vaultcomics-insight">
+          <div class="article-header">
+            <h3>VaultComics: Web Development (Year 1)</h3>
+          </div>
+          <div class="article-content">
+            <div class="project-overview">
+              <h4>Why I Built It</h4>
+              <p>
+                First year Web Development assignment at Manchester Metropolitan
+                University. The brief was a
+                working e-commerce site: product pages, basket and checkout,
+                using HTML, CSS and JavaScript only. No backend, so everything
+                had to work in the browser.
+              </p>
+            </div>
+            <div class="technical-details">
+              <h4>What I Built</h4>
+              <ul>
+                <li>Product catalogue grid with images and prices</li>
+                <li>Add-to-cart and basket total logic in JavaScript</li>
+                <li>Checkout form and responsive layout across pages</li>
+                <li>Consistent styling for a small comic book store theme</li>
+              </ul>
+            </div>
+            <div class="challenges-solutions">
+              <h4>What I Learned</h4>
+              <p>
+                First time building a multi-page site that felt like one shop.
+                The basket logic in JavaScript taught me how easy client-only
+                state is to break, which is why ShopSphere later moved the cart
+                to the server. Responsive layout without a framework meant
+                writing the CSS carefully for smaller screens.
+              </p>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/code-by-panashe-sanyanga/Vault-Comics" target="_blank" rel="noopener noreferrer" class="button-link">View on GitHub</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="insight-article" id="space-survival-insight">
+          <div class="article-header">
+            <h3>Space Survival: Programming (Year 1)</h3>
+          </div>
+          <div class="article-content">
+            <div class="project-overview">
+              <h4>Why I Built It</h4>
+              <p>
+                First year Programming assignment at Manchester Metropolitan
+                University. Build a 2D game to a
+                fixed spec in Processing (<code>Space_Survival.pde</code>). Your
+                ship stays in the centre while obstacles fly in; you push the
+                whole field away with the arrow keys and survive as long as you
+                can.
+              </p>
+            </div>
+            <div class="technical-details">
+              <h4>What I Built</h4>
+              <ul>
+                <li>Menu, playing, and game-over states in a single Processing sketch</li>
+                <li>Obstacle spawning with difficulty scaling every 20 points</li>
+                <li>Circle-based collision detection and lives with shield invulnerability</li>
+                <li>Particle explosion effects when the ship is hit</li>
+                <li>Object-oriented structure: Player, Obstacle, Particle, and ExplosionAnimation classes</li>
+              </ul>
+            </div>
+            <div class="challenges-solutions">
+              <h4>What I Learned</h4>
+              <p>
+                Game loops force you to think in frames: spawn, move, collide,
+                draw, repeat. Splitting behaviour into classes made the sketch
+                readable once it got past a few hundred lines. Collision and
+                invulnerability frames were fiddly, getting hit once shouldn't
+                drain every life in a single frame, so the shield timing mattered.
+              </p>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/code-by-panashe-sanyanga/Space-Survival" target="_blank" rel="noopener noreferrer" class="button-link">View on GitHub</a>
+            </div>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <footer>&copy; 2026 Made by <strong>Panashe Sanyanga</strong></footer>
+    <script src="script.js"></script>
+  </body>
+</html>

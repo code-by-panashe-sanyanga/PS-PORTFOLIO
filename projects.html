@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Panashe Sanyanga | My Projects</title>
+    <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto&display=swap"
+      rel="stylesheet"
+    />
+    <meta
+      name="description"
+      content="Projects by Panashe Sanyanga: personal projects, university coursework, and portfolio. Manchester Metropolitan University Computer Science." />
+    <meta property="og:title" content="Panashe Sanyanga | Projects" />
+    <meta property="og:type" content="website" />
+    <link rel="stylesheet" href="styles.css?v=2" />
+  </head>
+  <body>
+    <div class="floating-orbs"></div>
+
+    <header>
+      <div class="container header-bar">
+        <div class="logo">PS <br />PROJECTS</div>
+        <nav class="nav">
+          <a href="index.html">HOME</a>
+          <a href="projects.html" class="active">PROJECTS</a>
+          <a href="about.html">ABOUT</a>
+          <a href="contact.html">CONTACT</a>
+          <a href="cv.html" target="_blank" rel="noopener noreferrer">CV</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      <h2>Projects</h2>
+
+      <h3 class="project-section-heading">Personal projects</h3>
+      <p class="project-section-intro">
+        Things I've built outside university, plus this portfolio site.
+        University coursework is further down the page.
+      </p>
+
+      <h4 class="project-subsection-heading" id="full-stack-apps">Web apps</h4>
+      <p class="project-section-intro">
+        Banking, casino, chat, shop, and a couple of earlier API apps.
+      </p>
+      <div class="project-grid">
+        <article class="project-card" id="novabank">
+          <div class="project-gallery">
+            <img src="images/novabank-dashboard.png" alt="NovaBank dashboard with balances and spending chart" class="project-screenshot" loading="lazy" />
+            <img src="images/novabank-cards.png" alt="NovaBank debit card page with freeze control" class="project-screenshot" loading="lazy" />
+          </div>
+          <h3>NovaBank: online banking app</h3>
+          <p>
+            A full online bank. Register and you get a current account, savings
+            account, and debit card. Transfer money by account number, freeze
+            your card, filter your statement and export it to CSV, and watch a
+            monthly spending chart. Admins get their own panel with customer
+            search, account freezing, and an audit log. Built with TypeScript,
+            PostgreSQL, and Prisma: transfers run inside a database transaction
+            so money can't go missing halfway.
+          </p>
+          <div class="project-tech">
+            <span class="tech-tag">Next.js</span>
+            <span class="tech-tag">TypeScript</span>
+            <span class="tech-tag">Express</span>
+            <span class="tech-tag">Prisma</span>
+            <span class="tech-tag">PostgreSQL</span>
+            <span class="tech-tag">Tailwind CSS</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/code-by-panashe-sanyanga/NovaBank" target="_blank" rel="noopener noreferrer" class="button-link">View on GitHub</a>
+          </div>
+          <span class="label-github-only">Run locally, see README for setup</span>
+        </article>
+
+        <article class="project-card" id="luckyreels">
+          <div class="project-gallery">
+            <img src="images/luckyreels-lobby.png" alt="LuckyReels casino lobby with three games" class="project-screenshot" loading="lazy" />
+            <img src="images/luckyreels-slots.png" alt="LuckyReels slot machine mid-game" class="project-screenshot" loading="lazy" />
+          </div>
+          <h3>LuckyReels: online casino</h3>
+          <p>
+            An online casino where the browser only animates: slots, hi-lo, and
+            the lucky wheel outcomes are decided on the server. Accounts with
+            bcrypt and httpOnly JWT cookies, login lockout after five failed
+            attempts, an 18+ age check, a cashier with Luhn-validated cards,
+            withdrawals, a transaction ledger, and daily deposit limits. Play
+            money only.
+          </p>
+          <div class="project-tech">
+            <span class="tech-tag">Node.js</span>
+            <span class="tech-tag">Express</span>
+            <span class="tech-tag">SQLite</span>
+            <span class="tech-tag">JWT</span>
+            <span class="tech-tag">Security</span>
+            <span class="tech-tag">JavaScript</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/code-by-panashe-sanyanga/LuckyReels" target="_blank" rel="noopener noreferrer" class="button-link">View on GitHub</a>
+          </div>
+          <span class="label-github-only">Run locally, see README for setup</span>
+        </article>
+
+        <article class="project-card" id="chatwire">
+          <div class="project-gallery">
+            <img src="images/chatwire-join.png" alt="ChatWire join room screen" class="project-screenshot" loading="lazy" />
+            <img src="images/chatwire-chat.png" alt="ChatWire live chat room with messages" class="project-screenshot" loading="lazy" />
+          </div>
+          <h3>ChatWire: real-time chat</h3>
+          <p>
+            A real-time room chat app built with Flask-SocketIO, HTML, CSS, and
+            JavaScript. Join a room, send messages, and see join/leave updates
+            live across browser tabs.
+          </p>
+          <div class="project-tech">
+            <span class="tech-tag">Flask-SocketIO</span>
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">WebSockets</span>
+            <span class="tech-tag">JavaScript</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/code-by-panashe-sanyanga/ChatWire" target="_blank" rel="noopener noreferrer" class="button-link">View on GitHub</a>
+          </div>
+          <span class="label-github-only">Run locally, see README for setup</span>
+        </article>
+
+        <article class="project-card" id="shopsphere">
+          <div class="project-gallery">
+            <img src="images/shopsphere-home.png" alt="ShopSphere catalogue with product photos" class="project-screenshot" loading="lazy" />
+            <img src="images/shopsphere-basket.png" alt="ShopSphere basket with quantity controls" class="project-screenshot" loading="lazy" />
+          </div>
+          <h3>ShopSphere: online shop</h3>
+          <p>
+            A small online shop built with Flask, HTML, CSS, and JavaScript.
+            Product cards with real images, search, a session cart where you can
+            change quantities, and checkout. Same rough idea as VaultComics from
+            first year, except the basket lives on the server this time.
+          </p>
+          <div class="project-tech">
+            <span class="tech-tag">Flask</span>
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">Sessions</span>
+            <span class="tech-tag">HTML &amp; CSS</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/code-by-panashe-sanyanga/ShopSphere" target="_blank" rel="noopener noreferrer" class="button-link">View on GitHub</a>
+          </div>
+          <span class="label-github-only">Run locally, see README for setup</span>
+        </article>
+
+        <article class="project-card" id="streamflix">
+          <div class="project-gallery">
+            <img src="images/streamflix-home.png" alt="StreamFlix trending movies homepage" class="project-screenshot" loading="lazy" />
+            <img src="images/streamflix-login.png" alt="StreamFlix login form" class="project-screenshot" loading="lazy" />
+          </div>
+          <h3>StreamFlix: movie streaming app</h3>
+          <p>
+            A responsive movie browser with search, register/login, and a
+            watchlist. Node.js and Express API with JWT auth on the back end,
+            vanilla HTML/CSS/JavaScript on the front, and movie data in JSON.
+          </p>
+          <div class="project-tech">
+            <span class="tech-tag">Node.js</span>
+            <span class="tech-tag">Express</span>
+            <span class="tech-tag">JWT</span>
+            <span class="tech-tag">HTML &amp; CSS</span>
+            <span class="tech-tag">JavaScript</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/code-by-panashe-sanyanga/StreamFlix" target="_blank" rel="noopener noreferrer" class="button-link">View on GitHub</a>
+          </div>
+          <span class="label-github-only">Run locally, see README for setup</span>
+        </article>
+
+        <article class="project-card" id="wavebox">
+          <div class="project-gallery">
+            <img src="images/wavebox-library.png" alt="WaveBox album library grid" class="project-screenshot" loading="lazy" />
+            <img src="images/wavebox-playing.png" alt="WaveBox player with now playing and track list" class="project-screenshot" loading="lazy" />
+          </div>
+          <h3>WaveBox: music player</h3>
+          <p>
+            A small music player with a FastAPI backend that serves track data
+            as JSON, plus a plain HTML/CSS/JavaScript frontend with playback
+            controls.
+          </p>
+          <div class="project-tech">
+            <span class="tech-tag">FastAPI</span>
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">JSON</span>
+            <span class="tech-tag">HTML &amp; CSS</span>
+            <span class="tech-tag">JavaScript</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/code-by-panashe-sanyanga/WaveBox" target="_blank" rel="noopener noreferrer" class="button-link">View on GitHub</a>
+          </div>
+          <span class="label-github-only">Run locally, see README for setup</span>
+        </article>
+      </div>
+
+      <h4 class="project-subsection-heading" id="portfolio">Portfolio Website</h4>
+      <div class="project-grid">
+        <article class="project-card" id="portfolio-website">
+          <img src="images/project-portfolio.svg" alt="Portfolio preview" class="project-screenshot" loading="lazy" />
+          <h3>Personal Portfolio Website</h3>
+          <p>
+            Multi-page site with project cards, timeline, about write-ups,
+            contact form, and a printable CV. HTML, CSS, and JavaScript only,
+            hosted on GitHub Pages.
+          </p>
+          <div class="project-tech">
+            <span class="tech-tag">HTML5</span>
+            <span class="tech-tag">CSS3</span>
+            <span class="tech-tag">JavaScript</span>
+            <span class="tech-tag">GitHub Pages</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/code-by-panashe-sanyanga/PS-PORTFOLIO" target="_blank" rel="noopener noreferrer" class="button-link">View on GitHub</a>
+            <a href="https://code-by-panashe-sanyanga.github.io/PS-PORTFOLIO/" target="_blank" rel="noopener noreferrer" class="button-link secondary">Live Demo</a>
+          </div>
+        </article>
+      </div>
+
+      <h3 class="project-section-heading" id="uni-projects">University Projects</h3>
+      <p class="project-section-intro">
+        Assessed work from Manchester Metropolitan University. Year 2 modules
+        are listed first; Year 1 assignments are at the bottom.
+      </p>
+
+      <!-- Year 3: add final-year module projects here when ready (above Year 2) -->
+
+      <h4 class="project-subsection-heading" id="group-projects">Group Projects · Year 2</h4>
+      <div class="project-grid">
+        <article class="project-card" id="whats-for-dinner">
+          <div class="project-gallery">
+            <img src="images/whatsfordinner-home.png" alt="What's For Dinner homepage with paella hero and quick inspiration meals" class="project-screenshot" loading="lazy" />
+            <img src="images/whatsfordinner-recipes.png" alt="What's For Dinner meal inspiration page with dish of the day and country meals" class="project-screenshot" loading="lazy" />
+          </div>
+          <h3>What's For Dinner: Recipe Finder</h3>
+          <p>
+            Year 2 group project. A responsive recipe finder that helps users
+            decide what to cook based on ingredients or mood: search, quick
+            dinner ideas, and a clean layout. Built with HTML, CSS, JavaScript,
+            and a Python backend.
+          </p>
+          <div class="project-tech">
+            <span class="tech-tag">HTML5</span>
+            <span class="tech-tag">CSS3</span>
+            <span class="tech-tag">JavaScript</span>
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">Group Project</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/code-by-panashe-sanyanga/WHATS-FOR-DINNER" target="_blank" rel="noopener noreferrer" class="button-link">View on GitHub</a>
+          </div>
+        </article>
+      </div>
+
+      <h4 class="project-subsection-heading" id="ads-projects">Algorithms &amp; Data Structures · Year 2</h4>
+      <p class="project-section-intro">
+        Timed exercises from the Algorithms &amp; Data Structures module (second
+        year). Each repo included pre-written starter code, menus, class shells, and project
+        structure. I implemented the core data structures and algorithms within
+        the set deadlines.
+      </p>
+      <div class="project-grid">
+        <article class="project-card" id="emergency-queue">
+          <h3>Emergency Call Queue System</h3>
+          <p>
+            University assignment. Implemented a
+            custom queue ADT for emergency calls on top of the provided console
+            framework.
+          </p>
+          <div class="project-tech">
+            <span class="tech-tag">C#</span>
+            <span class="tech-tag">Queue ADT</span>
+            <span class="tech-tag">Console App</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/code-by-panashe-sanyanga/ADS-Queues-Emergency-Call-System" target="_blank" rel="noopener noreferrer" class="button-link">View on GitHub</a>
+          </div>
+        </article>
+
+        <article class="project-card" id="game-catalogue">
+          <h3>Video Game Catalogue Manager</h3>
+          <p>
+            University assignment. Implemented BST and AVL
+            tree logic for a video game catalogue: traversals, search, update,
+            and removal.
+          </p>
+          <div class="project-tech">
+            <span class="tech-tag">C#</span>
+            <span class="tech-tag">BST</span>
+            <span class="tech-tag">AVL Tree</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/code-by-panashe-sanyanga/ADS-Trees-Video-Game-Manager" target="_blank" rel="noopener noreferrer" class="button-link">View on GitHub</a>
+          </div>
+        </article>
+
+        <article class="project-card" id="aid-optimiser">
+          <h3>Aid Distribution Optimiser</h3>
+          <p>
+            University assignment. Implemented QuickSort
+            and a greedy aid-item selector by priority-to-weight ratio within a
+            capacity limit.
+          </p>
+          <div class="project-tech">
+            <span class="tech-tag">C#</span>
+            <span class="tech-tag">QuickSort</span>
+            <span class="tech-tag">Greedy Algorithm</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/code-by-panashe-sanyanga/ADS-Sorting-and-Greedy-Algorithms" target="_blank" rel="noopener noreferrer" class="button-link">View on GitHub</a>
+          </div>
+        </article>
+
+        <article class="project-card" id="metro-route-planner">
+          <h3>Metro Network Route Planner</h3>
+          <p>
+            University assignment. Implemented a graph ADT
+            with BFS, DFS, and shortest-path routing for a metro station
+            network.
+          </p>
+          <div class="project-tech">
+            <span class="tech-tag">C#</span>
+            <span class="tech-tag">Graph ADT</span>
+            <span class="tech-tag">BFS / DFS</span>
+            <span class="tech-tag">Shortest Path</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/code-by-panashe-sanyanga/ADS-Graphs-Transport-Network" target="_blank" rel="noopener noreferrer" class="button-link">View on GitHub</a>
+          </div>
+        </article>
+      </div>
+
+      <h4 class="project-subsection-heading" id="uni-year-1">Year 1</h4>
+
+      <h4 class="project-subsection-heading" id="uni-programming">Programming · Assignment 1</h4>
+      <div class="project-grid">
+        <article class="project-card" id="space-survival">
+          <div class="project-gallery">
+            <img src="images/spacesurvival-menu.png" alt="Space Survival menu screen with how to play instructions" class="project-screenshot" loading="lazy" />
+            <img src="images/spacesurvival-play.png" alt="Space Survival gameplay with ship, obstacles, score and lives" class="project-screenshot" loading="lazy" />
+          </div>
+          <h3>Space Survival</h3>
+          <p>
+            First year, first assignment: Programming module. A 2D arcade
+            survival game built in Processing (<code>Space_Survival.pde</code>):
+            push obstacles away from your ship, score points, level up, and
+            survive with lives and shield invulnerability.
+          </p>
+          <div class="project-tech">
+            <span class="tech-tag">Processing</span>
+            <span class="tech-tag">2D Graphics</span>
+            <span class="tech-tag">OOP</span>
+            <span class="tech-tag">Collision Detection</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/code-by-panashe-sanyanga/Space-Survival" target="_blank" rel="noopener noreferrer" class="button-link">View on GitHub</a>
+          </div>
+          <span class="label-github-only">Run locally, see README for setup</span>
+        </article>
+      </div>
+
+      <h4 class="project-subsection-heading" id="uni-web-development">Web Development · Assignment 2</h4>
+      <div class="project-grid">
+        <article class="project-card" id="vaultcomics">
+          <div class="project-gallery">
+            <img src="images/vaultcomics-home.png" alt="VaultComics homepage with featured comic covers and add to basket buttons" class="project-screenshot" loading="lazy" />
+            <img src="images/vaultcomics-catalogue.png" alt="VaultComics catalogue page listing all comics" class="project-screenshot" loading="lazy" />
+          </div>
+          <h3>VaultComics: E-commerce Website</h3>
+          <p>
+            First year, second assignment: Web Development module. A responsive
+            comic book store with product catalogue, shopping basket, and
+            checkout flow using HTML, CSS, and JavaScript.
+          </p>
+          <div class="project-tech">
+            <span class="tech-tag">HTML5</span>
+            <span class="tech-tag">CSS3</span>
+            <span class="tech-tag">JavaScript</span>
+            <span class="tech-tag">Responsive Design</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/code-by-panashe-sanyanga/Vault-Comics" target="_blank" rel="noopener noreferrer" class="button-link">View on GitHub</a>
+          </div>
+        </article>
+      </div>
+
+    </main>
+
+    <footer>&copy; 2026 Made by <strong>Panashe Sanyanga</strong></footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

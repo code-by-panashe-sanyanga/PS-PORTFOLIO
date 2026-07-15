@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Panashe Sanyanga | Software Engineer Portfolio</title>
+
+    <meta
+      name="description"
+      content="Panashe Sanyanga: Computer Science student at Manchester Metropolitan University, graduating 2027. Backend-focused, interested in software engineering."
+    />
+    <meta property="og:title" content="Panashe Sanyanga | Software Engineer Portfolio" />
+    <meta
+      property="og:description"
+      content="Computer Science student portfolio: projects, coursework, and CV."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://code-by-panashe-sanyanga.github.io/PS-PORTFOLIO/" />
+    <meta name="twitter:card" content="summary" />
+
+    <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css?v=5" />
+  </head>
+  <body>
+    <div class="floating-orbs"></div>
+
+    <header>
+      <div class="container header-bar">
+        <div class="logo">PS <br />PROJECTS</div>
+        <nav class="nav">
+          <a href="index.html" class="active">HOME</a>
+          <a href="projects.html">PROJECTS</a>
+          <a href="about.html">ABOUT</a>
+          <a href="contact.html">CONTACT</a>
+          <a href="cv.html" target="_blank" rel="noopener noreferrer">CV</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero container" id="home">
+        <div class="hero-content">
+          <div class="intro">
+            <h1>I'm Panashe Sanyanga</h1>
+            <p>
+              Computer Science student at Manchester Metropolitan University,
+              starting final year in October and graduating in 2027. I lean
+              toward backend work and I'm interested in software engineering.
+              I like building reliable systems, APIs, and the logic behind the
+              apps I ship.
+            </p>
+            <div class="hero-actions">
+              <a href="#projects" class="cta">See My Projects</a>
+              <a href="cv.html" class="cta secondary" target="_blank" rel="noopener noreferrer">View CV</a>
+              <a
+                href="https://github.com/code-by-panashe-sanyanga"
+                class="cta secondary"
+                target="_blank"
+                rel="noopener noreferrer"
+                >GitHub</a
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="skills-section container" id="skills" aria-label="Technical Skills">
+        <h2>Skills</h2>
+        <div class="skills-grid">
+          <div class="skill-card">
+            <h3>Languages</h3>
+            <ul>
+              <li>Python</li>
+              <li>JavaScript &amp; TypeScript</li>
+              <li>HTML &amp; CSS</li>
+              <li>SQL</li>
+              <li>Java</li>
+              <li>C#</li>
+            </ul>
+          </div>
+          <div class="skill-card">
+            <h3>Frontend</h3>
+            <ul>
+              <li>React &amp; Next.js</li>
+              <li>Tailwind CSS</li>
+              <li>HTML, CSS &amp; JavaScript</li>
+              <li>Responsive design</li>
+              <li>REST API integration</li>
+            </ul>
+          </div>
+          <div class="skill-card">
+            <h3>Backend &amp; APIs</h3>
+            <ul>
+              <li>Node.js &amp; Express</li>
+              <li>Flask</li>
+              <li>FastAPI</li>
+              <li>Prisma ORM</li>
+              <li>JWT auth</li>
+            </ul>
+          </div>
+          <div class="skill-card">
+            <h3>Data &amp; Tools</h3>
+            <ul>
+              <li>PostgreSQL</li>
+              <li>SQLite</li>
+              <li>Git &amp; GitHub</li>
+              <li>GitHub Pages</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="projects" id="projects" aria-label="Featured Projects">
+        <div class="container">
+          <h2>Projects</h2>
+          <p class="project-section-intro projects-hero-intro" id="full-stack-apps">
+            Featured builds rotate here.
+            <a href="projects.html#full-stack-apps">See every project →</a>
+          </p>
+        </div>
+
+        <div
+          class="project-hero"
+          id="featured-carousel"
+          aria-roledescription="carousel"
+          aria-label="Featured personal projects"
+        >
+          <div class="project-hero-media" id="project-hero-media" aria-hidden="true"></div>
+          <div class="project-hero-scrim" aria-hidden="true"></div>
+          <div class="project-hero-content">
+            <p class="project-hero-kicker" id="project-hero-kicker">Featured project</p>
+            <h3 class="project-hero-title" id="project-hero-title"></h3>
+            <p class="project-hero-blurb" id="project-hero-blurb"></p>
+            <div class="project-hero-actions">
+              <a
+                id="project-hero-github"
+                class="cta"
+                href="#"
+                target="_blank"
+                rel="noopener noreferrer"
+                >View on GitHub</a
+              >
+              <a href="projects.html" class="cta secondary">All projects</a>
+            </div>
+            <div class="project-hero-nav">
+              <button type="button" class="carousel-btn" id="carousel-prev" aria-label="Previous project">‹</button>
+              <div class="carousel-dots" id="carousel-dots" role="tablist" aria-label="Project slides"></div>
+              <button type="button" class="carousel-btn" id="carousel-next" aria-label="Next project">›</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="container">
+          <p class="projects-more">
+            <a href="projects.html">Full project descriptions →</a>
+            ·
+            <a href="projects.html#full-stack-apps">Personal projects →</a>
+            ·
+            <a href="projects.html#group-projects">Group projects →</a>
+            ·
+            <a href="projects.html#uni-projects">University projects →</a>
+          </p>
+        </div>
+      </section>
+
+      <section class="experience-section container" id="experience">
+        <h2>My Journey</h2>
+        <p class="project-section-intro" style="margin-bottom: 1.5rem">
+          Degree years follow Manchester Metropolitan University's academic
+          calendar (each year starts in September). Personal projects sit with
+          university work by year group.
+        </p>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <h3>BSc Computer Science</h3>
+              <p class="date">Manchester Metropolitan University · Sept 2023 - 2027 (expected)</p>
+              <p>Starting my final year in October. Graduating 2027.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <h3>Personal Portfolio Website</h3>
+              <p>
+                Built this site to present my work in one place: responsive
+                layout, project pages, and GitHub Pages hosting.
+                <a href="https://github.com/code-by-panashe-sanyanga/PS-PORTFOLIO" target="_blank" rel="noopener noreferrer">View on GitHub</a>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-break-card" role="note">
+          <h3>Year 1</h3>
+          <p>
+            First year at Manchester Metropolitan University: Programming
+            (Space Survival) then Web Development (VaultComics).
+          </p>
+        </div>
+
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <h3>Space Survival</h3>
+              <p class="date">Year 1 · Assignment 1 · Programming</p>
+              <p>
+                Programming module: 2D arcade survival game in Processing
+                (<code>Space_Survival.pde</code>). Push obstacles away from your
+                ship, score points, level up, and manage lives with shield
+                invulnerability. First year, first assignment.
+                <a href="https://github.com/code-by-panashe-sanyanga/Space-Survival" target="_blank" rel="noopener noreferrer">View on GitHub</a>
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <h3>VaultComics: E-commerce Website</h3>
+              <p class="date">Year 1 · Assignment 2 · Web Development</p>
+              <p>
+                Web development module: comic book store with catalogue,
+                basket, and checkout. First year, second assignment. HTML,
+                CSS, and JavaScript.
+                <a href="https://github.com/code-by-panashe-sanyanga/Vault-Comics" target="_blank" rel="noopener noreferrer">View on GitHub</a>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-break-card" role="note">
+          <h3>Year 2</h3>
+          <p>
+            Second year is grouped for clarity: university group work, ADS
+            assignments, and personal projects.
+          </p>
+        </div>
+
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <h3>What's For Dinner: Recipe Finder</h3>
+              <p class="date">University · Year 2 · Group project</p>
+              <p>
+                Year 2 group project: responsive recipe finder by ingredients or
+                mood. HTML, CSS, JavaScript, and a Python backend.
+                <a href="https://github.com/code-by-panashe-sanyanga/WHATS-FOR-DINNER" target="_blank" rel="noopener noreferrer">View on GitHub</a>
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="timeline-break-card" role="note">
+          <h3>Algorithms &amp; Data Structures assignments</h3>
+          <p>
+            Four timed C# exercises from university (Year 2). Each came with
+            starter code: my job was to implement the core logic within set
+            deadlines.
+          </p>
+        </div>
+
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <h3>Emergency Call Queue System</h3>
+              <p class="date">University · Year 2</p>
+              <p>
+                Custom queue ADT for emergency calls by type and severity.
+                <a href="https://github.com/code-by-panashe-sanyanga/ADS-Queues-Emergency-Call-System" target="_blank" rel="noopener noreferrer">View on GitHub</a>
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <h3>Video Game Catalogue Manager</h3>
+              <p class="date">University · Year 2</p>
+              <p>BST and AVL tree logic for a game catalogue.
+                <a href="https://github.com/code-by-panashe-sanyanga/ADS-Trees-Video-Game-Manager" target="_blank" rel="noopener noreferrer">View on GitHub</a>
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <h3>Aid Distribution Optimiser</h3>
+              <p class="date">University · Year 2</p>
+              <p>QuickSort and greedy aid selection within a weight limit.
+                <a href="https://github.com/code-by-panashe-sanyanga/ADS-Sorting-and-Greedy-Algorithms" target="_blank" rel="noopener noreferrer">View on GitHub</a>
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <h3>Metro Network Route Planner</h3>
+              <p class="date">University · Year 2</p>
+              <p>Graph ADT with BFS, DFS, and shortest-path routing.
+                <a href="https://github.com/code-by-panashe-sanyanga/ADS-Graphs-Transport-Network" target="_blank" rel="noopener noreferrer">View on GitHub</a>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-break-card" role="note">
+          <h3>Personal Projects</h3>
+          <p>
+            Independent projects I built outside assessed university coursework.
+          </p>
+        </div>
+
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <h3>StreamFlix: movie streaming app</h3>
+              <p>
+                Movie browser with search, register/login, and a watchlist.
+                Node.js and Express API with JWT, vanilla HTML/CSS/JS frontend.
+                <a href="https://github.com/code-by-panashe-sanyanga/StreamFlix" target="_blank" rel="noopener noreferrer">View on GitHub</a>
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <h3>WaveBox: music player</h3>
+              <p>
+                FastAPI backend serving track JSON, plain HTML/CSS/JS player
+                with playback controls.
+                <a href="https://github.com/code-by-panashe-sanyanga/WaveBox" target="_blank" rel="noopener noreferrer">View on GitHub</a>
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <h3>ShopSphere: online shop</h3>
+              <p>
+                Flask shop with product images, a session cart, and checkout, 
+                basket stored on the server instead of only in the browser.
+                <a href="https://github.com/code-by-panashe-sanyanga/ShopSphere" target="_blank" rel="noopener noreferrer">View on GitHub</a>
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <h3>ChatWire: real-time chat</h3>
+              <p>
+                Room chat with Flask-SocketIO: live messages and join/leave
+                updates without refreshing the page.
+                <a href="https://github.com/code-by-panashe-sanyanga/ChatWire" target="_blank" rel="noopener noreferrer">View on GitHub</a>
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <h3>NovaBank: online banking app</h3>
+              <p>
+                Online banking app: accounts, transfers, card freezing,
+                notifications, dark mode, and a role-based admin panel with an
+                audit log. Next.js and TypeScript on the front, Express + Prisma
+                + PostgreSQL behind it.
+                <a href="https://github.com/code-by-panashe-sanyanga/NovaBank" target="_blank" rel="noopener noreferrer">View on GitHub</a>
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <h3>LuckyReels: online casino</h3>
+              <p>
+                Online casino: slots, hi-lo, lucky wheel decided on the server,
+                accounts with lockout protection, and a cashier with deposits,
+                withdrawals and a transaction ledger. Node, Express and SQLite.
+                <a href="https://github.com/code-by-panashe-sanyanga/LuckyReels" target="_blank" rel="noopener noreferrer">View on GitHub</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="insights-section container" aria-label="Insights and Tutorials">
+        <h2>Insights</h2>
+        <p>
+          Short write-ups on a few projects: what I built, why, and what I
+          learned. Full articles on the About page.
+        </p>
+        <div class="insights-cards">
+          <article class="insight-card">
+            <h3>NovaBank: online banking app</h3>
+            <p>Atomic transfers, role-based admin, and why money is stored as decimals.</p>
+            <a href="about.html#novabank-insight" class="button-link">Read Article</a>
+          </article>
+          <article class="insight-card">
+            <h3>LuckyReels: online casino</h3>
+            <p>Why the browser never decides what you win: server-side outcomes, lockouts, and a ledger.</p>
+            <a href="about.html#luckyreels-insight" class="button-link">Read Article</a>
+          </article>
+          <article class="insight-card">
+            <h3>ChatWire: real-time chat</h3>
+            <p>Room chat with Flask-SocketIO and testing live updates across tabs.</p>
+            <a href="about.html#chatwire-insight" class="button-link">Read Article</a>
+          </article>
+          <article class="insight-card">
+            <h3>Building This Portfolio</h3>
+            <p>Layout, project pages, and hosting on GitHub Pages.</p>
+            <a href="about.html#portfolio-insight" class="button-link">Read Article</a>
+          </article>
+          <article class="insight-card">
+            <h3>VaultComics: Web Development</h3>
+            <p>E-commerce module brief: catalogue, basket, and checkout.</p>
+            <a href="about.html#vaultcomics-insight" class="button-link">Read Article</a>
+          </article>
+        </div>
+        <a href="about.html" class="button-link" style="display: inline-block; margin-top: 1rem">See More Insights</a>
+      </section>
+
+      <section class="home-contact-cta container" id="contact">
+        <h2>Contact Me</h2>
+        <a href="contact.html" class="button-link">Contact</a>
+      </section>
+    </main>
+
+    <footer>&copy; 2026 Made by <strong>Panashe Sanyanga</strong></footer>
+
+    <script src="script.js?v=4"></script>
+  </body>
+</html>

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200" role="img" aria-label="WhatsApp clone preview">
+  <rect width="400" height="200" fill="#e5ddd5"/>
+  <rect x="0" y="0" width="120" height="200" fill="#fff"/>
+  <rect x="130" y="20" width="180" height="36" rx="8" fill="#fff"/>
+  <rect x="130" y="70" width="140" height="36" rx="8" fill="#dcf8c6"/>
+  <rect x="170" y="120" width="160" height="36" rx="8" fill="#fff"/>
+  <circle cx="360" cy="170" r="24" fill="#25d366"/>
+</svg>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200" role="img" aria-label="Resource Trading Simulator preview">
+  <rect width="400" height="200" fill="#0d2137"/>
+  <rect x="20" y="20" width="360" height="30" rx="4" fill="#1a3a5c"/>
+  <text x="30" y="40" fill="#7ec8ff" font-family="Arial,sans-serif" font-size="14" font-weight="bold">Portfolio · Trading</text>
+  <polyline points="40,150 100,120 160,130 220,80 280,90 340,50" fill="none" stroke="#00c853" stroke-width="3"/>
+  <rect x="40" y="60" width="80" height="50" rx="4" fill="#1a3a5c"/>
+  <rect x="140" y="60" width="80" height="50" rx="4" fill="#1a3a5c"/>
+  <rect x="240" y="60" width="120" height="50" rx="4" fill="#1a3a5c"/>
+</svg>
