@@ -9,7 +9,7 @@ const FEATURED_PROJECTS = [
     blurb:
       "Accounts, transfers, savings pots, spending insights, and an admin audit log. Python, FastAPI, PostgreSQL.",
     github: "https://github.com/code-by-panashe-sanyanga/NovaBank",
-    githubReady: false,
+    githubReady: true,
     live: "https://novabank-client-production.up.railway.app",
   },
   {
@@ -20,7 +20,7 @@ const FEATURED_PROJECTS = [
     blurb:
       "Communities, channels, DMs, reactions, stories, and WebRTC calls. Flask-SocketIO and SQLite.",
     github: "https://github.com/code-by-panashe-sanyanga/ChatWire",
-    githubReady: false,
+    githubReady: true,
     live: "https://chatwire-production.up.railway.app",
   },
 ];
