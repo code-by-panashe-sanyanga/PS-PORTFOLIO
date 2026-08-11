@@ -47,7 +47,7 @@
             <tr>
               <td>Language</td>
               <td>C# console app</td>
-              <td>GitHub Classroom template and menu driven dispatcher UI</td>
+              <td>C# (.NET Framework) console app with a menu-driven dispatcher</td>
             </tr>
             <tr>
               <td>Domain model</td>
@@ -70,17 +70,17 @@
           structure.
         </p>
         <pre class="folder-tree">Dispatcher menu
-  -> EmergencyCall (validated fields)
+  -> EmergencyCall (validated fields, IComparable by severity)
   -> EmergencyQueue
-       Task A: array / linear queue ops
-       Task B: PeekHighestSeverity (scan without reorder)
-               DequeueFirstK (aux structure)
-       Task C: circular buffer (wrap head/tail)</pre>
+       Enqueue / Dequeue / Peek / Count / IsEmpty / IsFull
+       PeekHighestSeverity (earliest wins on ties)
+       DequeueFirstKCalls
+       circular array buffer (front / rear / currentSize, wrap with %)</pre>
         <p>
-          Task B adds operational behaviour a real desk needs under load: peek the highest severity
-          without dequeue (ties broken by earliest arrival), and bulk dequeue of the first k calls.
-          The scan must not disturb FIFO order. Task C reworks storage into a circular buffer so
-          space at the front of the array is reused after dequeues instead of wasting capacity.
+          PeekHighestSeverity scans without dequeue (ties broken by earliest arrival).
+          <code>DequeueFirstKCalls</code> removes the first k calls from the front. Storage is a
+          circular buffer so space at the front of the array is reused after dequeues instead of
+          wasting capacity.
         </p>
 
         <h2>3. Features implemented</h2>
@@ -89,17 +89,18 @@
           <li>Manual queue: enqueue, dequeue, peek, count, full / empty</li>
           <li>Menu: add call, dispatch next, list all waiting calls</li>
           <li>PeekHighestSeverity without mutating order</li>
-          <li>Dequeue first k calls safely via an auxiliary structure</li>
+          <li>DequeueFirstKCalls for bulk remove from the front</li>
           <li>Circular buffer accounting across all queue operations</li>
-          <li>Debugger and breakpoint checks while bringing the circular indices online</li>
         </ul>
 
         <h2>4. Folder structure</h2>
-        <pre class="folder-tree">ADS-Queues-Emergency-Call-System/
-├── Program.cs                 # menu driven dispatcher
-├── EmergencyCall.cs           # domain + validation
-├── EmergencyQueue.cs          # ADT (linear then circular)
-└── (GitHub Classroom template files)</pre>
+        <pre class="folder-tree">ADS_Assess1/
+├── EmergencyCall.cs
+├── EmergencyQueue.cs
+├── Program.cs
+├── App.config
+└── Properties/AssemblyInfo.cs
+ADS_Assess1.sln</pre>
 
         <h2>5. Timescale</h2>
         <table>
@@ -150,9 +151,10 @@
 
         <h2>8. Deployment and links</h2>
         <p>
-          Console application from the GitHub Classroom repo. Build and run in Visual Studio or
-          <code>dotnet run</code>. There is no web deploy; the artefact is the ADT and menu for
-          marking and portfolio evidence.
+          Re-upload of the ADS coursework on my personal GitHub. Open <code>ADS_Assess1.sln</code> in
+          Visual Studio (F5 / Ctrl+F5), or build with <code>msbuild ADS_Assess1.sln</code> and run
+          <code>ADS_Assess1\bin\Debug\ADS_Assess1.exe</code>. There is no web deploy; the artefact is
+          the ADT and menu for marking and portfolio evidence.
         </p>
       </div>
 

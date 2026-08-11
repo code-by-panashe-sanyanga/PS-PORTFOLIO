@@ -46,7 +46,7 @@
             <tr>
               <td>Language</td>
               <td>C# console</td>
-              <td>Classroom template and recursive tree labs</td>
+              <td>C# (.NET Framework) console menu for BST / AVL comparison</td>
             </tr>
             <tr>
               <td>Domain</td>
@@ -64,37 +64,40 @@
         <h2>2. Design</h2>
         <p>
           Task A wires insert into a BSTree and exposes InOrder, PreOrder, and PostOrder from
-          BinTree so the operator can choose a walk. Earliest release year and height are recursive
-          queries; height is node based as specified in the lectures. Task B adds count, update by
-          title (same navigation pattern as insert until the key matches), and list by year. Task C
-          replaces the live structure with an AVL tree: balance factors, rotations on insert, and
-          removal that covers the three classical cases and rebalances afterwards.
+          BinTree so the operator can choose a walk. Finding the earliest game means the
+          alphabetically first title (the tree is keyed by title), plus recursive height. Task B
+          adds count, update by title, and list by year. Task C adds an AVLTree that inherits from
+          BSTree and rebalances on insert with the four rotations. The menu can switch between BST
+          and AVL at runtime so you can compare heights on the same data.
         </p>
         <pre class="folder-tree">Menu
-  -> VideoGame records
-  -> BSTree (Tasks A/B): insert, walks, earliest year, height, count, update, by-year
-  -> AVLTree (Task C): insert with rotations, remove with rebalance
-       LL / LR / RL / RR rotations driven by balance factor</pre>
+  -> VideoGame records (keyed by title)
+  -> BSTree: insert, walks, earliest title, height, count, update, by-year, remove
+  -> AVLTree (extends BSTree): insert with LL / LR / RL / RR rotations
+  -> runtime switch between BST and AVL modes</pre>
 
         <h2>3. Features implemented</h2>
         <ul>
           <li>Insert unique titled games into a BST</li>
           <li>In / pre / post order listings via the menu</li>
-          <li>Recursive earliest release year and tree height</li>
+          <li>Earliest (alphabetically first) game and tree height</li>
           <li>Node count, update in place by title, filter by year</li>
           <li>AVL insert with rotations when balance breaks</li>
-          <li>AVL remove with restructuring so remaining keys stay reachable</li>
-          <li>Menu switched to drive the AVL structure for Task C</li>
+          <li>Remove / exists checks from the BST layer</li>
+          <li>Runtime switch between BST and AVL modes</li>
         </ul>
 
         <h2>4. Folder structure</h2>
-        <pre class="folder-tree">ADS-Trees-Video-Game-Manager/
-├── Program.cs
-├── VideoGame.cs
+        <pre class="folder-tree">ADSPortEx2/
 ├── Node.cs
 ├── BinTree.cs
 ├── BSTree.cs
-└── AVLTree.cs</pre>
+├── AVLTree.cs
+├── VideoGame.cs
+├── Program.cs
+├── App.config
+└── Properties/AssemblyInfo.cs
+ADSPortEx2.sln</pre>
 
         <h2>5. Timescale</h2>
         <table>
@@ -102,9 +105,9 @@
             <tr><th>Phase</th><th>Work</th></tr>
           </thead>
           <tbody>
-            <tr><td>Task A</td><td>Game model, BST insert, walks, earliest year, height</td></tr>
+            <tr><td>Task A</td><td>Game model, BST insert, walks, earliest title, height</td></tr>
             <tr><td>Task B</td><td>Count, update, list by year</td></tr>
-            <tr><td>Task C</td><td>AVL rotations, remove, menu cutover</td></tr>
+            <tr><td>Task C</td><td>AVL rotations on insert, BST/AVL runtime switch</td></tr>
           </tbody>
         </table>
 
@@ -124,11 +127,11 @@
             </tr>
             <tr>
               <td>Unbalanced BST degradation</td>
-              <td>AVL balance factor checks and the four rotation cases</td>
+              <td>AVL balance factor checks and the four rotation cases on insert</td>
             </tr>
             <tr>
-              <td>Remove without orphaning subtrees</td>
-              <td>Handle leaf, one child, two children; then rotate if unbalanced</td>
+              <td>Comparing structures</td>
+              <td>Switch BST / AVL at runtime and compare height on the same catalogue</td>
             </tr>
           </tbody>
         </table>
@@ -137,17 +140,18 @@
         <ul>
           <li>Insert then InOrder lists titles sorted</li>
           <li>Duplicate title path updates rather than forking a second key</li>
-          <li>Earliest year matches the minimum release in the set</li>
+          <li>Earliest game is the alphabetically first title</li>
           <li>Height and count stay consistent after inserts</li>
           <li>Year filter returns only that year</li>
-          <li>AVL insert sequence that would skew a BST stays shallow; remove leaves a searchable tree</li>
+          <li>AVL insert sequence that would skew a BST stays shallow</li>
         </ul>
 
         <h2>8. Deployment and links</h2>
         <p>
-          Console app in the GitHub Classroom repository. Run under Visual Studio or
-          <code>dotnet run</code>. Evidence for the unit is the recursive ADTs and menu coverage of
-          Tasks A to C.
+          Re-upload of the ADS coursework on my personal GitHub. Open <code>ADSPortEx2.sln</code> in
+          Visual Studio (F5 / Ctrl+F5), or build with <code>msbuild ADSPortEx2.sln</code> and run
+          <code>ADSPortEx2\bin\Debug\ADSPortEx2.exe</code>. Evidence for the unit is the recursive
+          ADTs and menu coverage of BST versus AVL.
         </p>
       </div>
 

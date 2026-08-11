@@ -11,7 +11,7 @@
     />
     <meta
       name="description"
-      content="Vault Comics: Year 1 Web Development payment gateway style shop. Validation, API post, testing."
+      content="Vault Comics: Year 1 comic shop site with catalogue, localStorage cart, checkout demo, and PHP contact form."
     />
     <link rel="stylesheet" href="styles.css?v=22" />
   </head>
@@ -41,12 +41,10 @@
       <div class="project-detail-body">
         <h2>1. Purpose and tech stack</h2>
         <p>
-          Vault Comics is my Year 1 Web Development coursework (1CWK100): a structured site that
-          mimics a payment gateway flow on a small e commerce catalogue. The brief required a home
-          page of products, a pay page that validates Mastercard details in JavaScript, a POST of
-          JSON to the university credit card API, and a success page that shows a masked card ending.
-          I themed the shop as comics rather than generic books so the catalogue felt specific while
-          still meeting every required page and validation rule.
+          Vault Comics is a comic book shop site from my Year 1 Web Development unit. Shoppers can
+          browse a catalogue, add titles to a cart that survives a refresh, walk a demo checkout, and
+          send a contact message. The published GitHub copy is a re-upload of that coursework so it
+          sits on my personal profile with the rest of my work.
         </p>
         <table>
           <thead>
@@ -58,78 +56,76 @@
           </thead>
           <tbody>
             <tr>
-              <td>Markup</td>
-              <td>HTML5 (<code>index.html</code>, <code>pay.html</code>, <code>success.html</code>)</td>
-              <td>Exact three page flow demanded by the specification</td>
+              <td>Pages</td>
+              <td>HTML5 (home, catalogue, basket, pay, success, about, contact)</td>
+              <td>Multi-page shop flow rather than a single landing page</td>
             </tr>
             <tr>
               <td>Presentation</td>
-              <td>Single CSS file under <code>css/</code></td>
-              <td>Brief forbade an MVC layout; one stylesheet keeps styling consistent</td>
+              <td>CSS Grid and Flexbox in <code>css/style.css</code></td>
+              <td>Responsive catalogue and layout without a framework</td>
             </tr>
             <tr>
               <td>Behaviour</td>
-              <td>JavaScript under <code>js/</code></td>
-              <td>All card checks and the API call had to be client side JS (no marks for other languages)</td>
+              <td>JavaScript in <code>js/script.js</code></td>
+              <td>Cart, forms, and mobile nav</td>
             </tr>
             <tr>
-              <td>Remote check</td>
-              <td>POST JSON to MMU <code>/node/api/creditcard</code></td>
-              <td>Second validation layer after local regex and field rules</td>
+              <td>Persistence</td>
+              <td>browser <code>localStorage</code></td>
+              <td>Cart items stay after closing the tab</td>
+            </tr>
+            <tr>
+              <td>Contact</td>
+              <td>PHP handler plus EmailJS / mailto fallbacks</td>
+              <td>Hosting environments handle mail differently</td>
             </tr>
           </tbody>
         </table>
 
         <h2>2. Design</h2>
         <p>
-          The architecture is a linear checkout pipeline. Home lists at least four products with
-          image, short copy, and a Pay control. Pay collects card fields, runs local validation, then
-          posts to the server. Success only appears after a 200 response and shows
-          <code>**** **** **** 1234</code> style masking for the last four digits.
+          The site is a small multi-page shop. Home highlights featured comics. The catalogue lists
+          the full set. Basket reads and writes the cart in <code>localStorage</code>. Pay and success
+          are a demo checkout path (not live card processing). About and Contact are full pages; the
+          contact form tries PHP first, then other mail options if the host will not send mail.
         </p>
         <div class="mermaid">
 flowchart LR
-  Home[index.html catalogue] -->|Pay| Pay[pay.html]
-  Pay -->|local JS validation| Local{Pass?}
-  Local -->|no| Pay
-  Local -->|yes POST JSON| API[MMU creditcard API]
-  API -->|200 OK| Success[success.html masked card]
-  API -->|error| Pay
+  Home[index.html] --> Catalogue[comics.html]
+  Catalogue -->|add item| Basket[basket.html]
+  Basket --> Pay[pay.html]
+  Pay --> Success[success.html]
+  Home --> About[aboutus.html]
+  Home --> Contact[contactus.html]
+  Contact -->|PHP / EmailJS / mailto| Mail[email]
+  Basket <-->|localStorage| Store[(browser storage)]
         </div>
-        <p>
-          Responsive rules were part of the mark scheme: product list two columns on desktop, one
-          column on phones. Navigation includes Home, About Us, and Contact Us as required (About
-          and Contact did not need full pages). Folder layout follows the brief exactly:
-          root HTML, <code>js/</code>, <code>image/</code>, <code>css/</code>.
-        </p>
-        <h3>Card validation rules implemented in JavaScript</h3>
-        <ul>
-          <li>Sixteen digits for the Mastercard number</li>
-          <li>Prefix in 51, 52, 53, 54, or 55</li>
-          <li>Expiry not in the past</li>
-          <li>CVV length 3 or 4</li>
-          <li>On failure, keep the user on the form; on success, POST
-            <code>{ master_card, exp_year, exp_month, cvv_code }</code> and handle API errors</li>
-        </ul>
 
         <h2>3. Features implemented</h2>
         <ul>
-          <li>Catalogue home with face images, short blurbs, and Pay actions</li>
-          <li>Responsive product grid and navigation behaviour for small screens</li>
-          <li>Pay form with full client side Mastercard checks</li>
-          <li>JSON POST to the assessment API and error handling for bad payloads</li>
-          <li>Success page returning masked last four digits</li>
-          <li>Usability and accessibility checklist in the accompanying report (five points minimum)</li>
+          <li>Homepage with featured comics</li>
+          <li>Full catalogue page</li>
+          <li>Working shopping cart that persists across sessions via localStorage</li>
+          <li>Demo checkout and order confirmation pages</li>
+          <li>About and Contact pages</li>
+          <li>Contact form with PHP handler and fallbacks for awkward hosts</li>
+          <li>Responsive layout for phone and desktop</li>
         </ul>
 
         <h2>4. Folder structure</h2>
-        <pre class="folder-tree">Vault-Comics/
+        <pre class="folder-tree">VaultComics/
 ├── index.html
+├── comics.html
+├── basket.html
 ├── pay.html
 ├── success.html
-├── css/          # single stylesheet
-├── js/           # validation + fetch/POST
-└── image/        # product art</pre>
+├── aboutus.html
+├── contactus.html
+├── contact-form-handler.php
+├── css/style.css
+├── js/script.js
+└── image/                 # comic covers</pre>
 
         <h2>5. Timescale</h2>
         <table>
@@ -142,23 +138,19 @@ flowchart LR
           <tbody>
             <tr>
               <td>Structure</td>
-              <td>Create the three pages and mandatory folders; wire navigation</td>
+              <td>Multi-page layout, shared nav, responsive shell</td>
             </tr>
             <tr>
-              <td>Catalogue UI</td>
-              <td>Product cards, images, responsive breakpoints</td>
+              <td>Catalogue</td>
+              <td>Product pages, images, Grid / Flexbox polish</td>
             </tr>
             <tr>
-              <td>Validation</td>
-              <td>Regex and field rules for Mastercard, expiry, CVV</td>
+              <td>Cart</td>
+              <td>Add / remove / persist with localStorage</td>
             </tr>
             <tr>
-              <td>API integration</td>
-              <td>POST JSON, parse success message, surface failures</td>
-            </tr>
-            <tr>
-              <td>Report and polish</td>
-              <td>Usability / accessibility list; comments in JS as required</td>
+              <td>Checkout and contact</td>
+              <td>Demo pay flow; PHP contact handler plus fallbacks</td>
             </tr>
           </tbody>
         </table>
@@ -173,39 +165,39 @@ flowchart LR
           </thead>
           <tbody>
             <tr>
-              <td>All validation marks sit in JavaScript</td>
-              <td>Keep checks in <code>js/</code>; never rely on HTML5 alone for the graded rules</td>
+              <td>Images not loading</td>
+              <td>Removed a duplicate CSS link pointing at a missing file</td>
             </tr>
             <tr>
-              <td>API rejects malformed JSON</td>
-              <td>Build the exact payload shape; branch on non 200 and show a clear retry state</td>
+              <td>Mobile hamburger menu</td>
+              <td>Stopped two JS functions sharing the same name and fighting each other</td>
             </tr>
             <tr>
-              <td>Responsive nav and grid</td>
-              <td>Two column desktop, single column phone; test both before hand in</td>
+              <td>Contact mail across hosts</td>
+              <td>PHP handler, EmailJS option, and mailto fallback</td>
             </tr>
             <tr>
-              <td>Directory rules</td>
-              <td>Stick to root HTML + css/js/image; no MVC restructure</td>
+              <td>Cart surviving refresh</td>
+              <td>Serialize cart state to localStorage on every change</td>
             </tr>
           </tbody>
         </table>
 
         <h2>7. Testing</h2>
         <ul>
-          <li>Reject card numbers that are not 16 digits or wrong prefix</li>
-          <li>Reject expired month or year</li>
-          <li>Reject CVV lengths outside 3 to 4</li>
-          <li>Accept a valid Mastercard shaped number and reach success with masked digits</li>
-          <li>Force a bad POST and confirm the UI reports the error without navigating to success</li>
-          <li>Resize to phone width: catalogue stacks to one column; nav remains usable</li>
+          <li>Add items, refresh, confirm the basket still holds them</li>
+          <li>Remove items and clear the cart</li>
+          <li>Walk pay to success without claiming a real payment went through</li>
+          <li>Resize to phone width: catalogue and nav stay usable</li>
+          <li>Submit contact and confirm at least one delivery path works on the host under test</li>
         </ul>
 
         <h2>8. Deployment and links</h2>
         <p>
-          Static site: open <code>index.html</code> or serve the folder locally. The pay step needs
-          network access to the MMU credit card endpoint used in the module. Source is on GitHub;
-          the Moodle hand in was a zip of code plus the usability report.
+          Static site: open <code>index.html</code> or serve the folder with
+          <code>python -m http.server 8000</code>. Contact mail needs PHP configured on the host, or
+          EmailJS / mailto as fallback. Source is on GitHub as a personal-profile re-upload of the
+          coursework.
         </p>
       </div>
 
@@ -213,6 +205,7 @@ flowchart LR
         <span class="tech-tag">HTML</span>
         <span class="tech-tag">CSS</span>
         <span class="tech-tag">JavaScript</span>
+        <span class="tech-tag">PHP</span>
       </div>
       <div class="project-links">
         <a href="https://github.com/code-by-panashe-sanyanga/Vault-Comics" target="_blank" rel="noopener noreferrer" class="button-link">GitHub</a>

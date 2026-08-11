@@ -46,7 +46,7 @@
             <tr>
               <td>Language</td>
               <td>C# console</td>
-              <td>Menu driven planning tool from the Classroom template</td>
+              <td>C# (.NET Framework) console harness for a sample metro network</td>
             </tr>
             <tr>
               <td>Domain</td>
@@ -68,20 +68,20 @@
 
         <h2>2. Design</h2>
         <p>
-          Task A builds the unweighted skeleton: add nodes, add edges, report NodeCount and
-          EdgeCount, all from the menu. Task B attaches travel times through AddEdgeWithWeight,
-          then network metrics: AverageOutbound, AverageTravelTime, and GetAllConnections for a
-          node id. Task C adds exploration: BFS or DFS across the network, plus FastestRoute, which
-          starts at a station id and always takes the unused outbound edge with the lowest travel
-          time, never revisiting a station, then returns the full path taken.
+          Task A builds the unweighted skeleton: add nodes, add edges, report <code>NumNodes</code>
+          and <code>NumEdges</code>. Task B attaches travel times through
+          <code>AddWeightedEdge</code>, then network metrics: AverageOutbound, AverageTravelTime,
+          and GetAllConnections for a station. Task C adds exploration: BFS or DFS across the
+          network, plus FastestRoute, which starts at a station and always takes the unused outbound
+          edge with the lowest travel time, never revisiting a station, then returns the path taken.
         </p>
-        <pre class="folder-tree">Menu
-  -> Station records
-  -> Graph (adjacency lists)
-       add node / add edge / counts
-       weighted edges (minutes)
+        <pre class="folder-tree">Program harness
+  -> Station records (name + passenger capacity)
+  -> Graph&lt;T&gt; adjacency lists (LinkedList of nodes)
+       AddNode / AddEdge / NumNodes / NumEdges
+       AddWeightedEdge (minutes)
        AverageOutbound, AverageTravelTime, GetAllConnections
-       BFS or DFS traversal
+       BFS / DFS
        FastestRoute: greedy lowest weight next hop, no revisits</pre>
         <p>
           FastestRoute is not a full Dijkstra search over all paths. It is the greedy walk the brief
@@ -96,16 +96,20 @@
           <li>Weighted edges in minutes</li>
           <li>Average outbound degree and average travel time</li>
           <li>Neighbour listing by station id</li>
-          <li>BFS or DFS traversal from the menu</li>
+          <li>BFS or DFS traversal from the console harness</li>
           <li>FastestRoute greedy path with no station revisited</li>
         </ul>
 
         <h2>4. Folder structure</h2>
-        <pre class="folder-tree">ADS-Graphs-Transport-Network/
-├── Program.cs
-├── Station.cs
+        <pre class="folder-tree">ADSPortEx4/
+├── Graph.cs
 ├── GraphNode.cs
-└── Graph.cs</pre>
+├── Station.cs
+├── Program.cs
+├── App.config
+├── packages.config
+└── Properties/AssemblyInfo.cs
+ADSPortEx4.sln</pre>
 
         <h2>5. Timescale</h2>
         <table>
@@ -131,7 +135,7 @@
             </tr>
             <tr>
               <td>Weights changing the model</td>
-              <td>AddEdgeWithWeight path used by the menu after Task B</td>
+              <td>AddWeightedEdge path used after Task B</td>
             </tr>
             <tr>
               <td>FastestRoute vs true shortest path</td>
@@ -146,7 +150,7 @@
 
         <h2>7. Testing</h2>
         <ul>
-          <li>NodeCount and EdgeCount match manual construction of a small network</li>
+          <li>NumNodes and NumEdges match manual construction of a small network</li>
           <li>Weighted edges affect AverageTravelTime as expected</li>
           <li>GetAllConnections returns only adjacent ids</li>
           <li>BFS/DFS visit each reachable node once on a simple connected graph</li>
@@ -156,8 +160,10 @@
 
         <h2>8. Deployment and links</h2>
         <p>
-          Console planner in the GitHub Classroom repository. Run with Visual Studio or
-          <code>dotnet run</code>. No web host; the graph ADT and menu are the marked artefact.
+          Re-upload of the ADS coursework on my personal GitHub. Open <code>ADSPortEx4.sln</code> in
+          Visual Studio (F5 / Ctrl+F5), or build with <code>msbuild ADSPortEx4.sln</code> and run
+          <code>ADSPortEx4\bin\Debug\ADSPortEx4.exe</code>. No web host; the graph ADT and harness
+          are the marked artefact.
         </p>
       </div>
 
