@@ -78,8 +78,8 @@
             </tr>
             <tr>
               <td>Channel calls</td>
-              <td>Socket.IO presence rooms</td>
-              <td>Meet now / Leave; who is in the call, not WebRTC media</td>
+              <td>Socket.IO + WebRTC (STUN)</td>
+              <td>Meet now presence plus optional mic/camera peer media</td>
             </tr>
             <tr>
               <td>Presence</td>
@@ -107,7 +107,8 @@ flowchart LR
         <h2>3. Features implemented</h2>
         <ul>
           <li>Communities, channels, DMs, reactions, stories, friends, typing, edit / delete</li>
-          <li>Channel call presence (Meet now / Leave over Socket.IO; not WebRTC audio/video)</li>
+          <li>Channel calls: Meet now presence plus optional mic/camera (WebRTC, STUN only)</li>
+          <li>Settings: theme, password, display name, notification sound, mic/camera allow</li>
           <li>Ctrl+K quick switcher between channels</li>
           <li>Admin rename gates for communities and channels</li>
           <li>Login lockout after repeated failures; same check on change password</li>
@@ -150,7 +151,7 @@ flowchart LR
             <tr>
               <td>Calls and hardening</td>
               <td>May 2026</td>
-              <td>Call presence, lockout, rate limits, permission checks, pytest</td>
+              <td>Call presence + WebRTC media, lockout, rate limits, permission checks, pytest</td>
             </tr>
             <tr>
               <td>Deploy</td>
