@@ -1,6 +1,6 @@
 # PS Portfolio
 
-Personal portfolio site where I show project write ups, my CV, and coursework to recruiters. Static HTML/CSS/JS, no backend.
+Personal portfolio site where I show project write ups, my CV, and coursework to recruiters.
 
 ![Home page of the portfolio site](images/portfolio-home.png)
 
@@ -10,9 +10,9 @@ Personal portfolio site where I show project write ups, my CV, and coursework to
 
 If you're skimming this repo, these are the three worth actually opening:
 
-- **[NovaBank](project-novabank.html)** ([GitHub](https://github.com/code-by-panashe-sanyanga/NovaBank) · [live demo](https://novabank-api-production-2778.up.railway.app)): a double-entry banking API in FastAPI and PostgreSQL, with row-locked transfers, idempotency keys, and pytest covering the money path.
-- **[ChatWire](project-chatwire.html)** ([GitHub](https://github.com/code-by-panashe-sanyanga/ChatWire)): real-time messaging with auth, cursor pagination, and rate limits on the write paths.
-- **[What's For Dinner](project-whats-for-dinner.html)** ([GitHub](https://github.com/code-by-panashe-sanyanga/WHATS-FOR-DINNER)): a Year 2 group project, a recipe finder with a Python backend behind the matching logic. I did most of the delivery and team coordination on this one.
+- **[NovaBank](https://code-by-panashe-sanyanga.github.io/PS-PORTFOLIO/project-novabank.html)** ([GitHub](https://github.com/code-by-panashe-sanyanga/NovaBank) · [live demo](https://novabank-api-production-2778.up.railway.app)): a double-entry banking API in FastAPI and PostgreSQL, with row-locked transfers, idempotency keys, and pytest covering the money path.
+- **[ChatWire](https://code-by-panashe-sanyanga.github.io/PS-PORTFOLIO/project-chatwire.html)** ([GitHub](https://github.com/code-by-panashe-sanyanga/ChatWire) · [live demo](https://chat-wire-production.up.railway.app)): real-time messaging with auth, cursor pagination, and rate limits on the write paths.
+- **[What's For Dinner](https://code-by-panashe-sanyanga.github.io/PS-PORTFOLIO/project-whats-for-dinner.html)** ([GitHub](https://github.com/code-by-panashe-sanyanga/WHATS-FOR-DINNER)): a Year 2 group project, a recipe finder with a Python backend behind the matching logic. I did most of the delivery and team coordination on this one.
 
 This site itself is just the hub that points at that work and explains it.
 
@@ -22,9 +22,35 @@ I needed one link to send recruiters instead of a CV attachment plus a pile of s
 
 ## How it works
 
-No diagram here. A page-navigation flowchart didn't add anything a sentence doesn't already say, and a diagram of where project data lives would just be repeating a point that's covered once in Decisions and once in Limitations rather than showing anything new.
+```mermaid
+flowchart LR
+  Browser -->|GET HTML CSS JS| Pages[GitHub Pages]
+  Pages --> Browser
+  Browser -->|lightbox state| Script[script.js]
+  Browser -->|POST contact| FormSubmit
+  FormSubmit -->|email| Inbox[hotmail inbox]
+```
 
 There's no database or CMS behind any of this: every page's content is just the HTML sitting in that file, and GitHub Pages serves the files as they are, nothing is rendered at request time because there's no request to render anything from. The only real runtime state anywhere on the site is in `script.js`, which tracks which lightbox slide is showing and whether its autoplay timer is running, both plain JS variables that reset every time a page loads or the lightbox opens.
+
+```mermaid
+flowchart TD
+  Home[index.html] --> Projects[projects.html]
+  Home --> About[about.html]
+  Projects --> Detail[project-*.html]
+  About --> CV[cv.html]
+  About --> Contact[contact form]
+  Contact -->|FormSubmit| Inbox[email]
+```
+
+| Path | Job |
+|------|-----|
+| `index.html` / `projects.html` | Hub and full project list |
+| `project-*.html` | Per-project write ups + screenshot galleries |
+| `about.html` | Bio, CV link, contact form |
+| `cv.html` | Printable CV |
+| `script.js` | Lightbox, contact submit, footer year |
+| `styles.css` | Layout, gallery, reduced-motion |
 
 ## Accessibility
 
@@ -38,9 +64,10 @@ What I checked and changed:
 - **aria attributes on dots/controls.** The dots were using `role="tab"` / `aria-selected` without the rest of the ARIA tabs pattern (a real tab list needs roving tabindex and matching tabpanels, which this isn't). Changed the dots container to `role="group"` and each dot to `aria-current` instead, which matches what they actually are: a set of position indicators, not tabs. The overlay's `aria-hidden` is now also toggled explicitly on open/close alongside the `hidden` attribute.
 - **Alt text.** Checked every `<img>` on the site (project cards, project detail galleries, the lightbox). All of them already had specific, non-empty alt text describing what's actually in the screenshot. Nothing to fix here.
 - **Semantic landmarks.** Checked header/nav/main/footer on every page. All of them were already there with one of each per page. Nothing to fix here either.
-- **prefers-reduced-motion.** This was a real gap: the lightbox autoplay timer had no check for it at all. It now reads `window.matchMedia("(prefers-reduced-motion: reduce)")` on load and live via a change listener, so autoplay never starts (and stops immediately if the OS setting changes mid-session) for anyone with that preference on. Added a matching CSS rule that collapses animation and transition durations sitewide, which also covers the decorative floating background orbs.
+- **prefers-reduced-motion (JS).** Autoplay had no check for it. It now reads `window.matchMedia("(prefers-reduced-motion: reduce)")` on load and via a change listener, so autoplay never starts (and stops immediately if the OS setting changes mid-session).
+- **prefers-reduced-motion (CSS).** Added a matching rule that collapses animation and transition durations sitewide, which also covers the decorative floating background orbs.
 
-What I did not fix: Lighthouse's accessibility audit also flagged a color-contrast issue (`--accent-color` text on `--bg-light` backgrounds, e.g. the coursework `<summary>` links, falls just under the 4.5:1 ratio for normal text). That's a real finding but it's a site-wide colour decision, not part of the lightbox/gallery audit I was asked to do, so I've left it alone rather than repainting the site as a side effect. I also haven't tested any of this with an actual screen reader, my verification was automated (a scripted keyboard walkthrough with Puppeteer) plus reading the resulting DOM state, which catches focus order and attribute correctness but not how something actually sounds read aloud.
+What I did not fix: Lighthouse's accessibility audit also flagged a color-contrast issue (`--accent-color` text on `--bg-light` backgrounds, e.g. the coursework `<summary>` links, falls just under the 4.5:1 ratio for normal text). That's a real finding but it's a site-wide colour decision, not part of the gallery audit, so I've left it alone rather than repainting the site as a side effect. I also haven't tested any of this with an actual screen reader, my verification was automated (a scripted keyboard walkthrough with Puppeteer) plus reading the resulting DOM state, which catches focus order and attribute correctness but not how something actually sounds read aloud.
 
 ## Decisions
 
@@ -54,13 +81,11 @@ What I did not fix: Lighthouse's accessibility audit also flagged a color-contra
 
 I ran a real Lighthouse audit (`npx lighthouse` against headless Chrome, 11 Aug 2026) rather than guessing at numbers.
 
-**Live site** (`https://code-by-panashe-sanyanga.github.io/PS-PORTFOLIO/`, the currently deployed version): Performance 89, Accessibility 93, Best Practices 100, SEO 100. Lighthouse flagged color-contrast and touch target sizing on accessibility, and first-contentful-paint / largest-contentful-paint as the main performance cost.
+**Live before** (`https://code-by-panashe-sanyanga.github.io/PS-PORTFOLIO/`): Performance 89, Accessibility 93, Best Practices 100, SEO 100.
 
-I then compressed every project screenshot: resized anything over 1200px wide down to 1200px and re-encoded as palette-quantized PNG with `sharp` (no ImageMagick or PIL installed on this machine, sharp via npm was the tool that was actually available). Total image payload across the 14 screenshots went from 4.92 MB to 1.28 MB, a 74% reduction, with no visible quality loss on any of them (checked by eye, before/after, at full size). I also fixed the accessibility issues described above.
+Then I compressed every project screenshot (resized anything over 1200px wide down to 1200px, re-encoded as palette-quantized PNG with `sharp`). Total image payload across the 14 screenshots went from 4.92 MB to 1.28 MB, a 74% reduction, with no visible quality loss on any of them (checked by eye, before/after, at full size). I also fixed the lightbox accessibility issues described above, and wired the contact form to FormSubmit so submissions arrive by email without needing a local mail client.
 
-**Local server after both changes** (`http://localhost:5511/index.html`, current working tree): Performance 94, Accessibility 95, Best Practices 100, SEO 100. The touch-target issue is gone; the remaining accessibility point is the same color-contrast finding, which I deliberately didn't fix (see Accessibility above).
-
-Being honest about the comparison: this isn't a clean before/after of one variable. The live URL is serving an older deployed commit (it still has a Contact nav item and different copy that the current working tree doesn't), and it's a real network request against GitHub Pages, while the local run is loopback with no network latency. So the performance gain is a mix of image compression, one fewer nav item, and just not going over the internet, not purely "compression made it faster." I didn't deploy anything to get a same-page comparison because the task said not to push. If you want a clean before/after, run `npx lighthouse` against the live URL again after this branch actually ships.
+**Live after** (same URL, redeployed): _pending — fill after deploy Lighthouse run_.
 
 ## The hard bit
 
@@ -68,15 +93,30 @@ The worst bug wasn't in the JavaScript, it was invisible characters. At some poi
 
 ## Testing
 
-No automated test suite. What I actually ran: a scripted Puppeteer walkthrough of the lightbox (open a thumbnail, Tab through every control checking the trap wraps both directions, arrow keys change the image, Escape closes and returns focus to the thumbnail, autoplay checked under an emulated `prefers-reduced-motion: reduce`) to verify the accessibility fixes above actually work rather than just reading correct-looking code. Beyond that it's the same manual pass as before: nav links from every page, the gallery on each project page by mouse and keyboard, the contact form producing the right mailto link, and a rough desktop and mobile width check on layout. I do this locally, then again against the live Pages URL after deploying.
+There is a small automated suite under `tests/` (Puppeteer against a local static server):
+
+```bash
+npm install
+npm test
+```
+
+What it covers:
+
+- Home, projects, about, and a project detail page return 200 and expose landmarks (`header` / `nav` / `main` / `footer`).
+- Every project card image has non-empty `alt`.
+- Lightbox: open from a thumbnail, Tab stays trapped inside the dialog, Escape closes and restores focus to the thumbnail, Left/Right change slides.
+- `prefers-reduced-motion: reduce` leaves autoplay off.
+- Contact form posts to FormSubmit (network request asserted; delivery still needs the one-time FormSubmit activation email in hotmail).
+
+What it deliberately does not cover: visual regression, cross-browser Safari/Firefox matrix, or a real screen reader. Those stay manual. I also re-check nav links and the live Pages URL after each deploy.
 
 ## Limitations
 
-No CMS, so any content change means editing HTML directly. No search across projects. No analytics, so I don't actually know what recruiters look at or click on. The contact form depends on the visitor having a mail client configured; if they don't, clicking Email does nothing useful. I haven't tested any of this with a real screen reader, and the known color-contrast gap on accent-colored text over the light background is unfixed. At several times the current number of projects, the thing that breaks first is the hand-copied card markup described under Decisions: keeping `index.html` and `projects.html` in sync by eye stops being realistic well before that point.
+No CMS, so any content change means editing HTML directly. No search across projects. No analytics, so I don't actually know what recruiters look at or click on. Contact submissions go through FormSubmit to my hotmail inbox; the first submit from a new setup needs an activation click in that inbox before delivery is live. I haven't tested any of this with a real screen reader, and the known color-contrast gap on accent-colored text over the light background is unfixed. At several times the current number of projects, the thing that breaks first is the hand-copied card markup described under Decisions: keeping `index.html` and `projects.html` in sync by eye stops being realistic well before that point.
 
 ## Running it
 
-Prereqs: any modern browser. Python 3 only if you want a local server rather than opening files directly.
+Prereqs: any modern browser. Python 3 only if you want a local server rather than opening files directly. Node 18+ for `npm test`.
 
 ```bash
 git clone https://github.com/code-by-panashe-sanyanga/PS-PORTFOLIO.git

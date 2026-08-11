@@ -1,0 +1,10 @@
+{
+  "name": "ps-portfolio",
+  "private": true,
+  "scripts": {
+    "test": "node tests/site.test.js"
+  },
+  "devDependencies": {
+    "puppeteer": "^24.2.0"
+  }
+}

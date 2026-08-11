@@ -1,27 +1,60 @@
-// Contact mailto helper, project gallery lightbox slideshow, footer year.
+// Contact form (FormSubmit), project gallery lightbox slideshow, footer year.
+
+const CONTACT_ENDPOINT =
+  "https://formsubmit.co/ajax/panashe.sanyanga@hotmail.com";
 
 /**
- * Contact form has no backend. Builds a mailto: link with the form fields
- * and opens the visitor's mail client.
+ * Posts the contact form to FormSubmit so the message reaches inbox email
+ * without needing a local mail client. Shows success/error on the page.
  */
 function handleContactForm() {
   const contactForm = document.querySelector(".contact-form");
   if (!contactForm) return;
 
-  contactForm.addEventListener("submit", (e) => {
+  let status = contactForm.querySelector(".contact-form-status");
+  if (!status) {
+    status = document.createElement("p");
+    status.className = "contact-form-status";
+    status.setAttribute("role", "status");
+    status.setAttribute("aria-live", "polite");
+    contactForm.appendChild(status);
+  }
+
+  const submitBtn = contactForm.querySelector('button[type="submit"]');
+
+  contactForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     const formData = new FormData(contactForm);
-    const name = formData.get("name");
-    const email = formData.get("email");
-    const subject = formData.get("subject") || "Portfolio contact";
-    const message = formData.get("message");
+    if (!formData.get("_subject")) {
+      formData.set("_subject", formData.get("subject") || "Portfolio contact");
+    }
+    formData.set("_template", "table");
+    formData.set("_captcha", "false");
 
-    window.location.href =
-      "mailto:panashe.sanyanga@hotmail.com?subject=" +
-      encodeURIComponent(subject) +
-      "&body=" +
-      encodeURIComponent("Name: " + name + "\nEmail: " + email + "\n\n" + message);
+    status.textContent = "Sending…";
+    if (submitBtn) submitBtn.disabled = true;
+
+    try {
+      const res = await fetch(CONTACT_ENDPOINT, {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: formData,
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        throw new Error(data.message || "Send failed");
+      }
+      status.textContent =
+        "Message sent. If this is the first submit from this form, check hotmail for a FormSubmit activation email and confirm it.";
+      contactForm.reset();
+    } catch (err) {
+      status.textContent =
+        "Could not send right now. Email panashe.sanyanga@hotmail.com directly.";
+      console.error(err);
+    } finally {
+      if (submitBtn) submitBtn.disabled = false;
+    }
   });
 }
 

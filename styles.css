@@ -1959,6 +1959,27 @@ html {
   max-width: 520px;
 }
 
+.contact-honey {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.contact-form-status {
+  margin-top: 0.75rem;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  min-height: 1.25em;
+}
+
+.contact-form button:disabled {
+  opacity: 0.7;
+  cursor: wait;
+  transform: none;
+}
+
 .cv-block {
   margin: 0 0 3rem;
 }
