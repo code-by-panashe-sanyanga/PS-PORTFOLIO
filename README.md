@@ -12,7 +12,7 @@ If you're skimming this repo, these are the three worth actually opening:
 
 - **[NovaBank](https://code-by-panashe-sanyanga.github.io/PS-PORTFOLIO/project-novabank.html)** ([GitHub](https://github.com/code-by-panashe-sanyanga/NovaBank) · [live demo](https://novabank-api-production-2778.up.railway.app)): a double-entry banking API in FastAPI and PostgreSQL, with row-locked transfers, idempotency keys, and pytest covering the money path.
 - **[ChatWire](https://code-by-panashe-sanyanga.github.io/PS-PORTFOLIO/project-chatwire.html)** ([GitHub](https://github.com/code-by-panashe-sanyanga/ChatWire) · [live demo](https://chat-wire-production.up.railway.app)): real-time messaging with auth, cursor pagination, and rate limits on the write paths.
-- **[What's For Dinner](https://code-by-panashe-sanyanga.github.io/PS-PORTFOLIO/project-whats-for-dinner.html)** ([GitHub](https://github.com/code-by-panashe-sanyanga/WHATS-FOR-DINNER)): a Year 2 group project, a recipe finder with a Python backend behind the matching logic. I did most of the delivery and team coordination on this one.
+- **[What's For Dinner](https://code-by-panashe-sanyanga.github.io/PS-PORTFOLIO/project-whats-for-dinner.html)** ([GitHub](https://github.com/code-by-panashe-sanyanga/WHATS-FOR-DINNER)): a Year 2 group project, a recipe finder with a Node/Express + SQLite backend for auth and favourites. I did most of the delivery and team coordination on this one.
 
 This site itself is just the hub that points at that work and explains it.
 
@@ -98,6 +98,14 @@ What it deliberately does not cover: visual regression, cross-browser Safari/Fir
 ## Limitations
 
 No CMS, so any content change means editing HTML directly. No search across projects. No analytics, so I don't actually know what recruiters look at or click on. Contact submissions go through FormSubmit; a new setup needs one activation click before delivery is live. I haven't tested any of this with a real screen reader, and the known color-contrast gap on accent-colored text over the light background is unfixed. At several times the current number of projects, the thing that breaks first is the hand-copied card markup described under Decisions: keeping `index.html` and `projects.html` in sync by eye stops being realistic well before that point.
+
+## Future improvements
+
+- Generate project cards from one JSON or JS source so `index.html` and `projects.html` can't drift apart.
+- Share header, nav, and footer instead of editing the same markup in every HTML file (a tiny template step or static site generator once the page count grows).
+- Fix the accent-on-light contrast gap Lighthouse flagged, and verify the lightbox with a real screen reader rather than only Puppeteer keyboard walks.
+- Drop the FormSubmit activation caveat once the live form has been confirmed end to end, and add light analytics so I know what recruiters actually open.
+- Project search across write ups if the list grows past what skimming the projects page can handle.
 
 ## Running it
 
