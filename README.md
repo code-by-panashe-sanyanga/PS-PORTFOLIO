@@ -28,7 +28,7 @@ flowchart LR
   Pages --> Browser
   Browser -->|lightbox state| Script[script.js]
   Browser -->|POST contact| FormSubmit
-  FormSubmit -->|email| Inbox[hotmail inbox]
+  FormSubmit -->|email| Inbox[inbox]
 ```
 
 There's no database or CMS behind any of this: every page's content is just the HTML sitting in that file, and GitHub Pages serves the files as they are, nothing is rendered at request time because there's no request to render anything from. The only real runtime state anywhere on the site is in `script.js`, which tracks which lightbox slide is showing and whether its autoplay timer is running, both plain JS variables that reset every time a page loads or the lightbox opens.
@@ -42,15 +42,6 @@ flowchart TD
   About --> Contact[contact form]
   Contact -->|FormSubmit| Inbox[email]
 ```
-
-| Path | Job |
-|------|-----|
-| `index.html` / `projects.html` | Hub and full project list |
-| `project-*.html` | Per-project write ups + screenshot galleries |
-| `about.html` | Bio, CV link, contact form |
-| `cv.html` | Printable CV |
-| `script.js` | Lightbox, contact submit, footer year |
-| `styles.css` | Layout, gallery, reduced-motion |
 
 ## Accessibility
 
@@ -100,19 +91,13 @@ npm install
 npm test
 ```
 
-What it covers:
-
-- Home, projects, about, and a project detail page return 200 and expose landmarks (`header` / `nav` / `main` / `footer`).
-- Every project card image has non-empty `alt`.
-- Lightbox: open from a thumbnail, Tab stays trapped inside the dialog, Escape closes and restores focus to the thumbnail, Left/Right change slides.
-- `prefers-reduced-motion: reduce` leaves autoplay off.
-- Contact form posts to FormSubmit (network request asserted; delivery still needs the one-time FormSubmit activation email in hotmail).
+It checks page landmarks and image alts, walks the lightbox (focus trap, Escape restore, slide keys, reduced-motion autoplay off), and asserts the contact form posts to FormSubmit (network request asserted; delivery depends on the one-time FormSubmit activation).
 
 What it deliberately does not cover: visual regression, cross-browser Safari/Firefox matrix, or a real screen reader. Those stay manual. I also re-check nav links and the live Pages URL after each deploy.
 
 ## Limitations
 
-No CMS, so any content change means editing HTML directly. No search across projects. No analytics, so I don't actually know what recruiters look at or click on. Contact submissions go through FormSubmit to my hotmail inbox; the first submit from a new setup needs an activation click in that inbox before delivery is live. I haven't tested any of this with a real screen reader, and the known color-contrast gap on accent-colored text over the light background is unfixed. At several times the current number of projects, the thing that breaks first is the hand-copied card markup described under Decisions: keeping `index.html` and `projects.html` in sync by eye stops being realistic well before that point.
+No CMS, so any content change means editing HTML directly. No search across projects. No analytics, so I don't actually know what recruiters look at or click on. Contact submissions go through FormSubmit; a new setup needs one activation click before delivery is live. I haven't tested any of this with a real screen reader, and the known color-contrast gap on accent-colored text over the light background is unfixed. At several times the current number of projects, the thing that breaks first is the hand-copied card markup described under Decisions: keeping `index.html` and `projects.html` in sync by eye stops being realistic well before that point.
 
 ## Running it
 

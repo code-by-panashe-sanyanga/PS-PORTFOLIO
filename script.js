@@ -46,11 +46,11 @@ function handleContactForm() {
         throw new Error(data.message || "Send failed");
       }
       status.textContent =
-        "Message sent. If this is the first submit from this form, check hotmail for a FormSubmit activation email and confirm it.";
+        "Message sent. If this is the first submit, confirm the FormSubmit activation email, then try once more.";
       contactForm.reset();
     } catch (err) {
       status.textContent =
-        "Could not send right now. Email panashe.sanyanga@hotmail.com directly.";
+        "Could not send right now. Use the email link above instead.";
       console.error(err);
     } finally {
       if (submitBtn) submitBtn.disabled = false;
