@@ -1166,12 +1166,26 @@ a.cta.is-disabled:hover {
   box-sizing: border-box;
 }
 
-.about-intro h1,
-.about-intro h2 {
+.about-intro h1 {
   color: var(--accent-color);
   margin-bottom: 1.25rem;
   font-size: 2.2rem;
   text-align: center;
+}
+
+.cv-block h2,
+.contact-block h2 {
+  color: var(--accent-color);
+  margin-bottom: 1.25rem;
+  font-size: 2.2rem;
+  text-align: center;
+}
+
+.about-intro h2.about-subheading {
+  color: var(--accent-color);
+  font-size: 1.3rem;
+  text-align: left;
+  margin: 1.75rem 0 0.85rem;
 }
 
 .about-intro p {
