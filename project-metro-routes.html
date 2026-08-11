@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Metro Network Route Planner | Panashe Sanyanga</title>
+    <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <meta name="description" content="Metro Network Route Planner: list based weighted graphs, traversal, greedy route." />
+    <link rel="stylesheet" href="styles.css?v=22" />
+  </head>
+  <body>
+    <div class="floating-orbs" aria-hidden="true"></div>
+    <header>
+      <div class="container header-bar">
+        <div class="logo">PS</div>
+        <nav class="nav">
+          <a href="index.html">HOME</a>
+          <a href="projects.html" class="active">PROJECTS</a>
+          <a href="about.html">ABOUT</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container project-detail">
+      <p class="project-detail-back"><a href="projects.html#ads-graphs">&lt;- All projects</a></p>
+      <h1>Metro Network Route Planner</h1>
+      <p class="project-card-date">Year 2 · 6G5Z0024 ADS · Assessed Exercise 4</p>
+
+      <div class="project-detail-body">
+        <h2>1. Purpose and tech stack</h2>
+        <p>
+          Assessed Exercise 4 models a city metro for a transport authority. Stations hold a name
+          and passenger capacity. Links between stations form a graph. The brief is explicit about
+          representation: the graph must be list based, and Dictionary is not allowed. That forces
+          adjacency lists you control, not a hash map shortcut.
+        </p>
+        <table>
+          <thead>
+            <tr><th>Layer</th><th>Choice</th><th>Reason</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Language</td>
+              <td>C# console</td>
+              <td>Menu driven planning tool from the Classroom template</td>
+            </tr>
+            <tr>
+              <td>Domain</td>
+              <td><code>Station</code></td>
+              <td>Name + PassengerCapacity</td>
+            </tr>
+            <tr>
+              <td>Graph</td>
+              <td>List based <code>Graph</code> / <code>GraphNode</code></td>
+              <td>No Dictionary; explicit nodes, edges, counts</td>
+            </tr>
+            <tr>
+              <td>Weights</td>
+              <td>Integer minutes on edges</td>
+              <td>Travel time for metrics and route walking</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>2. Design</h2>
+        <p>
+          Task A builds the unweighted skeleton: add nodes, add edges, report NodeCount and
+          EdgeCount, all from the menu. Task B attaches travel times through AddEdgeWithWeight,
+          then network metrics: AverageOutbound, AverageTravelTime, and GetAllConnections for a
+          node id. Task C adds exploration: BFS or DFS across the network, plus FastestRoute, which
+          starts at a station id and always takes the unused outbound edge with the lowest travel
+          time, never revisiting a station, then returns the full path taken.
+        </p>
+        <pre class="folder-tree">Menu
+  -> Station records
+  -> Graph (adjacency lists)
+       add node / add edge / counts
+       weighted edges (minutes)
+       AverageOutbound, AverageTravelTime, GetAllConnections
+       BFS or DFS traversal
+       FastestRoute: greedy lowest weight next hop, no revisits</pre>
+        <p>
+          FastestRoute is not a full Dijkstra search over all paths. It is the greedy walk the brief
+          specifies: locally cheapest unused edge at each step. That is an important design
+          distinction when explaining the algorithm in a viva or interview.
+        </p>
+
+        <h2>3. Features implemented</h2>
+        <ul>
+          <li>Station model with capacity</li>
+          <li>List based graph: add node, add edge, node and edge counts</li>
+          <li>Weighted edges in minutes</li>
+          <li>Average outbound degree and average travel time</li>
+          <li>Neighbour listing by station id</li>
+          <li>BFS or DFS traversal from the menu</li>
+          <li>FastestRoute greedy path with no station revisited</li>
+        </ul>
+
+        <h2>4. Folder structure</h2>
+        <pre class="folder-tree">ADS-Graphs-Transport-Network/
+├── Program.cs
+├── Station.cs
+├── GraphNode.cs
+└── Graph.cs</pre>
+
+        <h2>5. Timescale</h2>
+        <table>
+          <thead>
+            <tr><th>Phase</th><th>Work</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Task A</td><td>Stations, list graph skeleton, counts, menu</td></tr>
+            <tr><td>Task B</td><td>Weights, averages, adjacency query</td></tr>
+            <tr><td>Task C</td><td>Traversal + FastestRoute</td></tr>
+          </tbody>
+        </table>
+
+        <h2>6. Challenges and how they were handled</h2>
+        <table>
+          <thead>
+            <tr><th>Challenge</th><th>Approach</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>No Dictionary</td>
+              <td>Store nodes and adjacency in lists; look up by id with explicit scans</td>
+            </tr>
+            <tr>
+              <td>Weights changing the model</td>
+              <td>AddEdgeWithWeight path used by the menu after Task B</td>
+            </tr>
+            <tr>
+              <td>FastestRoute vs true shortest path</td>
+              <td>Implement the brief's greedy rule; do not claim global optimality</td>
+            </tr>
+            <tr>
+              <td>Revisit prevention</td>
+              <td>Track visited stations while walking the route</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>7. Testing</h2>
+        <ul>
+          <li>NodeCount and EdgeCount match manual construction of a small network</li>
+          <li>Weighted edges affect AverageTravelTime as expected</li>
+          <li>GetAllConnections returns only adjacent ids</li>
+          <li>BFS/DFS visit each reachable node once on a simple connected graph</li>
+          <li>FastestRoute never repeats a station and prefers the locally lowest weight edge</li>
+          <li>Disconnected start yields a route that stops when no unused edges remain</li>
+        </ul>
+
+        <h2>8. Deployment and links</h2>
+        <p>
+          Console planner in the GitHub Classroom repository. Run with Visual Studio or
+          <code>dotnet run</code>. No web host; the graph ADT and menu are the marked artefact.
+        </p>
+      </div>
+
+      <div class="project-tech">
+        <span class="tech-tag">C#</span>
+        <span class="tech-tag">Graphs</span>
+        <span class="tech-tag">BFS / DFS</span>
+      </div>
+      <div class="project-links">
+        <a href="https://github.com/code-by-panashe-sanyanga/ADS-Graphs-Transport-Network" target="_blank" rel="noopener noreferrer" class="button-link">GitHub</a>
+      </div>
+    </main>
+
+    <footer>
+      &copy; <span id="footer-year">2026</span>
+      <strong>Panashe Sanyanga</strong>
+    </footer>
+    <script src="script.js?v=22"></script>
+  </body>
+</html>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Space Survival | Panashe Sanyanga</title>
+    <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <meta name="description" content="Space Survival: Processing avoid-the-obstacles game with OOP entities." />
+    <link rel="stylesheet" href="styles.css?v=22" />
+  </head>
+  <body>
+    <div class="floating-orbs" aria-hidden="true"></div>
+    <header>
+      <div class="container header-bar">
+        <div class="logo">PS</div>
+        <nav class="nav">
+          <a href="index.html">HOME</a>
+          <a href="projects.html" class="active">PROJECTS</a>
+          <a href="about.html">ABOUT</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container project-detail">
+      <p class="project-detail-back"><a href="projects.html#space-survival">&lt;- All projects</a></p>
+      <h1>Space Survival</h1>
+      <p class="project-card-date">Year 1 · 6G4Z0020 Programming · Don't Crash!! coursework</p>
+
+      <div class="project-gallery">
+        <img src="images/spacesurvival-menu.png" alt="Space Survival menu" class="project-screenshot" loading="lazy" />
+        <img src="images/spacesurvival-play.png" alt="Space Survival gameplay" class="project-screenshot" loading="lazy" />
+      </div>
+
+      <div class="project-detail-body">
+        <h2>1. Purpose and tech stack</h2>
+        <p>
+          Space Survival is my Year 1 Programming coursework: a 2D avoid the obstacles game in Java
+          Processing. The player stays centred. Arrow keys move every obstacle the opposite way
+          (LEFT shifts obstacles right, UP shifts them down, and so on). Obstacles also carry their
+          own speedX / speedY so the field keeps moving when no key is held. I used an asteroid /
+          space survival theme so the relative motion reads clearly in the first seconds of play,
+          which matters because markers see hundreds of submissions.
+        </p>
+        <table>
+          <thead>
+            <tr><th>Layer</th><th>Choice</th><th>Reason</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Runtime</td>
+              <td>Processing (Java)</td>
+              <td>Required by the unit assessment</td>
+            </tr>
+            <tr>
+              <td>Architecture</td>
+              <td>Multiple classes (Player, Obstacle, further entity types)</td>
+              <td>Mark bands reward OOP structure, inheritance, and polymorphism</td>
+            </tr>
+            <tr>
+              <td>Collision</td>
+              <td>Boolean hit test using distance checks</td>
+              <td>Brief requires a proper collision method, not ad hoc overlap hacks</td>
+            </tr>
+            <tr>
+              <td>Evidence</td>
+              <td>Development report (&lt;500 words) with code snapshots</td>
+              <td>Shows build order and where each grade band feature lives</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>2. Design</h2>
+        <p>
+          The control model is inverted from a typical scroller: the ship stays fixed in screen
+          space while the world shifts under key input. That matches the specification and keeps
+          collision math centred on one player position. Obstacles live in an ArrayList (or array),
+          spawn over time, and leave memory when they leave play or are destroyed. Higher bands ask
+          for a second obstacle type, inheritance, player facing art by direction, animation frames,
+          polymorphism in the entity list, and optional file backed high scores.
+        </p>
+        <pre class="folder-tree">draw() loop
+  -> read keys: shift all obstacles opposite to arrow
+  -> each Obstacle updates speedX/speedY
+  -> Player.collision(Obstacle) -> boolean
+  -> on hit: lose life / end / effect
+  -> ArrayList&lt;Obstacle&gt; may hold subclasses (polymorphism)
+  -> optional: score, levels, high score file, explosion frames</pre>
+
+        <h2>3. Features implemented</h2>
+        <ul>
+          <li>Player fixed at centre; arrow cluster moves the obstacle field</li>
+          <li>At least two classes (Player and Obstacle) with a boolean collision API</li>
+          <li>Multiple obstacles on screen with independent motion</li>
+          <li>PImage based sprites once shapes were stable</li>
+          <li>ArrayList management: spawn new hazards, remove finished ones</li>
+          <li>Additional entity type via inheritance where the band required it</li>
+          <li>Direction dependent player render</li>
+          <li>Development report mapping features to grade bands with code references</li>
+        </ul>
+
+        <h2>4. Folder structure</h2>
+        <pre class="folder-tree">Space-Survival/
+├── SpaceSurvival.pde          # main sketch / draw loop
+├── Player.pde
+├── Obstacle.pde
+├── (extra entity / collectable classes)
+├── data/                      # images if used
+└── DevelopmentReport.pdf</pre>
+
+        <h2>5. Timescale</h2>
+        <table>
+          <thead>
+            <tr><th>Phase</th><th>Work</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Pass band</td><td>One class, centred player, key shifts obstacles, report started</td></tr>
+            <tr><td>40 to 60%</td><td>Second class, collision boolean, multiple obstacles, own motion, ArrayList lifecycle</td></tr>
+            <tr><td>60%+</td><td>Second obstacle type, inheritance, facing art, polish</td></tr>
+            <tr><td>Stretch</td><td>Animation frames, polymorphism across entities, high score file if time allowed</td></tr>
+          </tbody>
+        </table>
+
+        <h2>6. Challenges and how they were handled</h2>
+        <table>
+          <thead>
+            <tr><th>Challenge</th><th>Approach</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Relative motion feels wrong at first</td>
+              <td>Lock player to centre; apply opposite deltas to every obstacle on key press</td>
+            </tr>
+            <tr>
+              <td>Leaking obstacle objects</td>
+              <td>Remove from the list (or null) when off screen or destroyed</td>
+            </tr>
+            <tr>
+              <td>Graphics eating the schedule</td>
+              <td>Start with shapes; add PImage only after collision and spawning worked</td>
+            </tr>
+            <tr>
+              <td>Proving features to markers</td>
+              <td>Report lists tab or method names for each band; make the first two minutes of play obvious</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>7. Testing</h2>
+        <ul>
+          <li>Arrow keys move the field opposite to the press</li>
+          <li>Collision returns true at the expected distance and triggers a visible fail or life loss</li>
+          <li>Obstacles keep drifting with no key held</li>
+          <li>New obstacles appear over time; removed ones do not linger in the list</li>
+          <li>Subclassed obstacles still collide through the shared API (polymorphism check)</li>
+          <li>Sketch runs without errors; broken experiments stay commented out for hand in</li>
+        </ul>
+
+        <h2>8. Deployment and links</h2>
+        <p>
+          Open the sketch in Processing and run. Moodle hand in was a zip named with student name
+          and id, plus the development report. The GitHub copy is portfolio evidence of the OOP game
+          loop and collision design.
+        </p>
+      </div>
+
+      <div class="project-tech">
+        <span class="tech-tag">Processing</span>
+        <span class="tech-tag">Java</span>
+        <span class="tech-tag">OOP</span>
+      </div>
+      <div class="project-links">
+        <a href="https://github.com/code-by-panashe-sanyanga/Space-Survival" target="_blank" rel="noopener noreferrer" class="button-link">GitHub</a>
+      </div>
+    </main>
+
+    <footer>
+      &copy; <span id="footer-year">2026</span>
+      <strong>Panashe Sanyanga</strong>
+    </footer>
+    <script src="script.js?v=22"></script>
+  </body>
+</html>

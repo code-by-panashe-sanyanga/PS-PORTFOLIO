@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Emergency Call Queue | Panashe Sanyanga</title>
+    <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <meta name="description" content="Emergency Call Queue: ADS assessed exercise on custom circular queues in C#." />
+    <link rel="stylesheet" href="styles.css?v=22" />
+  </head>
+  <body>
+    <div class="floating-orbs" aria-hidden="true"></div>
+    <header>
+      <div class="container header-bar">
+        <div class="logo">PS</div>
+        <nav class="nav">
+          <a href="index.html">HOME</a>
+          <a href="projects.html" class="active">PROJECTS</a>
+          <a href="about.html">ABOUT</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container project-detail">
+      <p class="project-detail-back"><a href="projects.html#ads-queue">&lt;- All projects</a></p>
+      <h1>Emergency Call Queue</h1>
+      <p class="project-card-date">Year 2 · 6G5Z0024 ADS · Assessed Exercise 1</p>
+
+      <div class="project-detail-body">
+        <h2>1. Purpose and tech stack</h2>
+        <p>
+          Assessed Exercise 1 asked for a console simulation of an emergency dispatch desk. Calls
+          arrive, sit in a queue, and are handled in order. The hard constraint was architectural:
+          implement the queue myself in C#. Built in <code>Queue&lt;T&gt;</code> was banned. The
+          point of the exercise is to own enqueue, dequeue, capacity, and later a circular buffer,
+          not to hide behind the framework collection.
+        </p>
+        <table>
+          <thead>
+            <tr><th>Layer</th><th>Choice</th><th>Reason</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Language</td>
+              <td>C# console app</td>
+              <td>GitHub Classroom template and menu driven dispatcher UI</td>
+            </tr>
+            <tr>
+              <td>Domain model</td>
+              <td><code>EmergencyCall</code></td>
+              <td>CallerName, EmergencyType, SeverityLevel (1 to 5) with validation</td>
+            </tr>
+            <tr>
+              <td>Structure</td>
+              <td>Custom <code>EmergencyQueue</code></td>
+              <td>No framework queue; full control of storage and indices</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>2. Design</h2>
+        <p>
+          Task A establishes a linear queue ADT: Enqueue, Dequeue, Peek, Count, IsFull, IsEmpty,
+          plus a menu to log calls, dispatch the oldest, and list the waiting set. Properties reject
+          illegal severity values (for example 6 or -1) at the boundary so bad data never enters the
+          structure.
+        </p>
+        <pre class="folder-tree">Dispatcher menu
+  -> EmergencyCall (validated fields)
+  -> EmergencyQueue
+       Task A: array / linear queue ops
+       Task B: PeekHighestSeverity (scan without reorder)
+               DequeueFirstK (aux structure)
+       Task C: circular buffer (wrap head/tail)</pre>
+        <p>
+          Task B adds operational behaviour a real desk needs under load: peek the highest severity
+          without dequeue (ties broken by earliest arrival), and bulk dequeue of the first k calls.
+          The scan must not disturb FIFO order. Task C reworks storage into a circular buffer so
+          space at the front of the array is reused after dequeues instead of wasting capacity.
+        </p>
+
+        <h2>3. Features implemented</h2>
+        <ul>
+          <li>EmergencyCall with validated severity and typed emergency categories</li>
+          <li>Manual queue: enqueue, dequeue, peek, count, full / empty</li>
+          <li>Menu: add call, dispatch next, list all waiting calls</li>
+          <li>PeekHighestSeverity without mutating order</li>
+          <li>Dequeue first k calls safely via an auxiliary structure</li>
+          <li>Circular buffer accounting across all queue operations</li>
+          <li>Debugger and breakpoint checks while bringing the circular indices online</li>
+        </ul>
+
+        <h2>4. Folder structure</h2>
+        <pre class="folder-tree">ADS-Queues-Emergency-Call-System/
+├── Program.cs                 # menu driven dispatcher
+├── EmergencyCall.cs           # domain + validation
+├── EmergencyQueue.cs          # ADT (linear then circular)
+└── (GitHub Classroom template files)</pre>
+
+        <h2>5. Timescale</h2>
+        <table>
+          <thead>
+            <tr><th>Phase</th><th>Work</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Task A</td><td>Call model, core queue ops, menu, listing</td></tr>
+            <tr><td>Task B</td><td>Highest severity peek, bulk dequeue</td></tr>
+            <tr><td>Task C</td><td>Circular buffer migration and regression of A/B behaviour</td></tr>
+          </tbody>
+        </table>
+
+        <h2>6. Challenges and how they were handled</h2>
+        <table>
+          <thead>
+            <tr><th>Challenge</th><th>Approach</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>No framework Queue</td>
+              <td>Own storage, head/tail (later wrap), and capacity checks</td>
+            </tr>
+            <tr>
+              <td>Peek highest without breaking FIFO</td>
+              <td>Traverse logically; never dequeue during the scan; earliest wins on ties</td>
+            </tr>
+            <tr>
+              <td>Bulk dequeue correctness</td>
+              <td>Auxiliary queue or array so partial failure does not corrupt the primary structure</td>
+            </tr>
+            <tr>
+              <td>Circular wrap bugs</td>
+              <td>Step through with the debugger on full, empty, and wrap around cases</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>7. Testing</h2>
+        <ul>
+          <li>Enqueue then dequeue restores FIFO order</li>
+          <li>Severity outside 1 to 5 is rejected</li>
+          <li>PeekHighestSeverity returns the earliest of the max severity set</li>
+          <li>Dequeue k removes exactly k items when enough exist</li>
+          <li>After Task C: fill, empty, and wrap around without false IsFull / IsEmpty</li>
+          <li>List view matches internal count</li>
+        </ul>
+
+        <h2>8. Deployment and links</h2>
+        <p>
+          Console application from the GitHub Classroom repo. Build and run in Visual Studio or
+          <code>dotnet run</code>. There is no web deploy; the artefact is the ADT and menu for
+          marking and portfolio evidence.
+        </p>
+      </div>
+
+      <div class="project-tech">
+        <span class="tech-tag">C#</span>
+        <span class="tech-tag">Queues</span>
+        <span class="tech-tag">Circular buffer</span>
+      </div>
+      <div class="project-links">
+        <a href="https://github.com/code-by-panashe-sanyanga/ADS-Queues-Emergency-Call-System" target="_blank" rel="noopener noreferrer" class="button-link">GitHub</a>
+      </div>
+    </main>
+
+    <footer>
+      &copy; <span id="footer-year">2026</span>
+      <strong>Panashe Sanyanga</strong>
+    </footer>
+    <script src="script.js?v=22"></script>
+  </body>
+</html>

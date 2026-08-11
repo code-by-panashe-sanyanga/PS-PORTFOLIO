@@ -3,16 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Panashe Sanyanga | Software Engineer</title>
+    <title>Panashe Sanyanga | Backend Software Engineer</title>
 
     <meta
       name="description"
-      content="Panashe Sanyanga, Computer Science student at Manchester Metropolitan University. Portfolio: NovaBank and ChatWire."
+      content="Backend-focused Computer Science student at MMU, graduating 2027. Lead project NovaBank: FastAPI + PostgreSQL double-entry ledger. Seeking graduate backend roles in London or Manchester."
     />
-    <meta property="og:title" content="Panashe Sanyanga | Software Engineer" />
+    <meta property="og:title" content="Panashe Sanyanga | Backend Software Engineer" />
     <meta
       property="og:description"
-      content="Computer Science, MMU. Projects: NovaBank and ChatWire. Graduating 2027."
+      content="Backend-focused CS student, MMU, graduating 2027. NovaBank double-entry ledger. Graduate backend roles in London or Manchester."
     />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://code-by-panashe-sanyanga.github.io/PS-PORTFOLIO/" />
@@ -26,7 +26,7 @@
       href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=13" />
+    <link rel="stylesheet" href="styles.css?v=23" />
   </head>
   <body>
     <div class="floating-orbs" aria-hidden="true"></div>
@@ -38,119 +38,52 @@
           <a href="index.html" class="active">HOME</a>
           <a href="projects.html">PROJECTS</a>
           <a href="about.html">ABOUT</a>
-          <a href="contact.html">CONTACT</a>
-          <a href="cv.html" target="_blank" rel="noopener noreferrer" class="button-link">CV</a>
         </nav>
       </div>
     </header>
 
     <main>
-      <!-- Hero -->
       <section class="hero container" id="home">
         <div class="hero-content">
           <div class="intro">
             <h1>Panashe Sanyanga</h1>
             <p>
-              Computer Science student at Manchester Metropolitan University,
-              graduating 2027. Portfolio focus: NovaBank (online banking) and
-              ChatWire (real-time chat).
+              Backend-focused Computer Science student, MMU, graduating 2027. I
+              build systems where money and state have to stay correct under
+              failure. Lead project: NovaBank — FastAPI + PostgreSQL double-entry
+              ledger with row locks, idempotent transfers, and pytest on the money
+              path. Seeking graduate backend software engineering roles in London
+              or Manchester from 2027.
             </p>
-            <div class="hero-actions">
-              <a href="#selected-work" class="cta">Selected work</a>
-              <a href="cv.html" target="_blank" rel="noopener noreferrer" class="cta secondary">CV</a>
-              <a
-                href="https://github.com/code-by-panashe-sanyanga"
-                class="cta secondary"
-                target="_blank"
-                rel="noopener noreferrer"
-                >GitHub</a
-              >
-            </div>
           </div>
         </div>
       </section>
 
-      <!-- Selected work: carousel + cards -->
-      <section class="projects container" id="selected-work" aria-label="Selected work">
-        <h2>Selected work</h2>
-
-        <div
-          class="project-hero"
-          id="featured-carousel"
-          role="region"
-          aria-roledescription="carousel"
-          aria-label="Featured projects"
-        >
-          <div
-            class="project-hero-media"
-            id="project-hero-media"
-            role="img"
-            aria-label="NovaBank dashboard preview"
-          >
-            <div class="project-hero-scrim"></div>
-          </div>
-          <div class="project-hero-content">
-            <p class="project-hero-kicker" id="project-hero-kicker">Online banking</p>
-            <h3 class="project-hero-title" id="project-hero-title">NovaBank</h3>
-            <p class="project-hero-blurb" id="project-hero-blurb">
-              Accounts, transfers, savings pots, spending insights, and an admin audit log. Python, FastAPI, PostgreSQL.
-            </p>
-            <div class="project-hero-actions">
-              <a
-                id="project-hero-github"
-                class="cta"
-                href="https://github.com/code-by-panashe-sanyanga/NovaBank"
-                target="_blank"
-                rel="noopener noreferrer"
-                >View on GitHub</a
-              >
-              <a
-                id="project-hero-live"
-                class="cta secondary"
-                href="https://novabank-client-production.up.railway.app"
-                target="_blank"
-                rel="noopener noreferrer"
-                hidden
-                >Live demo</a
-              >
-              <a href="projects.html#novabank" class="cta secondary">Details</a>
-            </div>
-            <div class="project-hero-nav">
-              <button type="button" class="carousel-btn" id="carousel-prev" aria-label="Previous project">‹</button>
-              <div class="carousel-dots" id="carousel-dots" role="tablist" aria-label="Choose featured project"></div>
-              <button type="button" class="carousel-btn" id="carousel-next" aria-label="Next project">›</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="project-grid selected-grid">
-          <article class="project-card project-card-featured">
-            <img
-              src="images/novabank-dashboard.png"
-              alt="NovaBank dashboard"
-              class="project-screenshot"
-              loading="lazy"
-            />
-            <h3>NovaBank</h3>
-            <p>
-              Online banking demo with accounts, transfers, savings pots, and
-              an admin panel. Every transfer is a double-entry ledger write in
-              a single database transaction. Python, FastAPI, PostgreSQL.
-            </p>
+      <section class="container home-projects-section" aria-label="Featured projects">
+        <h2>Featured work</h2>
+        <div class="project-grid">
+          <article class="project-card project-card-featured" id="novabank">
+            <a href="project-novabank.html" class="project-card-link">
+              <img
+                src="images/novabank-dashboard.png"
+                alt="NovaBank dashboard"
+                class="project-screenshot"
+                loading="lazy"
+              />
+              <h3>NovaBank</h3>
+              <p class="project-card-date">Jun-Jul 2026 · personal</p>
+              <p>
+                Double-entry banking API: row locked transfers, idempotency keys,
+                ownership checks, and ledger tests including concurrent Postgres runs.
+              </p>
+            </a>
             <div class="project-tech">
               <span class="tech-tag">Python</span>
               <span class="tech-tag">FastAPI</span>
               <span class="tech-tag">PostgreSQL</span>
-              <span class="tech-tag">JWT</span>
             </div>
             <div class="project-links">
-              <a
-                href="https://novabank-client-production.up.railway.app"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="button-link"
-                >Live demo</a
-              >
+              <a href="project-novabank.html" class="button-link">Details</a>
               <a
                 href="https://github.com/code-by-panashe-sanyanga/NovaBank"
                 target="_blank"
@@ -158,36 +91,31 @@
                 class="button-link secondary"
                 >GitHub</a
               >
-              <a href="about.html#novabank" class="button-link secondary">Notes</a>
             </div>
           </article>
 
-          <article class="project-card project-card-featured">
-            <img
-              src="images/chatwire-chat.png"
-              alt="ChatWire chat UI"
-              class="project-screenshot"
-              loading="lazy"
-            />
-            <h3>ChatWire</h3>
-            <p>
-              Multi-user chat with communities, channels, direct messages,
-              reactions, stories, and WebRTC calls. Flask-SocketIO and SQLite.
-            </p>
+          <article class="project-card" id="chatwire">
+            <a href="project-chatwire.html" class="project-card-link">
+              <img
+                src="images/chatwire-chat.png"
+                alt="ChatWire chat UI"
+                class="project-screenshot"
+                loading="lazy"
+              />
+              <h3>ChatWire</h3>
+              <p class="project-card-date">May 2026 · personal</p>
+              <p>
+                Real-time messaging with auth, cursor pagination, and rate limits
+                on write paths.
+              </p>
+            </a>
             <div class="project-tech">
-              <span class="tech-tag">Python</span>
               <span class="tech-tag">Flask-SocketIO</span>
               <span class="tech-tag">SQLite</span>
-              <span class="tech-tag">WebRTC</span>
+              <span class="tech-tag">pytest</span>
             </div>
             <div class="project-links">
-              <a
-                href="https://chatwire-production.up.railway.app"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="button-link"
-                >Live demo</a
-              >
+              <a href="project-chatwire.html" class="button-link">Details</a>
               <a
                 href="https://github.com/code-by-panashe-sanyanga/ChatWire"
                 target="_blank"
@@ -195,102 +123,77 @@
                 class="button-link secondary"
                 >GitHub</a
               >
-              <a href="about.html#chatwire" class="button-link secondary">Notes</a>
             </div>
           </article>
         </div>
+        <p class="projects-more"><a href="projects.html">All projects</a></p>
       </section>
 
-      <!-- Skills -->
       <section class="skills-section container" id="skills" aria-label="Technical skills">
         <h2>Skills</h2>
         <div class="skills-grid">
           <div class="skill-card">
             <h3>Languages</h3>
             <ul>
-              <li>JavaScript</li>
               <li>Python</li>
               <li>SQL</li>
               <li>C#</li>
               <li>Java</li>
+              <li>JavaScript</li>
             </ul>
           </div>
           <div class="skill-card">
             <h3>Backend</h3>
             <ul>
               <li>FastAPI</li>
+              <li>PostgreSQL</li>
               <li>Flask</li>
               <li>Socket.IO</li>
-              <li>SQLite</li>
-              <li>PostgreSQL</li>
               <li>REST</li>
               <li>JWT</li>
             </ul>
           </div>
           <div class="skill-card">
-            <h3>Frontend &amp; tooling</h3>
+            <h3>Tooling</h3>
             <ul>
-              <li>HTML</li>
-              <li>CSS</li>
-              <li>Git</li>
-              <li>Docker Compose</li>
               <li>pytest</li>
+              <li>Docker Compose</li>
+              <li>Git</li>
+              <li>HTML / CSS</li>
             </ul>
           </div>
         </div>
       </section>
 
-      <!-- University coursework -->
-      <section class="container coursework-section" aria-label="Other work">
+      <section class="container coursework-section" aria-label="Coursework">
         <h2>Coursework</h2>
         <details class="coursework-fold">
-          <summary>Year 2</summary>
+          <summary>University modules (compact)</summary>
           <ul class="coursework-list">
             <li>
-              <a href="https://github.com/code-by-panashe-sanyanga/ADS-Queues-Emergency-Call-System">Emergency call queue</a>
-              · C# circular queue
+              <a href="project-emergency-call-queue.html">Emergency call queue</a>,
+              <a href="project-video-game-catalogue.html">game catalogue</a>,
+              <a href="project-aid-optimiser.html">aid optimiser</a>,
+              <a href="project-metro-routes.html">metro routes</a>
+              · Year 2 ADS (C#)
             </li>
             <li>
-              <a href="https://github.com/code-by-panashe-sanyanga/ADS-Trees-Video-Game-Manager">Game catalogue</a>
-              · BST / AVL
+              <a href="project-whats-for-dinner.html">What's For Dinner</a>
+              · Year 2 web group project
             </li>
             <li>
-              <a href="https://github.com/code-by-panashe-sanyanga/ADS-Sorting-and-Greedy-Algorithms">Aid optimiser</a>
-              · QuickSort + greedy
-            </li>
-            <li>
-              <a href="https://github.com/code-by-panashe-sanyanga/ADS-Graphs-Transport-Network">Metro routes</a>
-              · BFS / DFS / shortest path
-            </li>
-            <li>
-              <a href="https://github.com/code-by-panashe-sanyanga/WHATS-FOR-DINNER">What’s For Dinner</a>
-              · group project
+              <a href="project-vault-comics.html">Vault Comics</a>,
+              <a href="project-space-survival.html">Space Survival</a>
+              · Year 1
             </li>
           </ul>
         </details>
-        <details class="coursework-fold">
-          <summary>Year 1</summary>
-          <ul class="coursework-list">
-            <li>
-              <a href="https://github.com/code-by-panashe-sanyanga/Vault-Comics">Vault Comics</a>
-              · HTML/CSS/JS shop
-            </li>
-            <li>
-              <a href="https://github.com/code-by-panashe-sanyanga/Space-Survival">Space Survival</a>
-              · Processing game
-            </li>
-          </ul>
-        </details>
-        <p class="projects-more"><a href="projects.html">All projects</a></p>
       </section>
 
-      <!-- Contact -->
       <section class="container home-contact-cta" id="contact-cta">
-        <h2>Contact</h2>
-        <p>
-          <a href="mailto:panashe.sanyanga@hotmail.com">panashe.sanyanga@hotmail.com</a>
-        </p>
-        <a href="contact.html" class="button-link">Contact page</a>
+        <h2>About</h2>
+        <p>Background, CV, and how to get in touch.</p>
+        <a href="about.html" class="button-link">About page</a>
       </section>
     </main>
 
@@ -298,6 +201,6 @@
       &copy; <span id="footer-year">2026</span>
       <strong>Panashe Sanyanga</strong>
     </footer>
-    <script src="script.js"></script>
+    <script src="script.js?v=23"></script>
   </body>
 </html>

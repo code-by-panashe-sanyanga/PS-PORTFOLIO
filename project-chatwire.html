@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ChatWire | Panashe Sanyanga</title>
+    <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <meta
+      name="description"
+      content="ChatWire project write up: purpose, tech stack, design, features, testing, and deployment."
+    />
+    <link rel="stylesheet" href="styles.css?v=21" />
+  </head>
+  <body>
+    <div class="floating-orbs" aria-hidden="true"></div>
+    <header>
+      <div class="container header-bar">
+        <div class="logo">PS</div>
+        <nav class="nav">
+          <a href="index.html">HOME</a>
+          <a href="projects.html" class="active">PROJECTS</a>
+          <a href="about.html">ABOUT</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container project-detail">
+      <p class="project-detail-back"><a href="projects.html#chatwire">&lt;- All projects</a></p>
+      <h1>ChatWire</h1>
+      <p class="project-card-date">May 2026 · personal project</p>
+
+      <div class="project-gallery">
+        <img src="images/chatwire-join.png" alt="ChatWire join screen" class="project-screenshot" loading="lazy" />
+        <img src="images/chatwire-chat.png" alt="ChatWire chat UI" class="project-screenshot" loading="lazy" />
+        <img src="images/chatwire-timeline.png" alt="ChatWire timeline" class="project-screenshot" loading="lazy" />
+        <img src="images/chatwire-light.png" alt="ChatWire light theme" class="project-screenshot" loading="lazy" />
+      </div>
+
+      <div class="project-detail-body">
+        <h2>1. Purpose and tech stack</h2>
+        <p>
+          ChatWire is a real time chat app with a Discord style layout. I built it after mostly doing
+          request/response HTTP work, as a way to learn server push, auth, and permission checks
+          outside of a banking context. The browser uses JSON HTTP for login and Socket.IO for live
+          messages. Accounts and history live in SQLite.
+        </p>
+        <table>
+          <thead>
+            <tr>
+              <th>Layer</th>
+              <th>Choice</th>
+              <th>Reason</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Server</td>
+              <td>Python, Flask, Flask-SocketIO</td>
+              <td>HTTP APIs plus live events on one process for a demo scale app</td>
+            </tr>
+            <tr>
+              <td>Data</td>
+              <td>SQLite</td>
+              <td>Simple persistence for users, messages, friends, feed</td>
+            </tr>
+            <tr>
+              <td>Auth</td>
+              <td>bcrypt + signed session tokens</td>
+              <td>Reconnect with a token, not the password</td>
+            </tr>
+            <tr>
+              <td>Client</td>
+              <td>HTML, CSS, JavaScript</td>
+              <td>Channel UI, DMs, feed, theme switch</td>
+            </tr>
+            <tr>
+              <td>Calls</td>
+              <td>WebRTC</td>
+              <td>Mic, camera, screen share between peers</td>
+            </tr>
+            <tr>
+              <td>Presence</td>
+              <td>In memory</td>
+              <td>Online status changes often and need not survive restart</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>2. Design (request path and live path)</h2>
+        <div class="mermaid">
+flowchart LR
+  UI[HTML CSS JS] -->|JSON HTTP| Flask
+  UI -->|Socket.IO| Sockets
+  Flask --> SQL[(SQLite)]
+  Sockets --> SQL
+  Sockets --> UI
+        </div>
+        <p>
+          Channel history loads once with cursor pagination (<code>before_id</code> /
+          <code>has_more</code>). New events append so switching rooms does not replay the whole
+          history. Unread counts and DM threads are stored in SQLite and pushed over sockets.
+        </p>
+
+        <h2>3. Features implemented</h2>
+        <ul>
+          <li>Communities, channels, DMs, reactions, stories, friends, typing, edit / delete</li>
+          <li>WebRTC calls (mic, camera, screen share)</li>
+          <li>Dark / light theme, file attachments, quick switcher</li>
+          <li>Admin rename gates for communities and channels</li>
+          <li>Login lockout after repeated failures; same check on change password</li>
+          <li>Rate limits on chat and social write paths</li>
+          <li>Friends only feed and story views check the viewer is allowed before returning data</li>
+        </ul>
+
+        <h2>4. Folder structure</h2>
+        <pre class="folder-tree">ChatWire/
+├── app.py                 # Flask routes (/api/auth/*, health)
+├── sockets/               # live chat / social / feed events
+├── db.py                  # schema + queries
+├── state.py               # online presence (memory)
+├── throttle.py            # per connection rate limits
+├── validate.py            # payload checks
+├── static/                # UI
+├── seed.py                # optional sample data
+└── tests/                 # pytest</pre>
+
+        <h2>5. Timescale</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Phase</th>
+              <th>When</th>
+              <th>Work</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Auth and rooms</td>
+              <td>May 2026</td>
+              <td>Register / login, communities, channels, basic messages</td>
+            </tr>
+            <tr>
+              <td>Live product features</td>
+              <td>May 2026</td>
+              <td>DMs, reactions, typing, stories, presence</td>
+            </tr>
+            <tr>
+              <td>Calls and hardening</td>
+              <td>May 2026</td>
+              <td>WebRTC, lockout, rate limits, permission checks, pytest</td>
+            </tr>
+            <tr>
+              <td>Deploy</td>
+              <td>May 2026</td>
+              <td>Railway public demo</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>6. Challenges and how they were handled</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Challenge</th>
+              <th>Approach</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Reloading full history on every room switch</td>
+              <td>Load once, then append events; cursor pagination for older messages</td>
+            </tr>
+            <tr>
+              <td>Auth only on login</td>
+              <td>Signed tokens; ownership and friend checks on feed / stories / renames</td>
+            </tr>
+            <tr>
+              <td>Brute force on login or change password</td>
+              <td>Short account lockout after repeated failures</td>
+            </tr>
+            <tr>
+              <td>Spam on sockets</td>
+              <td>Per connection rate limits on write events</td>
+            </tr>
+            <tr>
+              <td>Presence scale</td>
+              <td>Keep online status in memory for demo scale; document JOIN batching for later</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>7. Testing</h2>
+        <p>From the ChatWire repo:</p>
+        <pre class="checklist">pip install -r requirements-dev.txt
+pytest -q</pre>
+        <p>Manual checks:</p>
+        <ul>
+          <li>Two browsers: message in a channel appears live for both</li>
+          <li>Non friend cannot open a friends only feed or story</li>
+          <li>Non admin cannot rename a community or channel</li>
+          <li>Failed logins trigger lockout; change password is covered by the same gate</li>
+          <li>Reconnect with session token without retyping the password</li>
+        </ul>
+
+        <h2>8. Deployment and links</h2>
+        <p>
+          Local: venv, <code>pip install -r requirements.txt</code>, <code>python app.py</code>,
+          open http://localhost:5001. Optional <code>python seed.py</code>. Live demo is on Railway.
+          Demo login: <code>demo</code> / <code>demo123456</code> (admin, so rename works in demos).
+        </p>
+      </div>
+
+      <div class="project-tech">
+        <span class="tech-tag">Python</span>
+        <span class="tech-tag">Flask-SocketIO</span>
+        <span class="tech-tag">SQLite</span>
+        <span class="tech-tag">WebRTC</span>
+      </div>
+      <div class="project-links">
+        <a href="https://chat-wire-production.up.railway.app" target="_blank" rel="noopener noreferrer" class="button-link">Live demo</a>
+        <a href="https://github.com/code-by-panashe-sanyanga/ChatWire" target="_blank" rel="noopener noreferrer" class="button-link secondary">GitHub</a>
+      </div>
+    </main>
+
+    <footer>
+      &copy; <span id="footer-year">2026</span>
+      <strong>Panashe Sanyanga</strong>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>
+      mermaid.initialize({ startOnLoad: true, theme: "neutral" });
+    </script>
+    <script src="script.js?v=21"></script>
+  </body>
+</html>

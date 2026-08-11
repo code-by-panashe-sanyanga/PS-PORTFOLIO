@@ -2,5 +2,6 @@
 .env
 .tools/
 .vscode/
+.brief-extracts/
 *.log
 *.db

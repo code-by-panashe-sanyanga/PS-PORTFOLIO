@@ -265,6 +265,134 @@ a.cta.secondary:hover {
   height: 140px;
 }
 
+.project-gallery-interactive .gallery-thumb {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: zoom-in;
+  border-radius: 6px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.project-gallery-interactive .gallery-thumb:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
+}
+
+.project-gallery-interactive .gallery-thumb:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 3px;
+}
+
+.project-gallery-interactive .gallery-thumb .project-screenshot {
+  pointer-events: none;
+  margin-bottom: 0;
+  height: 140px;
+}
+
+.gallery-dot {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  border: none;
+  padding: 0;
+  background: rgba(255, 255, 255, 0.35);
+  cursor: pointer;
+}
+
+.gallery-dot.active {
+  background: #fff;
+  transform: scale(1.15);
+}
+
+.gallery-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(10, 16, 24, 0.88);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.gallery-lightbox[hidden] {
+  display: none !important;
+}
+
+.gallery-lightbox-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.85rem;
+  max-width: min(1100px, 92vw);
+}
+
+.gallery-lightbox img {
+  max-width: min(1100px, 92vw);
+  max-height: 80vh;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+  background: #111;
+  cursor: pointer;
+}
+
+.gallery-lightbox-dots {
+  display: flex;
+  gap: 0.45rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.gallery-lightbox-close,
+.gallery-lightbox-nav {
+  position: absolute;
+  border: none;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  cursor: pointer;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gallery-lightbox-close {
+  top: 1rem;
+  right: 1rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 1.6rem;
+}
+
+.gallery-lightbox-nav {
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2.75rem;
+  height: 2.75rem;
+  font-size: 1.8rem;
+}
+
+.gallery-lightbox-nav.prev {
+  left: 1rem;
+}
+
+.gallery-lightbox-nav.next {
+  right: 1rem;
+}
+
+.gallery-lightbox-close:hover,
+.gallery-lightbox-nav:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+body.lightbox-open {
+  overflow: hidden;
+}
+
 @media (max-width: 600px) {
   .project-gallery {
     grid-template-columns: 1fr;
@@ -284,6 +412,20 @@ a.cta.secondary:hover {
 
 .projects-more a:hover {
   text-decoration: underline;
+}
+
+.home-projects-section {
+  padding: 1rem 0 2rem;
+  text-align: center;
+}
+
+.home-projects-section h2 {
+  color: var(--accent-color);
+  margin-bottom: 1.5rem;
+}
+
+.home-projects-section .project-grid {
+  text-align: left;
 }
 
 .home-contact-cta {
@@ -1024,10 +1166,12 @@ a.cta.is-disabled:hover {
   box-sizing: border-box;
 }
 
-.about-intro h1 {
+.about-intro h1,
+.about-intro h2 {
   color: var(--accent-color);
   margin-bottom: 1.25rem;
   font-size: 2.2rem;
+  text-align: center;
 }
 
 .about-intro p {
@@ -1037,7 +1181,33 @@ a.cta.is-disabled:hover {
   margin-bottom: 1rem;
 }
 
-.about-intro p:last-child {
+.about-intro > p:last-of-type {
+  margin-bottom: 0;
+}
+
+.about-more {
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.about-more summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--accent-color);
+  list-style-position: outside;
+  user-select: none;
+}
+
+.about-more[open] summary {
+  margin-bottom: 0.85rem;
+}
+
+.about-more p {
+  margin-bottom: 1rem;
+}
+
+.about-more p:last-child {
   margin-bottom: 0;
 }
 
@@ -1370,6 +1540,21 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Respect the OS-level reduced motion setting: kills decorative animation
+   (floating orbs, hover lifts, the old project-hero Ken Burns effect) and
+   smooth scrolling. The lightbox autoplay timer has its own JS check in
+   script.js since that's a setInterval, not CSS. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 10px;
@@ -1689,6 +1874,26 @@ html {
   text-align: left;
 }
 
+.coursework-fold-nested {
+  max-width: none;
+  margin: 0.75rem 0 0;
+  background: var(--bg-medium);
+  box-shadow: none;
+}
+
+.coursework-fold-nested:first-of-type {
+  margin-top: 0.5rem;
+}
+
+.coursework-fold-nested > .coursework-list {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.coursework-fold-nested > .coursework-list li:last-child {
+  margin-bottom: 0;
+}
+
 .coursework-fold summary {
   cursor: pointer;
   font-weight: 600;
@@ -1739,4 +1944,187 @@ html {
 }
 .form-fallback a {
   color: #0b5cab;
+}
+
+/* Compact contact tile on About */
+.contact-block {
+  margin: 0 0 3rem;
+}
+
+.contact-block .contact-info {
+  margin-bottom: 1.5rem;
+}
+
+.contact-block .contact-form {
+  max-width: 520px;
+}
+
+.cv-block {
+  margin: 0 0 3rem;
+}
+
+.cv-block .button-link {
+  display: inline-block;
+  margin-top: 0.5rem;
+}
+
+.contact-block-heading {
+  color: var(--accent-color);
+  font-size: 1.8rem;
+  text-align: center;
+  margin: 0 0 1rem;
+}
+
+.contact-tile {
+  background-color: var(--bg-medium);
+  border-radius: 10px;
+  margin: 0;
+  padding: 2rem 2.5rem;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 8px 20px var(--shadow-color);
+}
+
+.contact-tile-lead {
+  color: var(--text-secondary);
+  margin-bottom: 1.25rem;
+}
+
+.contact-tile .contact-info {
+  margin-bottom: 1.5rem;
+}
+
+.contact-tile .contact-form {
+  max-width: 520px;
+}
+
+/* Project detail pages */
+.project-detail {
+  padding-bottom: 3rem;
+}
+
+.project-detail-back {
+  margin-bottom: 1rem;
+}
+
+.project-detail-back a {
+  color: var(--accent-color);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.project-detail-back a:hover {
+  text-decoration: underline;
+}
+
+.project-detail h1 {
+  color: var(--text-primary);
+  font-size: 2.4rem;
+  margin-bottom: 0.35rem;
+}
+
+.project-detail-body {
+  background-color: var(--bg-medium);
+  border-radius: 10px;
+  margin: 1.5rem 0 2rem;
+  padding: 2rem 2.5rem;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 8px 20px var(--shadow-color);
+}
+
+.project-detail-body h2 {
+  color: var(--accent-color);
+  font-size: 1.35rem;
+  margin: 1.5rem 0 0.6rem;
+}
+
+.project-detail-body h2:first-child {
+  margin-top: 0;
+}
+
+.project-detail-body p,
+.project-detail-body li {
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+.project-detail-body ul {
+  margin: 0.5rem 0 0 1.2rem;
+}
+
+.project-detail-body code {
+  font-size: 0.9em;
+  background: var(--bg-light);
+  padding: 0.1em 0.35em;
+  border-radius: 3px;
+}
+
+.project-detail-body table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0.75rem 0 1.25rem;
+  font-size: 0.95rem;
+}
+
+.project-detail-body th,
+.project-detail-body td {
+  border: 1px solid var(--border-color);
+  padding: 0.55rem 0.7rem;
+  text-align: left;
+  vertical-align: top;
+  color: var(--text-secondary);
+}
+
+.project-detail-body th {
+  background: var(--bg-light);
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.project-detail-body pre.folder-tree,
+.project-detail-body pre.checklist {
+  background: var(--bg-light);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 1rem 1.1rem;
+  overflow-x: auto;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  margin: 0.75rem 0 1.25rem;
+}
+
+.project-detail-body .mermaid {
+  background: var(--bg-light);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 0.75rem 0 1.25rem;
+  overflow-x: auto;
+}
+
+.project-detail-body h3 {
+  color: var(--text-primary);
+  font-size: 1.05rem;
+  margin: 1.1rem 0 0.45rem;
+}
+
+.project-card-link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.project-card-link:hover h3 {
+  color: var(--accent-color);
+}
+
+.projects-list-lead {
+  color: var(--text-secondary);
+  margin: -0.5rem 0 2rem;
+  max-width: 40rem;
+}
+
+.home-contact-cta p {
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
 }

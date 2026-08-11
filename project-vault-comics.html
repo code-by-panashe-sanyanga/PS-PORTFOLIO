@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Vault Comics | Panashe Sanyanga</title>
+    <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <meta
+      name="description"
+      content="Vault Comics: Year 1 Web Development payment gateway style shop. Validation, API post, testing."
+    />
+    <link rel="stylesheet" href="styles.css?v=22" />
+  </head>
+  <body>
+    <div class="floating-orbs" aria-hidden="true"></div>
+    <header>
+      <div class="container header-bar">
+        <div class="logo">PS</div>
+        <nav class="nav">
+          <a href="index.html">HOME</a>
+          <a href="projects.html" class="active">PROJECTS</a>
+          <a href="about.html">ABOUT</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container project-detail">
+      <p class="project-detail-back"><a href="projects.html#vault-comics">&lt;- All projects</a></p>
+      <h1>Vault Comics</h1>
+      <p class="project-card-date">Year 1 · 6G4Z0024 Web Development · individual</p>
+
+      <div class="project-gallery">
+        <img src="images/vaultcomics-home.png" alt="Vault Comics home" class="project-screenshot" loading="lazy" />
+        <img src="images/vaultcomics-catalogue.png" alt="Vault Comics catalogue" class="project-screenshot" loading="lazy" />
+      </div>
+
+      <div class="project-detail-body">
+        <h2>1. Purpose and tech stack</h2>
+        <p>
+          Vault Comics is my Year 1 Web Development coursework (1CWK100): a structured site that
+          mimics a payment gateway flow on a small e commerce catalogue. The brief required a home
+          page of products, a pay page that validates Mastercard details in JavaScript, a POST of
+          JSON to the university credit card API, and a success page that shows a masked card ending.
+          I themed the shop as comics rather than generic books so the catalogue felt specific while
+          still meeting every required page and validation rule.
+        </p>
+        <table>
+          <thead>
+            <tr>
+              <th>Layer</th>
+              <th>Choice</th>
+              <th>Reason</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Markup</td>
+              <td>HTML5 (<code>index.html</code>, <code>pay.html</code>, <code>success.html</code>)</td>
+              <td>Exact three page flow demanded by the specification</td>
+            </tr>
+            <tr>
+              <td>Presentation</td>
+              <td>Single CSS file under <code>css/</code></td>
+              <td>Brief forbade an MVC layout; one stylesheet keeps styling consistent</td>
+            </tr>
+            <tr>
+              <td>Behaviour</td>
+              <td>JavaScript under <code>js/</code></td>
+              <td>All card checks and the API call had to be client side JS (no marks for other languages)</td>
+            </tr>
+            <tr>
+              <td>Remote check</td>
+              <td>POST JSON to MMU <code>/node/api/creditcard</code></td>
+              <td>Second validation layer after local regex and field rules</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>2. Design</h2>
+        <p>
+          The architecture is a linear checkout pipeline. Home lists at least four products with
+          image, short copy, and a Pay control. Pay collects card fields, runs local validation, then
+          posts to the server. Success only appears after a 200 response and shows
+          <code>**** **** **** 1234</code> style masking for the last four digits.
+        </p>
+        <div class="mermaid">
+flowchart LR
+  Home[index.html catalogue] -->|Pay| Pay[pay.html]
+  Pay -->|local JS validation| Local{Pass?}
+  Local -->|no| Pay
+  Local -->|yes POST JSON| API[MMU creditcard API]
+  API -->|200 OK| Success[success.html masked card]
+  API -->|error| Pay
+        </div>
+        <p>
+          Responsive rules were part of the mark scheme: product list two columns on desktop, one
+          column on phones. Navigation includes Home, About Us, and Contact Us as required (About
+          and Contact did not need full pages). Folder layout follows the brief exactly:
+          root HTML, <code>js/</code>, <code>image/</code>, <code>css/</code>.
+        </p>
+        <h3>Card validation rules implemented in JavaScript</h3>
+        <ul>
+          <li>Sixteen digits for the Mastercard number</li>
+          <li>Prefix in 51, 52, 53, 54, or 55</li>
+          <li>Expiry not in the past</li>
+          <li>CVV length 3 or 4</li>
+          <li>On failure, keep the user on the form; on success, POST
+            <code>{ master_card, exp_year, exp_month, cvv_code }</code> and handle API errors</li>
+        </ul>
+
+        <h2>3. Features implemented</h2>
+        <ul>
+          <li>Catalogue home with face images, short blurbs, and Pay actions</li>
+          <li>Responsive product grid and navigation behaviour for small screens</li>
+          <li>Pay form with full client side Mastercard checks</li>
+          <li>JSON POST to the assessment API and error handling for bad payloads</li>
+          <li>Success page returning masked last four digits</li>
+          <li>Usability and accessibility checklist in the accompanying report (five points minimum)</li>
+        </ul>
+
+        <h2>4. Folder structure</h2>
+        <pre class="folder-tree">Vault-Comics/
+├── index.html
+├── pay.html
+├── success.html
+├── css/          # single stylesheet
+├── js/           # validation + fetch/POST
+└── image/        # product art</pre>
+
+        <h2>5. Timescale</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Phase</th>
+              <th>Work</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Structure</td>
+              <td>Create the three pages and mandatory folders; wire navigation</td>
+            </tr>
+            <tr>
+              <td>Catalogue UI</td>
+              <td>Product cards, images, responsive breakpoints</td>
+            </tr>
+            <tr>
+              <td>Validation</td>
+              <td>Regex and field rules for Mastercard, expiry, CVV</td>
+            </tr>
+            <tr>
+              <td>API integration</td>
+              <td>POST JSON, parse success message, surface failures</td>
+            </tr>
+            <tr>
+              <td>Report and polish</td>
+              <td>Usability / accessibility list; comments in JS as required</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>6. Challenges and how they were handled</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Challenge</th>
+              <th>Approach</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>All validation marks sit in JavaScript</td>
+              <td>Keep checks in <code>js/</code>; never rely on HTML5 alone for the graded rules</td>
+            </tr>
+            <tr>
+              <td>API rejects malformed JSON</td>
+              <td>Build the exact payload shape; branch on non 200 and show a clear retry state</td>
+            </tr>
+            <tr>
+              <td>Responsive nav and grid</td>
+              <td>Two column desktop, single column phone; test both before hand in</td>
+            </tr>
+            <tr>
+              <td>Directory rules</td>
+              <td>Stick to root HTML + css/js/image; no MVC restructure</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>7. Testing</h2>
+        <ul>
+          <li>Reject card numbers that are not 16 digits or wrong prefix</li>
+          <li>Reject expired month or year</li>
+          <li>Reject CVV lengths outside 3 to 4</li>
+          <li>Accept a valid Mastercard shaped number and reach success with masked digits</li>
+          <li>Force a bad POST and confirm the UI reports the error without navigating to success</li>
+          <li>Resize to phone width: catalogue stacks to one column; nav remains usable</li>
+        </ul>
+
+        <h2>8. Deployment and links</h2>
+        <p>
+          Static site: open <code>index.html</code> or serve the folder locally. The pay step needs
+          network access to the MMU credit card endpoint used in the module. Source is on GitHub;
+          the Moodle hand in was a zip of code plus the usability report.
+        </p>
+      </div>
+
+      <div class="project-tech">
+        <span class="tech-tag">HTML</span>
+        <span class="tech-tag">CSS</span>
+        <span class="tech-tag">JavaScript</span>
+      </div>
+      <div class="project-links">
+        <a href="https://github.com/code-by-panashe-sanyanga/Vault-Comics" target="_blank" rel="noopener noreferrer" class="button-link">GitHub</a>
+      </div>
+    </main>
+
+    <footer>
+      &copy; <span id="footer-year">2026</span>
+      <strong>Panashe Sanyanga</strong>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>
+      mermaid.initialize({ startOnLoad: true, theme: "neutral" });
+    </script>
+    <script src="script.js?v=22"></script>
+  </body>
+</html>

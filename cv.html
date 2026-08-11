@@ -54,7 +54,7 @@
     </style>
   </head>
   <body>
-    <a class="back-link" href="index.html">← Back to portfolio</a>
+    <a class="back-link" href="index.html"><- Back to portfolio</a>
 
     <h1>Panashe Sanyanga</h1>
     <p class="subtitle">
@@ -70,15 +70,16 @@
 
     <h2>Profile</h2>
     <p>
-      Computer Science student graduating 2027. I focus on backend systems that
-      stay consistent under failure: NovaBank (double-entry banking transfers)
-      and ChatWire (real-time chat with auth and Socket.IO). Campus IT Advisor;
-      seeking software engineering graduate roles from 2027.
+      Backend-focused Computer Science student, MMU, graduating 2027. I build
+      systems where money and state have to stay correct under failure. Lead
+      project: NovaBank — FastAPI + PostgreSQL double-entry ledger with row locks,
+      idempotent transfers, and pytest on the money path. Seeking graduate
+      backend software engineering roles in London or Manchester from 2027.
     </p>
 
     <h2>Technical skills</h2>
-    <p class="skills-line"><strong>Languages:</strong> JavaScript, Python, SQL, HTML, CSS, C#, Java</p>
-    <p class="skills-line"><strong>Backend:</strong> FastAPI, Flask, Flask-SocketIO, SQLite, PostgreSQL, REST, JWT</p>
+    <p class="skills-line"><strong>Languages:</strong> Python, SQL, C#, Java, JavaScript, HTML, CSS</p>
+    <p class="skills-line"><strong>Backend:</strong> FastAPI, PostgreSQL, Flask, Flask-SocketIO, SQLite, REST, JWT</p>
     <p class="skills-line"><strong>Frontend:</strong> HTML, CSS, JavaScript</p>
     <p class="skills-line"><strong>Tooling:</strong> Git, Docker Compose, pytest</p>
 
@@ -86,7 +87,7 @@
 
     <div class="entry">
       <div class="entry-title">NovaBank: online banking app</div>
-      <div class="entry-meta">Jun-Jul 2026 · Python · FastAPI · SQLAlchemy · PostgreSQL · <a href="https://github.com/code-by-panashe-sanyanga/NovaBank">GitHub</a> · <a href="https://novabank-client-production.up.railway.app">Live demo</a></div>
+      <div class="entry-meta">Jun-Jul 2026 · Python · FastAPI · SQLAlchemy · PostgreSQL · <a href="https://github.com/code-by-panashe-sanyanga/NovaBank">GitHub</a> · <a href="https://novabank-api-production-2778.up.railway.app">Live demo</a></div>
       <ul>
         <li>Accounts, transfers, savings pots with round-ups, spending insights, card freeze, admin audit panel</li>
         <li>Double-entry ledger: every transfer writes a balanced debit and credit in one database transaction</li>
@@ -96,12 +97,11 @@
     </div>
 
     <div class="entry">
-      <div class="entry-title">ChatWire: multi-user chat</div>
-      <div class="entry-meta">May 2026 · Flask-SocketIO · Python · SQLite · JavaScript · <a href="https://github.com/code-by-panashe-sanyanga/ChatWire">GitHub</a> · <a href="https://chatwire-production.up.railway.app">Live demo</a></div>
+      <div class="entry-title">ChatWire: real-time messaging</div>
+      <div class="entry-meta">May 2026 · Flask-SocketIO · Python · SQLite · JavaScript · <a href="https://github.com/code-by-panashe-sanyanga/ChatWire">GitHub</a> · <a href="https://chat-wire-production.up.railway.app">Live demo</a></div>
       <ul>
-        <li>Communities, channels, DMs, reactions, stories, presence, typing, WebRTC calls</li>
-        <li>SQLite for accounts and messages; Socket.IO for live events; HTTP for auth and uploads</li>
-        <li>bcrypt password hashing, signed session tokens, login lockout after repeated failed attempts</li>
+        <li>Auth with bcrypt and signed session tokens; login lockout after repeated failures</li>
+        <li>Socket.IO for live messages; cursor pagination on channel history; rate limits on writes</li>
         <li>pytest for message handlers and auth</li>
       </ul>
     </div>

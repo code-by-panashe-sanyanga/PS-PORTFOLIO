@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Aid Distribution Optimiser | Panashe Sanyanga</title>
+    <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <meta name="description" content="Aid Distribution Optimiser: complexity, generic QuickSort, greedy drone loadout." />
+    <link rel="stylesheet" href="styles.css?v=22" />
+  </head>
+  <body>
+    <div class="floating-orbs" aria-hidden="true"></div>
+    <header>
+      <div class="container header-bar">
+        <div class="logo">PS</div>
+        <nav class="nav">
+          <a href="index.html">HOME</a>
+          <a href="projects.html" class="active">PROJECTS</a>
+          <a href="about.html">ABOUT</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container project-detail">
+      <p class="project-detail-back"><a href="projects.html#ads-sort">&lt;- All projects</a></p>
+      <h1>Aid Distribution Optimiser</h1>
+      <p class="project-card-date">Year 2 · 6G5Z0024 ADS · Assessed Task 3</p>
+
+      <div class="project-detail-body">
+        <h2>1. Purpose and tech stack</h2>
+        <p>
+          Assessed Task 3 combines three skills the unit treats as one package: argue Big O on real
+          methods, ship a generic QuickSort, then apply a greedy packer to a drone aid problem. Each
+          drone carries at most 75 kg. Items have weight and survival priority. The algorithm must
+          take whole items only, ranked by priority per kilogram, until the next item would break
+          the cap.
+        </p>
+        <table>
+          <thead>
+            <tr><th>Layer</th><th>Choice</th><th>Reason</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Analysis</td>
+              <td>Line by line Big O on Algorithm1 / Algorithm2</td>
+              <td>Task A marks need full working and notation, not a guessed label</td>
+            </tr>
+            <tr>
+              <td>Sort</td>
+              <td>Generic QuickSort over <code>IComparable</code></td>
+              <td>CompareTo instead of &lt; / == so ints and strings share one sorter</td>
+            </tr>
+            <tr>
+              <td>Domain</td>
+              <td><code>AidItem</code> + <code>PriorityRatio</code></td>
+              <td>Priority / Weight drives greedy order</td>
+            </tr>
+            <tr>
+              <td>Selection</td>
+              <td><code>GreedyUtils</code> knapsack style picker</td>
+              <td>0/1 items, 75 kg hard stop</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>2. Design</h2>
+        <p>
+          Task A is documentation as engineering: open ComplexityFunctions, derive the cost of each
+          line, and state the overall class. Task B lifts the provided QuickSort skeleton into a
+          generic form demonstrated from the menu on integer and string arrays. Task C introduces
+          AidItem (name, weight 1 to 50, priority 1 to 10, read only PriorityRatio), then greedily
+          selects highest ratio first. The brief allows reusing the generic QuickSort to order items
+          before packing.
+        </p>
+        <pre class="folder-tree">Program menu
+  -> Sort integers / strings   (generic QuickSort)
+  -> Add AidItem / list items
+  -> Run greedy packer
+       sort by PriorityRatio desc
+       take whole items while weight + next &lt;= 75
+       report loadout, total weight, total priority</pre>
+
+        <h2>3. Features implemented</h2>
+        <ul>
+          <li>Written complexity analysis for the two required algorithms</li>
+          <li>Generic QuickSort via CompareTo for any IComparable element type</li>
+          <li>Menu demos for int and string arrays</li>
+          <li>AidItem with validated weight and priority ranges</li>
+          <li>Greedy loadout builder with 75 kg ceiling and no fractional items</li>
+          <li>Printed selection with totals for weight and priority</li>
+        </ul>
+
+        <h2>4. Folder structure</h2>
+        <pre class="folder-tree">ADS-Sorting-and-Greedy-Algorithms/
+├── Program.cs
+├── ComplexityFunctions.cs
+├── SortUtils.cs
+├── GreedyUtils.cs
+└── AidItem.cs</pre>
+
+        <h2>5. Timescale</h2>
+        <table>
+          <thead>
+            <tr><th>Phase</th><th>Work</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Task A</td><td>Complexity write up with full working</td></tr>
+            <tr><td>Task B</td><td>Generic QuickSort + menu demos</td></tr>
+            <tr><td>Task C</td><td>AidItem model, greedy packer, menu integration</td></tr>
+          </tbody>
+        </table>
+
+        <h2>6. Challenges and how they were handled</h2>
+        <table>
+          <thead>
+            <tr><th>Challenge</th><th>Approach</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Generic compare without operators</td>
+              <td>Pivot decisions through CompareTo only</td>
+            </tr>
+            <tr>
+              <td>Greedy is not globally optimal</td>
+              <td>Accept the brief's ratio heuristic; document totals so markers see the policy</td>
+            </tr>
+            <tr>
+              <td>Capacity edge cases</td>
+              <td>Stop when the next whole item would exceed 75 kg; never take a fraction</td>
+            </tr>
+            <tr>
+              <td>Analysis marks</td>
+              <td>Per line notation matching the ExampleQuestion format in the template</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>7. Testing</h2>
+        <ul>
+          <li>QuickSort: unsorted ints and strings leave a non decreasing CompareTo order</li>
+          <li>AidItem rejects weight or priority outside the brief ranges</li>
+          <li>PriorityRatio equals Priority / Weight for sample items</li>
+          <li>Greedy never exceeds 75 kg</li>
+          <li>Higher ratio items are preferred when both fit</li>
+          <li>Empty list and single oversized item produce a sensible empty or skipped loadout</li>
+        </ul>
+
+        <h2>8. Deployment and links</h2>
+        <p>
+          Console solution in the GitHub Classroom repo. Run locally with Visual Studio or
+          <code>dotnet run</code>. No server deploy; the deliverable is analysis plus working sort
+          and greedy menu paths.
+        </p>
+      </div>
+
+      <div class="project-tech">
+        <span class="tech-tag">C#</span>
+        <span class="tech-tag">QuickSort</span>
+        <span class="tech-tag">Greedy</span>
+      </div>
+      <div class="project-links">
+        <a href="https://github.com/code-by-panashe-sanyanga/ADS-Sorting-and-Greedy-Algorithms" target="_blank" rel="noopener noreferrer" class="button-link">GitHub</a>
+      </div>
+    </main>
+
+    <footer>
+      &copy; <span id="footer-year">2026</span>
+      <strong>Panashe Sanyanga</strong>
+    </footer>
+    <script src="script.js?v=22"></script>
+  </body>
+</html>

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>NovaBank | Panashe Sanyanga</title>
+    <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <meta
+      name="description"
+      content="NovaBank project write up: purpose, tech stack, design, features, testing, and deployment."
+    />
+    <link rel="stylesheet" href="styles.css?v=21" />
+  </head>
+  <body>
+    <div class="floating-orbs" aria-hidden="true"></div>
+    <header>
+      <div class="container header-bar">
+        <div class="logo">PS</div>
+        <nav class="nav">
+          <a href="index.html">HOME</a>
+          <a href="projects.html" class="active">PROJECTS</a>
+          <a href="about.html">ABOUT</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container project-detail">
+      <p class="project-detail-back"><a href="projects.html#novabank">&lt;- All projects</a></p>
+      <h1>NovaBank</h1>
+      <p class="project-card-date">Jun to Jul 2026 · personal project</p>
+
+      <div class="project-gallery">
+        <img src="images/novabank-dashboard.png" alt="NovaBank dashboard" class="project-screenshot" loading="lazy" />
+        <img src="images/novabank-pots.png" alt="NovaBank savings pots" class="project-screenshot" loading="lazy" />
+        <img src="images/novabank-cards.png" alt="NovaBank cards" class="project-screenshot" loading="lazy" />
+      </div>
+
+      <div class="project-detail-body">
+        <h2>1. Purpose and tech stack</h2>
+        <p>
+          NovaBank is a small online banking demo with customer and admin roles. I built it to
+          practise transfers, auth, and database transactions the way a real bank would need to
+          handle them, not a happy path only demo. Money moves through a double entry ledger rather
+          than a single mutable balance field.
+        </p>
+        <table>
+          <thead>
+            <tr>
+              <th>Layer</th>
+              <th>Choice</th>
+              <th>Reason</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>API</td>
+              <td>Python, FastAPI</td>
+              <td>Clear route modules and OpenAPI docs for checking endpoints</td>
+            </tr>
+            <tr>
+              <td>Database</td>
+              <td>PostgreSQL (Docker Compose); SQLite for quick smoke</td>
+              <td>Postgres for ACID and row locks on transfers</td>
+            </tr>
+            <tr>
+              <td>ORM / money types</td>
+              <td>SQLAlchemy, Decimal</td>
+              <td>Avoid float for currency</td>
+            </tr>
+            <tr>
+              <td>Auth</td>
+              <td>bcrypt + JWT with role claim</td>
+              <td>Customer vs admin gates; ownership checks on accounts and cards</td>
+            </tr>
+            <tr>
+              <td>UI</td>
+              <td>HTML, CSS, JavaScript, Chart.js</td>
+              <td>Browser client for dashboard, pots, cards, admin</td>
+            </tr>
+            <tr>
+              <td>Live updates</td>
+              <td>WebSockets</td>
+              <td>Balance refresh after money posts</td>
+            </tr>
+            <tr>
+              <td>Ops</td>
+              <td>Docker Compose, Railway deploy</td>
+              <td>Local Postgres parity; public demo</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>2. Design (money path and system view)</h2>
+        <p>
+          Only the ledger transfer service is meant to post money rows. The browser calls REST with
+          a JWT in localStorage and opens a WebSocket for live balance updates after posts.
+        </p>
+        <div class="mermaid">
+flowchart LR
+  Browser[Browser UI] -->|REST + JWT| API[FastAPI]
+  Browser -->|WebSocket| API
+  API --> Ledger[ledger service]
+  Ledger --> DB[(PostgreSQL)]
+  API --> Fraud[fraud rules]
+  Fraud --> DB
+  Admin[Admin routes] --> API
+        </div>
+        <h3>Transfer steps</h3>
+        <ol>
+          <li>Lock the accounts involved, ordered by id (<code>FOR UPDATE</code> on Postgres) so two crossing transfers do not deadlock.</li>
+          <li>Insert a <code>transactions</code> row (immutable header; optional idempotency key).</li>
+          <li>Insert balanced <code>ledger_entries</code> (debits must equal credits for that transaction).</li>
+          <li>Update <code>balance_cache</code> in the same database transaction.</li>
+          <li>Commit, or roll the whole unit back.</li>
+        </ol>
+        <p>
+          Customer deposit accounts are treated as liabilities (the bank owes the customer). Deposit
+          credits the customer and debits a system account; withdraw does the reverse; transfer
+          debits A and credits B. If a client repeats the same <code>idempotencyKey</code>, the
+          second call returns the original transaction instead of posting again.
+        </p>
+
+        <h2>3. Features implemented</h2>
+        <ul>
+          <li>Register / login; new users get a current account, savings account, and debit card</li>
+          <li>Deposit, withdraw, transfer by account number; statements and CSV export</li>
+          <li>Savings pots, round ups on card payments, category spending breakdown</li>
+          <li>Card freeze / unfreeze, spending limits, merchant category blocks</li>
+          <li>Session style device list ideas and audit log on money and admin actions</li>
+          <li>Admin: customer search, account freeze, flagged transaction review</li>
+          <li>Fraud rules that flag (not block) large amounts, burst outbound transfers, and outliers</li>
+          <li>Card numbers masked in API responses; ownership checks on account and card routes</li>
+        </ul>
+
+        <h2>4. Folder structure</h2>
+        <pre class="folder-tree">NovaBank/
+├── novabank/
+│   ├── main.py              # app, pages, WebSocket, /docs
+│   ├── api.py               # REST routes
+│   └── services/
+│       ├── ledger.py        # double entry transfer service
+│       └── fraud.py         # anomaly rules (flag, do not block)
+├── templates/ + static/     # UI
+├── workers/fraud_scan.py    # offline / cron style re-scan
+├── tests/                   # pytest
+├── seed_ledger.py
+├── docker-compose.yml
+├── Dockerfile
+└── requirements.txt</pre>
+
+        <h2>5. Timescale</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Phase</th>
+              <th>When</th>
+              <th>Work</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Core ledger and auth</td>
+              <td>Jun 2026</td>
+              <td>Accounts, JWT, deposit / withdraw / transfer in one DB transaction</td>
+            </tr>
+            <tr>
+              <td>Customer product surface</td>
+              <td>Jun to Jul 2026</td>
+              <td>Pots, cards, statements, insights, WebSocket updates</td>
+            </tr>
+            <tr>
+              <td>Admin and fraud</td>
+              <td>Jul 2026</td>
+              <td>Audit views, flag rules, worker scan</td>
+            </tr>
+            <tr>
+              <td>Hardening and deploy</td>
+              <td>Jul 2026</td>
+              <td>pytest on ledger path, Docker Compose Postgres, Railway demo</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>6. Challenges and how they were handled</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Challenge</th>
+              <th>Approach</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Partial failure mid transfer</td>
+              <td>All ledger writes and balance cache updates sit in one database transaction</td>
+            </tr>
+            <tr>
+              <td>Concurrent transfers on the same accounts</td>
+              <td>Row locks ordered by account id on Postgres</td>
+            </tr>
+            <tr>
+              <td>Float rounding on money</td>
+              <td>Store and compute with Decimal</td>
+            </tr>
+            <tr>
+              <td>Double submit from a slow client</td>
+              <td>Idempotency keys on deposit / withdraw / transfer</td>
+            </tr>
+            <tr>
+              <td>Leaking card data or other users' accounts</td>
+              <td>Mask card numbers; check ownership on every sensitive route</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>7. Testing</h2>
+        <p>
+          Automated tests use pytest on the ledger and transfer path. Run from the NovaBank repo:
+        </p>
+        <pre class="checklist">pytest -q</pre>
+        <p>Manual checks used before calling a build done:</p>
+        <ul>
+          <li>Transfer A to B updates both sides and leaves balanced ledger entries</li>
+          <li>Forced failure mid flow does not leave one side updated</li>
+          <li>Customer cannot read another customer's account by id</li>
+          <li>Admin routes reject a customer JWT</li>
+          <li>Repeated idempotency key does not double post</li>
+          <li>Docker Compose Postgres path matches local expectations for locks</li>
+        </ul>
+
+        <h2>8. Deployment and links</h2>
+        <p>
+          Local quick smoke: venv, <code>pip install -r requirements.txt</code>, seed, then
+          <code>uvicorn novabank.main:app --reload --port 5002</code>. For Postgres:
+          <code>docker compose up --build</code>, then seed with
+          <code>DATABASE_URL</code> pointed at the compose database. Public demo is on Railway.
+        </p>
+        <p>
+          Demo passwords in the NovaBank README are <code>Password123</code> for seeded users such
+          as <code>alex@example.com</code> (customer) and <code>admin@novabank.co.uk</code> (admin).
+        </p>
+      </div>
+
+      <div class="project-tech">
+        <span class="tech-tag">Python</span>
+        <span class="tech-tag">FastAPI</span>
+        <span class="tech-tag">PostgreSQL</span>
+        <span class="tech-tag">JWT</span>
+        <span class="tech-tag">Docker</span>
+      </div>
+      <div class="project-links">
+        <a href="https://novabank-api-production-2778.up.railway.app" target="_blank" rel="noopener noreferrer" class="button-link">Live demo</a>
+        <a href="https://github.com/code-by-panashe-sanyanga/NovaBank" target="_blank" rel="noopener noreferrer" class="button-link secondary">GitHub</a>
+      </div>
+    </main>
+
+    <footer>
+      &copy; <span id="footer-year">2026</span>
+      <strong>Panashe Sanyanga</strong>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>
+      mermaid.initialize({ startOnLoad: true, theme: "neutral" });
+    </script>
+    <script src="script.js?v=21"></script>
+  </body>
+</html>
