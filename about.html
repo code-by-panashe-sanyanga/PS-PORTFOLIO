@@ -11,9 +11,9 @@
     />
     <meta
       name="description"
-      content="About Panashe Sanyanga. Computer Science student at MMU. Notes on NovaBank and ChatWire."
+      content="About Panashe Sanyanga. Backend-focused CS student at MMU, graduating 2027. Contact and CV."
     />
-    <link rel="stylesheet" href="styles.css?v=13" />
+    <link rel="stylesheet" href="styles.css?v=23" />
   </head>
   <body>
     <div class="floating-orbs" aria-hidden="true"></div>
@@ -25,144 +25,140 @@
           <a href="index.html">HOME</a>
           <a href="projects.html">PROJECTS</a>
           <a href="about.html" class="active">ABOUT</a>
-          <a href="contact.html">CONTACT</a>
-          <a href="cv.html" target="_blank" rel="noopener noreferrer" class="button-link">CV</a>
         </nav>
       </div>
     </header>
 
     <main class="container">
-      <div class="insights-intro">
-        <h1>About</h1>
-      </div>
-
       <div class="about-intro">
+        <h1>About</h1>
         <p>
-          I’m a Computer Science student at Manchester Metropolitan University,
-          heading into final year in October 2026 and graduating in 2027.
+          Backend-focused Computer Science student at Manchester Metropolitan
+          University, graduating 2027. I build systems where money and state have
+          to stay correct under failure. Lead project: NovaBank (FastAPI +
+          PostgreSQL double-entry ledger with row locks, idempotent transfers, and
+          pytest on the money path).
         </p>
         <p>
-          I build backend systems that have to stay correct under pressure:
-          money that moves in balanced ledger entries, auth that fails closed,
-          and live chat state that survives dropped sockets. NovaBank and
-          ChatWire are where I practise that end to end — APIs, databases,
-          tests, and a deploy people can actually click.
+          Also built ChatWire for real-time messaging with auth, cursor
+          pagination, and rate limits. This site is the record of what I shipped,
+          how it works, and what I learned.
         </p>
         <p>
-          On campus I’m an IT Advisor supporting staff and students day to day.
-          Before university I worked in retail and loss prevention, so I’m used
-          to owning problems in public, not just in a repo. Looking for software
-          engineering graduate roles from 2027.
+          Seeking graduate backend software engineering roles in London or
+          Manchester from 2027.
         </p>
-      </div>
 
-      <div class="insights-intro">
-        <h1>Project notes</h1>
-      </div>
-
-      <article class="insight-article" id="novabank">
-        <h2>NovaBank</h2>
-        <div class="project-overview">
-          <h3>Brief</h3>
+        <details class="about-more">
+          <summary>More about me</summary>
+          <p>I've always been the person who wants to know how things work.</p>
           <p>
-            A small online banking app with customer and admin roles. Built to
-            practise transfers, auth, and database transactions properly, the
-            way a real bank would need to handle them.
-          </p>
-          <h3>Features</h3>
-          <ul>
-            <li>Register and login (bcrypt + JWT); new users get a current account, a savings account, and a debit card</li>
-            <li>Deposit, withdraw, and transfer by account number, with statement filters and CSV export</li>
-            <li>Savings pots with optional targets, round-ups on card payments, and a spending breakdown by category</li>
-            <li>Card freeze/unfreeze, spending limits, and merchant category blocks</li>
-            <li>Session management: see active devices, log out everywhere, review recent login activity</li>
-            <li>Admin panel: customer search, account freeze, transaction audit log, flagged-transaction review</li>
-          </ul>
-          <h3>Implementation notes</h3>
-          <p>
-            Money movement uses double-entry bookkeeping: every transfer
-            writes a balanced debit and credit into an immutable ledger table
-            inside one database transaction, so a failure partway through
-            cannot leave one side updated and the other not. Balances are
-            stored as Decimal, never float. Card numbers are masked in every
-            API response, and account and card routes check that the
-            logged-in user actually owns the resource before returning
-            anything. pytest covers the ledger and transfer logic; Docker
-            Compose runs PostgreSQL locally.
+            While studying for my Extended Diploma in Engineering at college, I
+            was originally considering going into mechanical or electrical
+            engineering. As part of the course, I started working with Arduino
+            boards and small hardware projects. I enjoyed writing code that made
+            something physical happen and seeing the result straight away. That
+            was what first got me seriously interested in software.
           </p>
           <p>
-            <a
-              href="https://novabank-client-production.up.railway.app"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="button-link"
-              >Live demo</a
+            I liked being able to take an idea, write some code, test it, change
+            it, and see what happened. The more I worked with it, the more I found
+            myself interested in the programming side of the projects.
+          </p>
+          <p>
+            That eventually led me to study Computer Science at Manchester
+            Metropolitan University. I wanted to learn more than just how to write
+            code. I wanted to understand how software is designed, how different
+            parts of a system work together, and how to build things properly.
+          </p>
+          <p>
+            While at university, I've also been working as an IT Advisor at
+            Manchester Metropolitan University. I support staff and students with
+            hardware, software, accounts and network issues, as well as working
+            with service desk tickets, PC imaging and software deployment through
+            SCCM.
+          </p>
+          <p>
+            It's given me experience dealing with problems that don't always have
+            a straightforward answer. Sometimes that means diagnosing a hardware
+            issue, figuring out why software isn't working, or helping someone who
+            just needs their computer working again. It has also taught me how
+            important it is to communicate clearly and work through problems
+            methodically.
+          </p>
+          <p>
+            I've always had the same curiosity outside of college and university
+            too. If a laptop, phone or tablet stopped working, I would usually try
+            to figure out what was wrong before replacing it. I still approach
+            software in much the same way. If I don't understand something, I want
+            to take it apart and work out why.
+          </p>
+          <p>
+            I also became interested in financial markets and Forex trading bots.
+            Building and experimenting with automated strategies got me interested
+            in working with data, writing rules into software, and thinking about
+            what happens when things don't go the way you expect. It has influenced
+            some of the projects I've worked on and taught me to pay attention to
+            the details rather than assuming everything will work perfectly.
+          </p>
+          <p>
+            I want to work with good engineers, learn from real projects, and keep
+            getting better by building things.
+          </p>
+        </details>
+      </div>
+
+      <section class="about-intro cv-block" id="cv" aria-label="CV">
+        <h2>CV</h2>
+        <p>
+          One-page CV for software engineering graduate applications: education,
+          selected projects, experience, and skills.
+        </p>
+        <a href="cv.html" target="_blank" rel="noopener noreferrer" class="button-link">View CV</a>
+      </section>
+
+      <section class="about-intro contact-block" id="contact" aria-label="Contact">
+        <h2>Contact</h2>
+        <div class="contact-info">
+          <p>
+            Email:
+            <a href="mailto:panashe.sanyanga@hotmail.com">panashe.sanyanga@hotmail.com</a>
+          </p>
+          <p>
+            LinkedIn:
+            <a href="https://www.linkedin.com/in/panashe-l-s" target="_blank" rel="noopener noreferrer"
+              >linkedin.com/in/panashe-l-s</a
             >
-            <a
-              href="https://github.com/code-by-panashe-sanyanga/NovaBank"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="button-link secondary"
-              >GitHub</a
+          </p>
+          <p>
+            GitHub:
+            <a href="https://github.com/code-by-panashe-sanyanga" target="_blank" rel="noopener noreferrer"
+              >github.com/code-by-panashe-sanyanga</a
             >
           </p>
         </div>
-      </article>
+        <form class="contact-form">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" required autocomplete="name" />
 
-      <article class="insight-article" id="chatwire">
-        <h2>ChatWire</h2>
-        <div class="project-overview">
-          <h3>Brief</h3>
-          <p>
-            A chat app where the server pushes updates to clients. Built after
-            mostly doing request/response HTTP work, and a chance to focus on
-            auth and permission checks outside of a banking context.
-          </p>
-          <h3>Features</h3>
-          <ul>
-            <li>Communities, channels, DMs, reactions, stories, friends list, typing, edit/delete</li>
-            <li>Flask-SocketIO for live events; SQLite for accounts, messages, friends, and the feed</li>
-            <li>WebRTC calls (mic, camera, screen share); presence kept in memory</li>
-            <li>Dark/light theme, file attachments, quick switcher; pytest on message handlers and auth</li>
-          </ul>
-          <h3>Implementation notes</h3>
-          <p>
-            Channel history is loaded once, then only new events are appended,
-            so switching rooms doesn't replay the same messages. Passwords are
-            hashed with bcrypt; sessions use signed, expiring tokens rather
-            than storing the password client-side. Repeated failed logins
-            trigger a short account lockout, and that same check protects the
-            change-password endpoint so it can't be used to brute-force a
-            password either. The friends-only feed and story views check that
-            the viewer is actually the author or a friend before returning
-            anything, not just when listing the normal feed. Online status is
-            kept in memory because it changes every second and does not need
-            to survive a restart.
-          </p>
-          <p>
-            <a
-              href="https://chatwire-production.up.railway.app"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="button-link"
-              >Live demo</a
-            >
-            <a
-              href="https://github.com/code-by-panashe-sanyanga/ChatWire"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="button-link secondary"
-              >GitHub</a
-            >
-          </p>
-        </div>
-      </article>
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required autocomplete="email" />
+
+          <label for="subject">Subject</label>
+          <input type="text" id="subject" name="subject" />
+
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="5" required></textarea>
+
+          <button type="submit">Email</button>
+        </form>
+      </section>
     </main>
 
     <footer>
       &copy; <span id="footer-year">2026</span>
       <strong>Panashe Sanyanga</strong>
     </footer>
-    <script src="script.js"></script>
+    <script src="script.js?v=23"></script>
   </body>
 </html>

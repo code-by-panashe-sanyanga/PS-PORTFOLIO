@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Video Game Catalogue | Panashe Sanyanga</title>
+    <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <meta name="description" content="Video Game Catalogue: ADS trees exercise, BST then AVL in C#." />
+    <link rel="stylesheet" href="styles.css?v=22" />
+  </head>
+  <body>
+    <div class="floating-orbs" aria-hidden="true"></div>
+    <header>
+      <div class="container header-bar">
+        <div class="logo">PS</div>
+        <nav class="nav">
+          <a href="index.html">HOME</a>
+          <a href="projects.html" class="active">PROJECTS</a>
+          <a href="about.html">ABOUT</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container project-detail">
+      <p class="project-detail-back"><a href="projects.html#ads-trees">&lt;- All projects</a></p>
+      <h1>Video Game Catalogue</h1>
+      <p class="project-card-date">Year 2 · 6G5Z0024 ADS · Assessed Exercise 2</p>
+
+      <div class="project-detail-body">
+        <h2>1. Purpose and tech stack</h2>
+        <p>
+          Assessed Exercise 2 is a retro gaming preservation catalogue: store games and search them
+          efficiently using binary trees. The brief forbids pre built tree libraries and requires
+          recursion for tree behaviour. Titles are unique keys. The console menu is the operator
+          surface for insert, walk, query, update, and later AVL insert and remove.
+        </p>
+        <table>
+          <thead>
+            <tr><th>Layer</th><th>Choice</th><th>Reason</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Language</td>
+              <td>C# console</td>
+              <td>Classroom template and recursive tree labs</td>
+            </tr>
+            <tr>
+              <td>Domain</td>
+              <td><code>VideoGame</code> (title, developer, year)</td>
+              <td>Unique title used as the BST key</td>
+            </tr>
+            <tr>
+              <td>Structures</td>
+              <td>Node, BinTree, BSTree, then AVLTree</td>
+              <td>Progress from ordered BST to balanced AVL with rotations</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>2. Design</h2>
+        <p>
+          Task A wires insert into a BSTree and exposes InOrder, PreOrder, and PostOrder from
+          BinTree so the operator can choose a walk. Earliest release year and height are recursive
+          queries; height is node based as specified in the lectures. Task B adds count, update by
+          title (same navigation pattern as insert until the key matches), and list by year. Task C
+          replaces the live structure with an AVL tree: balance factors, rotations on insert, and
+          removal that covers the three classical cases and rebalances afterwards.
+        </p>
+        <pre class="folder-tree">Menu
+  -> VideoGame records
+  -> BSTree (Tasks A/B): insert, walks, earliest year, height, count, update, by-year
+  -> AVLTree (Task C): insert with rotations, remove with rebalance
+       LL / LR / RL / RR rotations driven by balance factor</pre>
+
+        <h2>3. Features implemented</h2>
+        <ul>
+          <li>Insert unique titled games into a BST</li>
+          <li>In / pre / post order listings via the menu</li>
+          <li>Recursive earliest release year and tree height</li>
+          <li>Node count, update in place by title, filter by year</li>
+          <li>AVL insert with rotations when balance breaks</li>
+          <li>AVL remove with restructuring so remaining keys stay reachable</li>
+          <li>Menu switched to drive the AVL structure for Task C</li>
+        </ul>
+
+        <h2>4. Folder structure</h2>
+        <pre class="folder-tree">ADS-Trees-Video-Game-Manager/
+├── Program.cs
+├── VideoGame.cs
+├── Node.cs
+├── BinTree.cs
+├── BSTree.cs
+└── AVLTree.cs</pre>
+
+        <h2>5. Timescale</h2>
+        <table>
+          <thead>
+            <tr><th>Phase</th><th>Work</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Task A</td><td>Game model, BST insert, walks, earliest year, height</td></tr>
+            <tr><td>Task B</td><td>Count, update, list by year</td></tr>
+            <tr><td>Task C</td><td>AVL rotations, remove, menu cutover</td></tr>
+          </tbody>
+        </table>
+
+        <h2>6. Challenges and how they were handled</h2>
+        <table>
+          <thead>
+            <tr><th>Challenge</th><th>Approach</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Everything recursive</td>
+              <td>No iterative shortcuts for walks, height, or count; mirror lecture patterns</td>
+            </tr>
+            <tr>
+              <td>Update vs insert</td>
+              <td>Same left/right decisions; on equal title mutate the node instead of inserting</td>
+            </tr>
+            <tr>
+              <td>Unbalanced BST degradation</td>
+              <td>AVL balance factor checks and the four rotation cases</td>
+            </tr>
+            <tr>
+              <td>Remove without orphaning subtrees</td>
+              <td>Handle leaf, one child, two children; then rotate if unbalanced</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>7. Testing</h2>
+        <ul>
+          <li>Insert then InOrder lists titles sorted</li>
+          <li>Duplicate title path updates rather than forking a second key</li>
+          <li>Earliest year matches the minimum release in the set</li>
+          <li>Height and count stay consistent after inserts</li>
+          <li>Year filter returns only that year</li>
+          <li>AVL insert sequence that would skew a BST stays shallow; remove leaves a searchable tree</li>
+        </ul>
+
+        <h2>8. Deployment and links</h2>
+        <p>
+          Console app in the GitHub Classroom repository. Run under Visual Studio or
+          <code>dotnet run</code>. Evidence for the unit is the recursive ADTs and menu coverage of
+          Tasks A to C.
+        </p>
+      </div>
+
+      <div class="project-tech">
+        <span class="tech-tag">C#</span>
+        <span class="tech-tag">BST</span>
+        <span class="tech-tag">AVL</span>
+      </div>
+      <div class="project-links">
+        <a href="https://github.com/code-by-panashe-sanyanga/ADS-Trees-Video-Game-Manager" target="_blank" rel="noopener noreferrer" class="button-link">GitHub</a>
+      </div>
+    </main>
+
+    <footer>
+      &copy; <span id="footer-year">2026</span>
+      <strong>Panashe Sanyanga</strong>
+    </footer>
+    <script src="script.js?v=22"></script>
+  </body>
+</html>

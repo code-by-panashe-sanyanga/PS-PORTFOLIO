@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>What's For Dinner | Panashe Sanyanga</title>
+    <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <meta
+      name="description"
+      content="What's For Dinner: Year 2 Thematic Project recipe finder. Architecture, delivery, testing, and team practice."
+    />
+    <link rel="stylesheet" href="styles.css?v=22" />
+  </head>
+  <body>
+    <div class="floating-orbs" aria-hidden="true"></div>
+    <header>
+      <div class="container header-bar">
+        <div class="logo">PS</div>
+        <nav class="nav">
+          <a href="index.html">HOME</a>
+          <a href="projects.html" class="active">PROJECTS</a>
+          <a href="about.html">ABOUT</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container project-detail">
+      <p class="project-detail-back"><a href="projects.html#whats-for-dinner">&lt;- All projects</a></p>
+      <h1>What's For Dinner</h1>
+      <p class="project-card-date">Year 2 · 6G5Z0023 Thematic Project · group</p>
+
+      <div class="project-gallery">
+        <img src="images/whatsfordinner-home.png" alt="What's For Dinner homepage" class="project-screenshot" loading="lazy" />
+        <img src="images/whatsfordinner-recipes.png" alt="What's For Dinner recipes" class="project-screenshot" loading="lazy" />
+      </div>
+
+      <div class="project-detail-body">
+        <h2>1. Purpose and tech stack</h2>
+        <p>
+          What's For Dinner is a Year 2 Thematic Project (1CWK100) recipe finder. The brief put us on a
+          product with a real use case: help people cook with ingredients they already have, cut food
+          waste, and browse meals by cuisine. The team chose a responsive website over a store app
+          so we could ship a browser MVP within the unit timeline.
+        </p>
+        <p>
+          My contribution sat across delivery and code. Roles were not titled formally, but I took on
+          informal lead work: research, page development, supporting teammates who were stuck, and
+          keeping tasks moving on Teams and Trello when progress stalled. The MVP we agreed as a team
+          shipped: ingredient input, recipe suggestions from a matching path, and country or cuisine
+          browse. Saved favourites and full user accounts were scoped out for later so the core path
+          stayed finishable.
+        </p>
+        <table>
+          <thead>
+            <tr>
+              <th>Layer</th>
+              <th>Choice</th>
+              <th>Reason</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Client</td>
+              <td>HTML, CSS, JavaScript</td>
+              <td>Multi page UI, shared navigation, responsive layout for phone and desktop</td>
+            </tr>
+            <tr>
+              <td>Server / data</td>
+              <td>Python backend serving recipe data</td>
+              <td>Keep matching and recipe content off hard coded page markup where possible</td>
+            </tr>
+            <tr>
+              <td>Collaboration</td>
+              <td>GitHub, Trello, Microsoft Teams</td>
+              <td>Parallel work, visible task board, daily style check ins</td>
+            </tr>
+            <tr>
+              <td>Delivery style</td>
+              <td>Staged Agile (research, design, build, test)</td>
+              <td>Adapt when a feature overran without restarting the whole plan</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>2. Design</h2>
+        <p>
+          The product path is deliberately short. A visitor lands on home, either searches by
+          ingredient or keyword, takes an inspiration route (dish of the day style prompts), or
+          browses by country. Shared CSS and navigation keep every page one product, not a set of
+          mismatched student pages.
+        </p>
+        <div class="mermaid">
+flowchart TD
+  Home[Home] --> Search[Ingredient / keyword search]
+  Home --> Browse[Browse by cuisine]
+  Home --> Inspire[Inspiration / dish of the day]
+  Search --> Match[Recipe matching]
+  Browse --> Match
+  Inspire --> Match
+  Match --> Detail[Recipe view]
+  Detail --> Backend[Python recipe data]
+        </div>
+        <p>
+          Matching is the architectural centre: user inputs map onto recipe records rather than
+          dumping a static list. That kept the social goal (use what you have) tied to the data model
+          instead of to marketing copy alone. We also treated cuisine content as something to check
+          for accuracy and cultural care, not filler text.
+        </p>
+
+        <h2>3. Features implemented</h2>
+        <ul>
+          <li>Ingredient and keyword search that returns workable recipe suggestions</li>
+          <li>Browse by country or cuisine</li>
+          <li>Inspiration path when the user has no fixed dish in mind</li>
+          <li>Responsive layout tested for desktop and phone widths</li>
+          <li>Shared navigation and styling across pages</li>
+          <li>Python backed recipe data for the matching path</li>
+          <li>Team process: Trello board, Teams for blockers, GitHub for parallel commits</li>
+        </ul>
+        <p>
+          Explicitly not in the MVP: saved favourites and production grade accounts. Those were
+          listed as future work so GDPR and password storage did not block shipping the core finder.
+        </p>
+
+        <h2>4. Folder structure</h2>
+        <pre class="folder-tree">WHATS-FOR-DINNER/
+├── index.html                 # entry / redirect into frontend pages
+├── frontend/
+│   └── pages/                 # home, recipes, cuisine views
+├── backend/                   # Python recipe data / server side logic
+├── .gitignore
+└── README / team docs</pre>
+
+        <h2>5. Timescale</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Phase</th>
+              <th>Work</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Preferences and kickoff</td>
+              <td>Assigned Recipe Finder brief; team formed; MVP goals written down</td>
+            </tr>
+            <tr>
+              <td>Research and design</td>
+              <td>Information architecture, page list, cuisine and waste framing</td>
+            </tr>
+            <tr>
+              <td>Build</td>
+              <td>Frontend pages, matching path, backend recipe data, shared CSS</td>
+            </tr>
+            <tr>
+              <td>Integration pain</td>
+              <td>Merge conflicts from parallel edits; process tightened (Teams before push, Trello ownership)</td>
+            </tr>
+            <tr>
+              <td>MVP freeze and demo</td>
+              <td>Core search and browse working; stretch features deferred; demonstration video recorded</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>6. Challenges and how they were handled</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Challenge</th>
+              <th>Approach</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Git merge conflicts breaking layout</td>
+              <td>Communicate on Teams before push; Trello ownership so two people were not editing the same file blind</td>
+            </tr>
+            <tr>
+              <td>Uneven effort across the group</td>
+              <td>Redistributed tasks; chased updates; carried gaps so the MVP still shipped (lesson: set expectations earlier next time)</td>
+            </tr>
+            <tr>
+              <td>Scope vs time</td>
+              <td>Cut favourites and accounts; protect search, browse, and matching</td>
+            </tr>
+            <tr>
+              <td>Ethics and legality</td>
+              <td>Accurate cuisine content; Equality Act minded UI (readable type, clear nav, responsive); GDPR noted for any future account data</td>
+            </tr>
+            <tr>
+              <td>Security for a later account feature</td>
+              <td>MVP kept personal data minimal; password protection planned for a real account release rather than bolted on late</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>7. Testing</h2>
+        <p>
+          Testing was manual against the team MVP definition and the unit brief. We did not run a
+          separate automated suite in this module; confidence came from browser checks and demo
+          rehearsal.
+        </p>
+        <ul>
+          <li>Ingredient search returns relevant recipes, not empty or random noise</li>
+          <li>Cuisine browse lists the expected dishes</li>
+          <li>Navigation is consistent on every page</li>
+          <li>Layout holds at phone width and desktop width</li>
+          <li>Demo path (home to result) completes without dead links</li>
+          <li>After merge fixes, previously broken CSS no longer regressed the shared shell</li>
+        </ul>
+
+        <h2>8. Deployment and links</h2>
+        <p>
+          The site is static frontend pages plus a Python backend folder in the repo. Open the root
+          <code>index.html</code> (or serve the folder with a local static server) and start the
+          backend if live data is required. Source and write up live on GitHub; demonstration video
+          was submitted via MMUTube for the unit.
+        </p>
+      </div>
+
+      <div class="project-tech">
+        <span class="tech-tag">HTML</span>
+        <span class="tech-tag">CSS</span>
+        <span class="tech-tag">JavaScript</span>
+        <span class="tech-tag">Python</span>
+      </div>
+      <div class="project-links">
+        <a href="https://github.com/code-by-panashe-sanyanga/WHATS-FOR-DINNER" target="_blank" rel="noopener noreferrer" class="button-link">GitHub</a>
+      </div>
+    </main>
+
+    <footer>
+      &copy; <span id="footer-year">2026</span>
+      <strong>Panashe Sanyanga</strong>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>
+      mermaid.initialize({ startOnLoad: true, theme: "neutral" });
+    </script>
+    <script src="script.js?v=22"></script>
+  </body>
+</html>
