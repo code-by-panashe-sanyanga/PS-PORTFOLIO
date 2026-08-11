@@ -129,7 +129,8 @@ flowchart LR
           <li>Register / login; new users get a current account, savings account, and debit card</li>
           <li>Deposit, withdraw, transfer by account number; statements and CSV export</li>
           <li>Savings pots, round ups on card payments, category spending breakdown</li>
-          <li>Card freeze / unfreeze, spending limits, merchant category blocks</li>
+          <li>Card freeze / unfreeze, spending limits, merchant category blocks (card numbers, PINs, and account closure are stubs)</li>
+          <li>FX rate lookup and convert via Frankfurter / ECB (<code>/fx/rate</code>, <code>/fx/convert</code>)</li>
           <li>Session style device list ideas and audit log on money and admin actions</li>
           <li>Admin: customer search, account freeze, flagged transaction review</li>
           <li>Fraud rules that flag (not block) large amounts, burst outbound transfers, and outliers</li>
@@ -141,12 +142,12 @@ flowchart LR
 ├── novabank/
 │   ├── main.py              # app, pages, WebSocket, /docs
 │   ├── api.py               # REST routes
+│   ├── auth.py / database.py / features.py
 │   └── services/
-│       ├── ledger.py        # double entry transfer service
+│       ├── ledger.py        # double-entry transfer service
 │       └── fraud.py         # anomaly rules (flag, do not block)
 ├── templates/ + static/     # UI
-├── workers/fraud_scan.py    # offline / cron style re-scan
-├── tests/                   # pytest
+├── tests/                   # pytest (incl. concurrent Postgres suite)
 ├── seed_ledger.py
 ├── docker-compose.yml
 ├── Dockerfile
@@ -221,15 +222,17 @@ flowchart LR
         <p>
           Automated tests use pytest on the ledger and transfer path. Run from the NovaBank repo:
         </p>
-        <pre class="checklist">pytest -q</pre>
-        <p>Manual checks used before calling a build done:</p>
+        <pre class="checklist">pytest -q
+# locally: 9 passed, 2 skipped (skipped need NOVABANK_PG_URL)
+NOVABANK_PG_URL=postgresql+psycopg://... pytest -q tests/test_concurrent_postgres.py</pre>
+        <p>What those suites cover, plus manual checks before calling a build done:</p>
         <ul>
           <li>Transfer A to B updates both sides and leaves balanced ledger entries</li>
           <li>Forced failure mid flow does not leave one side updated</li>
           <li>Customer cannot read another customer's account by id</li>
           <li>Admin routes reject a customer JWT</li>
           <li>Repeated idempotency key does not double post</li>
-          <li>Docker Compose Postgres path matches local expectations for locks</li>
+          <li>Postgres concurrency: racing withdrawals and crossed transfers leave a consistent ledger (<code>tests/test_concurrent_postgres.py</code>)</li>
         </ul>
 
         <h2>8. Deployment and links</h2>
