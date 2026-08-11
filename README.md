@@ -85,7 +85,7 @@ I ran a real Lighthouse audit (`npx lighthouse` against headless Chrome, 11 Aug 
 
 Then I compressed every project screenshot (resized anything over 1200px wide down to 1200px, re-encoded as palette-quantized PNG with `sharp`). Total image payload across the 14 screenshots went from 4.92 MB to 1.28 MB, a 74% reduction, with no visible quality loss on any of them (checked by eye, before/after, at full size). I also fixed the lightbox accessibility issues described above, and wired the contact form to FormSubmit so submissions arrive by email without needing a local mail client.
 
-**Live after** (same URL, redeployed): _pending — fill after deploy Lighthouse run_.
+**Live after** (same URL, redeployed 11 Aug 2026): Performance 92, Accessibility 95, Best Practices 100, SEO 100.
 
 ## The hard bit
 
