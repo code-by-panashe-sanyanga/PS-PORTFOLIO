@@ -70,13 +70,13 @@
 
     <h2>Profile</h2>
     <p>
-      Final-year Computer Science student at Manchester Metropolitan University
-      with experience building software end-to-end, from backend systems and APIs
-      to accessible user interfaces. Recent projects include a banking API
-      featuring a double-entry ledger and row-locked transactions, a real-time
-      messaging application, and a portfolio website. Currently working as an IT
-      Advisor at the University. Seeking graduate Software Engineering
-      opportunities in London or Manchester from Summer 2027.
+      Final-year Computer Science student building software end to end, from
+      backend APIs to accessible interfaces. Drawn to the parts of a system that
+      are easy to get wrong. Recent projects include a double-entry banking API
+      with row-locked transfers and idempotency keys, and a real-time messaging
+      application. Currently working in the IT department at The Manchester
+      Metropolitan University. Seeking graduate Software Engineering roles in
+      London or Manchester from Summer 2027.
     </p>
 
     <h2>Technical skills</h2>
@@ -88,11 +88,11 @@
     <h2>Education</h2>
     <div class="entry">
       <div class="entry-title">BSc (Hons) Computer Science, Manchester Metropolitan University</div>
-      <div class="entry-meta">Sep 2023 – 2027 · Predicted 2:1</div>
+      <div class="entry-meta">Sep 2023 – Jun 2027 · Predicted 2:1</div>
     </div>
     <div class="entry">
       <div class="entry-title">BTEC Level 3 Extended Diploma in Engineering, Milton Keynes College</div>
-      <div class="entry-meta">Sep 2013 – Jul 2015 · DDD (Distinction Distinction Distinction)</div>
+      <div class="entry-meta">Sep 2013 – Jul 2015 · DDD (Distinction, Distinction, Distinction)</div>
     </div>
 
     <h2>Selected projects</h2>
@@ -101,10 +101,11 @@
       <div class="entry-title">NovaBank: online banking app</div>
       <div class="entry-meta">Jun – Jul 2026 · Python · FastAPI · SQLAlchemy · PostgreSQL · <a href="https://github.com/code-by-panashe-sanyanga/NovaBank">GitHub</a> · <a href="https://novabank-api-production-2778.up.railway.app">Live demo</a></div>
       <ul>
-        <li>Accounts, transfers, savings pots with round-ups, spending insights, card freeze, admin audit panel</li>
-        <li>Double-entry ledger: every transfer writes a balanced debit and credit in one database transaction</li>
-        <li>JWT auth, bcrypt password hashing, rate-limited login, masked card numbers, ownership checks on every route</li>
-        <li>11 pytest cases on the ledger and transfer path (9 passed locally, 2 concurrent Postgres runs when NOVABANK_PG_URL is set); Docker Compose for local PostgreSQL</li>
+        <li>Double-entry ledger: every transfer writes a balanced debit and credit inside one database transaction</li>
+        <li>Row-locked transfers and idempotency keys on write paths, so concurrent or retried requests cannot double apply</li>
+        <li>JWT auth, bcrypt password hashing, rate-limited login, masked card numbers, and ownership checks on every route</li>
+        <li>Accounts, transfers, savings pots with round-ups, spending insights, card freeze, and an admin audit panel</li>
+        <li>11 pytest cases across the ledger and transfer path, including two concurrent PostgreSQL runs that verify transfers cannot race; Docker Compose for local Postgres</li>
       </ul>
     </div>
 
@@ -112,11 +113,14 @@
       <div class="entry-title">ChatWire: real-time messaging</div>
       <div class="entry-meta">May 2026 · Flask-SocketIO · Python · SQLite · JavaScript · <a href="https://github.com/code-by-panashe-sanyanga/ChatWire">GitHub</a> · <a href="https://chat-wire-production.up.railway.app">Live demo</a></div>
       <ul>
-        <li>Auth with bcrypt and signed session tokens; login lockout after repeated failures</li>
-        <li>Socket.IO for live messages; cursor pagination on channel history; rate limits on writes</li>
-        <li>24 pytest cases covering auth hardening, friends-only feed/story checks, and socket flows</li>
+        <li>Socket.IO for live message delivery, with cursor-based pagination on channel history</li>
+        <li>Auth using bcrypt and signed session tokens, with login lockout after repeated failures</li>
+        <li>Rate limits on write paths to protect against abuse</li>
+        <li>24 pytest cases covering auth hardening, friends-only feed and story checks, and socket flows</li>
       </ul>
     </div>
+
+    <p class="entry-meta">Further coursework projects, data structures and algorithms in C#, plus web development are documented on my GitHub and portfolio.</p>
 
     <h2>Experience</h2>
 
@@ -124,24 +128,39 @@
       <div class="entry-title">IT Advisor, Manchester Metropolitan University</div>
       <div class="entry-meta">Sep 2025 – present</div>
       <ul>
-        <li>Diagnosed hardware, software, account, and network issues for staff and students on the university service desk</li>
-        <li>Imaged PCs and deployed software via SCCM</li>
+        <li>Frontline technical support for staff and students on the university service desk, covering hardware, software, account, and network issues</li>
+        <li>Image and deploy Windows PCs and Macs via SCCM and Jamf Pro</li>
+        <li>Resolve tickets in Freshservice, troubleshooting Microsoft 365, MFA, and equipment setup</li>
+        <li>Maintain the loan laptop service and Onarken smart lockers, and support campus printing via PaperCut MF</li>
       </ul>
     </div>
 
     <div class="entry">
       <div class="entry-title">Sales Advisor, Belstaff</div>
-      <div class="entry-meta">2024 – 2025 · Customer service and sales floor support during peak trading</div>
+      <div class="entry-meta">Oct 2024 – Oct 2025</div>
+      <ul>
+        <li>Queried the customer database in SQL to segment clients by purchase history, informing targeted outreach for private sales and new collections</li>
+        <li>Delivered tailored styling and product advice in a luxury retail setting, meeting sales targets</li>
+      </ul>
     </div>
 
     <div class="entry">
       <div class="entry-title">Supervisor, Origin Kicks</div>
-      <div class="entry-meta">2023 – 2024 · Staff training on till process; floor supervision and stock accuracy</div>
+      <div class="entry-meta">Oct 2023 – Sep 2024</div>
+      <ul>
+        <li>Trained and supported team members on till process and brand standards; managed floor and stockroom organisation across shifts</li>
+      </ul>
+    </div>
+
+    <div class="entry">
+      <div class="entry-title">Earlier retail experience</div>
+      <div class="entry-meta">2017 – 2023</div>
+      <p>Loss Prevention Specialist at Selfridges; Loss Prevention Supervisor at UNIQLO; Assistant Manager at Harding Brothers Retail. Full details on LinkedIn.</p>
     </div>
 
     <h2>Additional</h2>
     <ul>
-      <li>Interests: fitness, live music, cinema</li>
+      <li>Interests: travel, live music, cinema</li>
     </ul>
   </body>
 </html>
