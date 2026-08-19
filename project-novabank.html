@@ -197,7 +197,7 @@ flowchart LR
           <tbody>
             <tr>
               <td>Partial failure mid transfer</td>
-              <td>All ledger writes and balance cache updates sit in one database transaction</td>
+              <td>Validation runs as its own pass over every leg before any row is created, so a rejected post leaves nothing staged</td>
             </tr>
             <tr>
               <td>Concurrent transfers on the same accounts</td>
@@ -235,16 +235,17 @@ NOVABANK_PG_URL=postgresql+psycopg://... pytest -q tests/test_concurrent_postgre
           <li>Postgres concurrency: racing withdrawals and crossed transfers leave a consistent ledger (<code>tests/test_concurrent_postgres.py</code>)</li>
         </ul>
 
-        <h2>8. Deployment and links</h2>
+<h2>8. Deployment and links</h2>
         <p>
-          Local quick smoke: venv, <code>pip install -r requirements.txt</code>, seed, then
-          <code>uvicorn novabank.main:app --reload --port 5002</code>. For Postgres:
+          Local quick smoke: Python 3.12, venv, <code>pip install -r requirements.txt</code>, seed,
+          then <code>uvicorn novabank.main:app --reload --port 5002</code>. For Postgres:
           <code>docker compose up --build</code>, then seed with
           <code>DATABASE_URL</code> pointed at the compose database. Public demo is on Railway.
         </p>
         <p>
-          Demo passwords in the NovaBank README are <code>Password123</code> for seeded users such
-          as <code>alex@example.com</code> (customer) and <code>admin@novabank.co.uk</code> (admin).
+          Demo logins use the password <code>Password123</code> for all seeded users:
+          <code>alex@example.com</code> and <code>jamie@example.com</code> (customers), and
+          <code>admin@novabank.co.uk</code> (admin).
         </p>
       </div>
 
