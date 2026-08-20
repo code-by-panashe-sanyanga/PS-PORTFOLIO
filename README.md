@@ -1,17 +1,18 @@
 # PS Portfolio
 
-Personal portfolio site where I show project write ups, my CV, and coursework.
+Personal portfolio site where I show project write ups, my CV, and coursework to recruiters.
 
 ![Home page of the portfolio site](images/portfolio-home.png)
 
-**Live:** [code-by-panashe-sanyanga.github.io/PS-PORTFOLIO](https://code-by-panashe-sanyanga.github.io/PS-PORTFOLIO/) · **Stack:** HTML, CSS,JavaScript, hosted on GitHub Pages
+**Live:** [code-by-panashe-sanyanga.github.io/PS-PORTFOLIO](https://code-by-panashe-sanyanga.github.io/PS-PORTFOLIO/) · **Stack:** HTML, CSS, vanilla JavaScript, hosted on GitHub Pages
 
 ## Strongest work
 
-If you're skimming this repo, these are two worth actually opening:
+If you're skimming this repo, these are the three worth actually opening:
 
 - **[NovaBank](https://code-by-panashe-sanyanga.github.io/PS-PORTFOLIO/project-novabank.html)** ([GitHub](https://github.com/code-by-panashe-sanyanga/NovaBank) · [live demo](https://novabank-api-production-2778.up.railway.app)): a double-entry banking API in FastAPI and PostgreSQL, with row-locked transfers, idempotency keys, and pytest covering the money path.
-- **[ChatWire](https://code-by-panashe-sanyanga.github.io/PS-PORTFOLIO/project-chatwire.html)** ([GitHub](https://github.com/code-by-panashe-sanyanga/ChatWire) · [live demo](https://chat-wire-production.up.railway.app)): real-time messaging with auth and rate limits on the write paths.
+- **[ChatWire](https://code-by-panashe-sanyanga.github.io/PS-PORTFOLIO/project-chatwire.html)** ([GitHub](https://github.com/code-by-panashe-sanyanga/ChatWire) · [live demo](https://chat-wire-production.up.railway.app)): real-time messaging with auth, cursor pagination, and rate limits on the write paths.
+- **[What's For Dinner](https://code-by-panashe-sanyanga.github.io/PS-PORTFOLIO/project-whats-for-dinner.html)** ([GitHub](https://github.com/code-by-panashe-sanyanga/WHATS-FOR-DINNER)): a Year 2 group project, a recipe finder with a Node/Express + SQLite backend for auth and favourites. I did most of the delivery and team coordination on this one.
 
 This site itself is just the hub that points at that work and explains it.
 
