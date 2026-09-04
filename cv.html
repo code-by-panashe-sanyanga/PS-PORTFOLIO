@@ -6,6 +6,7 @@
     <title>Panashe Sanyanga | CV</title>
     <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
     <style>
+      @page { size: A4; margin: 12mm; }
       * { box-sizing: border-box; margin: 0; padding: 0; }
       body {
         font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -33,6 +34,8 @@
       li { margin-bottom: 0.22rem; }
       .entry { margin-bottom: 0.55rem; }
       .entry-title { font-weight: 650; }
+      .entry-title a { color: inherit; text-decoration: none; }
+      .entry-title a:hover { color: #0b5cab; text-decoration: underline; }
       .entry-meta { color: #555; font-size: 0.84rem; }
       .skills-line { margin-bottom: 0.25rem; }
       .skills-line strong { font-weight: 650; }
@@ -48,8 +51,14 @@
       }
       @media print {
         .back-link { display: none; }
-        body { padding: 0; font-size: 10.5pt; max-width: none; }
-        h2 { margin-top: 0.7rem; }
+        body { padding: 0.25in 0.4in; font-size: 8.6pt; line-height: 1.25; max-width: none; }
+        h1 { font-size: 16pt; margin-bottom: 0.08rem; }
+        .subtitle { font-size: 8.6pt; margin-bottom: 0.15rem; }
+        .contact { font-size: 8.2pt; }
+        h2 { margin-top: 0.38rem; margin-bottom: 0.18rem; font-size: 7.6pt; }
+        .entry { margin-bottom: 0.22rem; }
+        li { margin-bottom: 0.04rem; }
+        .skills-line { margin-bottom: 0.12rem; }
       }
     </style>
   </head>
@@ -58,109 +67,128 @@
 
     <h1>Panashe Sanyanga</h1>
     <p class="subtitle">
-      BSc Computer Science · Manchester Metropolitan University · Graduating 2027
+      Salford, Manchester · 07568 450060 · <a href="mailto:panashe.sanyanga@hotmail.com">panashe.sanyanga@hotmail.com</a>
     </p>
     <p class="contact">
-      <a href="mailto:panashe.sanyanga@hotmail.com">panashe.sanyanga@hotmail.com</a>
-      · Manchester, UK
-      · <a href="https://github.com/code-by-panashe-sanyanga">GitHub</a>
-      · <a href="https://www.linkedin.com/in/panashe-l-s">LinkedIn</a>
+      <a href="https://github.com/code-by-panashe-sanyanga">github.com/code-by-panashe-sanyanga</a>
       · <a href="https://code-by-panashe-sanyanga.github.io/PS-PORTFOLIO/">Portfolio</a>
     </p>
 
     <h2>Profile</h2>
     <p>
-      Final-year Computer Science student building software end to end, from
-      backend APIs to accessible interfaces. Drawn to the parts of a system that
-      are easy to get wrong. Recent projects include a double-entry banking API
-      with row-locked transfers and idempotency keys, and a real-time messaging
-      application. Currently working in the IT department at The Manchester
-      Metropolitan University. Seeking graduate Software Engineering roles in
-      London or Manchester from Summer 2027.
+      Final year Computer Science student who builds backend systems end to end, from database design through to the interfaces people use. Alongside my degree I work as an IT Advisor, diagnosing problems for staff and students and explaining technical detail clearly to people with different levels of knowledge. I also have several years of experience in customer facing and supervisory roles, where I trained staff and took responsibility for day to day performance.
     </p>
 
     <h2>Technical skills</h2>
-    <p class="skills-line"><strong>Languages:</strong> Python, SQL, C# · Familiar: Java, JavaScript</p>
-    <p class="skills-line"><strong>Backend:</strong> FastAPI, PostgreSQL, Flask, Flask-SocketIO, SQLite, REST, JWT</p>
-    <p class="skills-line"><strong>Frontend:</strong> HTML, CSS, JavaScript</p>
-    <p class="skills-line"><strong>Tooling:</strong> Git, Docker Compose, pytest</p>
+    <p class="skills-line"><strong>Languages:</strong> Python (main), SQL, C#. Some Java and JavaScript.</p>
+    <p class="skills-line"><strong>Databases:</strong> PostgreSQL, SQLite. Schema design, transactions, row level locking, indexing.</p>
+    <p class="skills-line"><strong>Backend and tooling:</strong> FastAPI, Flask, SQLAlchemy, REST, JWT, Git, Docker Compose, pytest.</p>
+
+    <h2>Projects</h2>
+
+    <div class="entry">
+      <div class="entry-title"><a href="https://github.com/code-by-panashe-sanyanga/PremierIQ">PremierIQ</a> | Python, FastAPI, Next.js, NumPy | 2026</div>
+      <ul>
+        <li>Premier League dashboard with live standings, match simulation, squads, a stadium map and remaining fixture Season IQ.</li>
+        <li>Match IQ blends season form, last five games, venue, head to head and second half rates, then runs 10,000 Poisson Monte Carlo draws.</li>
+        <li>FastAPI talks to football-data.org and weather APIs behind an in process cache. Keys stay on the server. Optional Gemini narrates the simulation JSON only.</li>
+      </ul>
+    </div>
+
+    <div class="entry">
+      <div class="entry-title"><a href="https://github.com/code-by-panashe-sanyanga/NovaBank">NovaBank</a> | Python, FastAPI, SQLAlchemy, PostgreSQL | 2026</div>
+      <ul>
+        <li>Online banking application with accounts, transfers, savings pots with round ups, spending insights, card freeze and an admin audit panel.</li>
+        <li>Built on a double entry ledger: every transfer writes a balanced debit and credit inside a single database transaction, so the books cannot go out of balance partway through.</li>
+        <li>Used row level locking on account rows to keep concurrent transfers correct, and wrote tests that run against a real PostgreSQL instance to exercise that path rather than mocking it.</li>
+        <li>JWT authentication, bcrypt password hashing, rate limited login, masked card numbers and ownership checks on every route.</li>
+        <li>11 pytest cases across the ledger and transfer path, with Docker Compose to bring up PostgreSQL locally.</li>
+      </ul>
+    </div>
+
+    <div class="entry">
+      <div class="entry-title"><a href="https://github.com/code-by-panashe-sanyanga/ChatWire">ChatWire</a> | Python, Flask, Socket.IO, SQLite | 2026</div>
+      <ul>
+        <li>Real time messaging application using Socket.IO for live message delivery, with cursor pagination over channel history and rate limits on writes.</li>
+        <li>Authentication with bcrypt and signed session tokens, plus login lockout after repeated failed attempts.</li>
+        <li>24 pytest cases covering authentication hardening, access control checks and socket flows.</li>
+      </ul>
+    </div>
 
     <h2>Education</h2>
     <div class="entry">
-      <div class="entry-title">BSc (Hons) Computer Science, Manchester Metropolitan University</div>
-      <div class="entry-meta">Sep 2023 – Jun 2027 · Predicted 2:1</div>
+      <div class="entry-title">BSc (Hons) Computer Science | Manchester Metropolitan University | Sep 2023 – May 2027</div>
     </div>
     <div class="entry">
-      <div class="entry-title">BTEC Level 3 Extended Diploma in Engineering, Milton Keynes College</div>
-      <div class="entry-meta">Sep 2013 – Jul 2015 · DDD (Distinction, Distinction, Distinction)</div>
+      <div class="entry-title">BTEC Level 3 Extended Diploma in Engineering – DDD | Milton Keynes College | Sep 2013 – Jul 2015</div>
     </div>
-
-    <h2>Selected projects</h2>
-
-    <div class="entry">
-      <div class="entry-title">NovaBank: online banking app</div>
-      <div class="entry-meta">Jun – Jul 2026 · Python · FastAPI · SQLAlchemy · PostgreSQL · <a href="https://github.com/code-by-panashe-sanyanga/NovaBank">GitHub</a> · <a href="https://novabank-api-production-2778.up.railway.app">Live demo</a></div>
-      <ul>
-        <li>Double-entry ledger: every transfer writes a balanced debit and credit inside one database transaction</li>
-        <li>Row-locked transfers and idempotency keys on write paths, so concurrent or retried requests cannot double apply</li>
-        <li>JWT auth, bcrypt password hashing, rate-limited login, masked card numbers, and ownership checks on every route</li>
-        <li>Accounts, transfers, savings pots with round-ups, spending insights, card freeze, and an admin audit panel</li>
-        <li>11 pytest cases across the ledger and transfer path, including two concurrent PostgreSQL runs that verify transfers cannot race; Docker Compose for local Postgres</li>
-      </ul>
-    </div>
-
-    <div class="entry">
-      <div class="entry-title">ChatWire: real-time messaging</div>
-      <div class="entry-meta">May 2026 · Flask-SocketIO · Python · SQLite · JavaScript · <a href="https://github.com/code-by-panashe-sanyanga/ChatWire">GitHub</a> · <a href="https://chat-wire-production.up.railway.app">Live demo</a></div>
-      <ul>
-        <li>Socket.IO for live message delivery, with cursor-based pagination on channel history</li>
-        <li>Auth using bcrypt and signed session tokens, with login lockout after repeated failures</li>
-        <li>Rate limits on write paths to protect against abuse</li>
-        <li>24 pytest cases covering auth hardening, friends-only feed and story checks, and socket flows</li>
-      </ul>
-    </div>
-
-    <p class="entry-meta">Further coursework projects, data structures and algorithms in C#, plus web development are documented on my GitHub and portfolio.</p>
 
     <h2>Experience</h2>
 
     <div class="entry">
-      <div class="entry-title">IT Advisor, Manchester Metropolitan University</div>
-      <div class="entry-meta">Sep 2025 – present</div>
+      <div class="entry-title">IT Advisor | Manchester Metropolitan University | Sep 2025 – Present · Part time</div>
       <ul>
-        <li>Frontline technical support for staff and students on the university service desk, covering hardware, software, account, and network issues</li>
-        <li>Image and deploy Windows PCs and Macs via SCCM and Jamf Pro</li>
-        <li>Resolve tickets in Freshservice, troubleshooting Microsoft 365, MFA, and equipment setup</li>
-        <li>Maintain the loan laptop service and Onarken smart lockers, and support campus printing via PaperCut MF</li>
+        <li>Diagnose hardware, software, account and network issues for staff and students on the university service desk.</li>
+        <li>Image and deploy Windows PCs and Macs, and support Microsoft 365, MFA and campus printing.</li>
+        <li>Work a busy ticket queue, reproducing problems from vague reports and following them through to a fix.</li>
       </ul>
     </div>
 
     <div class="entry">
-      <div class="entry-title">Sales Advisor, Belstaff</div>
-      <div class="entry-meta">Oct 2024 – Oct 2025</div>
+      <div class="entry-title">Sales Advisor | Belstaff, Manchester | Oct 2024 – Oct 2025</div>
       <ul>
-        <li>Queried the customer database in SQL to segment clients by purchase history, informing targeted outreach for private sales and new collections</li>
-        <li>Delivered tailored styling and product advice in a luxury retail setting, meeting sales targets</li>
+        <li>Wrote SQL against the customer database to segment clients by purchase history for targeted outreach.</li>
+        <li>Worked to individual sales targets in a luxury retail environment.</li>
       </ul>
     </div>
 
     <div class="entry">
-      <div class="entry-title">Supervisor, Origin Kicks</div>
-      <div class="entry-meta">Oct 2023 – Sep 2024</div>
+      <div class="entry-title">Supervisor | Origin Kicks, Trafford Centre | Oct 2023 – Sep 2024</div>
       <ul>
-        <li>Trained and supported team members on till process and brand standards; managed floor and stockroom organisation across shifts</li>
+        <li>Trained new and existing staff on customer service, till procedures and store standards, and coordinated the team during busy trading periods.</li>
       </ul>
     </div>
 
     <div class="entry">
-      <div class="entry-title">Earlier retail experience</div>
-      <div class="entry-meta">2017 – 2023</div>
-      <p>Loss Prevention Supervisor at UNIQLO. Full details on LinkedIn.</p>
+      <div class="entry-title">Loss Prevention Officer | Selfridges, Exchange Square, Manchester | Sep 2022 – Sep 2023</div>
+      <ul>
+        <li>Introduced processes across departments that helped reduce shrinkage.</li>
+      </ul>
     </div>
 
-    <h2>Additional</h2>
+    <div class="entry">
+      <div class="entry-title">Loss Prevention Supervisor | UNIQLO, Market Street, Manchester | Oct 2020 – Sep 2022</div>
+      <ul>
+        <li>Trained employees on safety and compliance procedures, and supported management with internal investigations and reporting.</li>
+      </ul>
+    </div>
+
+    <div class="entry">
+      <div class="entry-title">Assistant Manager | Harding Brothers Retail, Avonmouth, Bristol | Jun 2019 – Mar 2020</div>
+      <ul>
+        <li>Led a sales team onboard a cruise ship, managing day to day performance and developing team members.</li>
+      </ul>
+    </div>
+
+    <div class="entry">
+      <div class="entry-title">Key Holder | Anya Hindmarch, Bicester Village | Nov 2018 – Jun 2019</div>
+      <ul>
+        <li>Held keyholder responsibility for opening and closing the store, and maintained operational compliance and shop floor standards.</li>
+        <li>Built client relationships through personalised service and regular follow up, working towards individual sales targets.</li>
+      </ul>
+    </div>
+
+    <div class="entry">
+      <div class="entry-title">Sales Associate | Ralph Lauren, Bicester Village | Mar 2017 – May 2018</div>
+      <ul>
+        <li>Maintained a client database to support future contact and repeat business.</li>
+        <li>Worked towards individual and team sales targets in a premium retail environment.</li>
+      </ul>
+    </div>
+
+    <h2>Additional information</h2>
     <ul>
-      <li>Interests: travel, live music, cinema</li>
+      <li>Available from May 2027.</li>
     </ul>
   </body>
 </html>
