@@ -69,7 +69,7 @@ async function run() {
   try {
     const page = await browser.newPage();
 
-    for (const route of ["/", "/projects.html", "/about.html", "/project-novabank.html", "/project-premieriq.html"]) {
+    for (const route of ["/", "/projects.html", "/about.html", "/project-novabank.html", "/project-premieriq.html", "/project-apexiq.html"]) {
       const res = await page.goto(base + route, { waitUntil: "domcontentloaded" });
       assert(res && res.status() === 200, `${route} should be 200`);
       const landmarks = await page.evaluate(() => ({

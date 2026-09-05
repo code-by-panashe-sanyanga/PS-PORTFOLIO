@@ -268,6 +268,10 @@ a.cta.secondary:hover {
   background: var(--bg-light);
 }
 
+.project-screenshot-hero {
+  object-position: center 42%;
+}
+
 /* Two screenshots side by side on the projects page */
 .project-gallery {
   display: grid;
@@ -280,6 +284,18 @@ a.cta.secondary:hover {
   margin-bottom: 0;
   height: 180px;
   object-position: top center;
+}
+
+.project-gallery .project-screenshot-hero {
+  object-position: center 42%;
+}
+
+.project-gallery:has(> :only-child) {
+  grid-template-columns: 1fr;
+}
+
+.project-gallery:has(> :only-child) .project-screenshot {
+  height: 360px;
 }
 
 .project-gallery-interactive .gallery-thumb {
@@ -307,6 +323,14 @@ a.cta.secondary:hover {
   pointer-events: none;
   margin-bottom: 0;
   height: 140px;
+}
+
+.project-gallery-interactive:has(> :only-child) .gallery-thumb .project-screenshot {
+  height: 360px;
+}
+
+.project-gallery-interactive .gallery-thumb .project-screenshot-hero {
+  object-position: center 42%;
 }
 
 .gallery-dot {
