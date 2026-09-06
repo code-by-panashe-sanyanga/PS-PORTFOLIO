@@ -76,51 +76,63 @@
 
     <h2>Profile</h2>
     <p>
-      Final year Computer Science student who builds backend systems end to end, from database design through to the interfaces people use. Alongside my degree I work as an IT Advisor, diagnosing problems for staff and students and explaining technical detail clearly to people with different levels of knowledge. I also have several years of experience in customer facing and supervisory roles, where I trained staff and took responsibility for day to day performance.
+      Final year Computer Science student with a strong interest in backend software development and building reliable applications. Experienced in developing APIs, working with relational databases and testing software against real database environments. Alongside my degree, I work as an IT Advisor at Manchester Metropolitan University, supporting staff and students with technical issues and explaining solutions clearly. My previous supervisory and customer facing experience has also developed my ability to take responsibility, work under pressure and communicate effectively with different people.
     </p>
 
     <h2>Technical skills</h2>
-    <p class="skills-line"><strong>Languages:</strong> Python (main), SQL, C#. Some Java and JavaScript.</p>
-    <p class="skills-line"><strong>Databases:</strong> PostgreSQL, SQLite. Schema design, transactions, row level locking, indexing.</p>
-    <p class="skills-line"><strong>Backend and tooling:</strong> FastAPI, Flask, SQLAlchemy, REST, JWT, Git, Docker Compose, pytest.</p>
+    <p class="skills-line"><strong>Languages:</strong> Python, SQL, C#, Java, JavaScript</p>
+    <p class="skills-line"><strong>Databases:</strong> PostgreSQL, SQLite, database design, transactions, indexing, row level locking</p>
+    <p class="skills-line"><strong>Backend and Development:</strong> FastAPI, Flask, SQLAlchemy, REST APIs, JWT, Git, Docker Compose, pytest</p>
 
     <h2>Projects</h2>
 
     <div class="entry">
-      <div class="entry-title"><a href="https://github.com/code-by-panashe-sanyanga/ApexIQ">ApexIQ</a> | Python, FastAPI, Next.js, Three.js | 2026</div>
+      <div class="entry-title"><a href="https://github.com/code-by-panashe-sanyanga/ApexIQ">ApexIQ</a> | Python, FastAPI, Next.js | 2026</div>
       <ul>
-        <li>Formula 1 pit wall with live timing, GPS circuit trace, championship standings and driver compare.</li>
-        <li>Next.js UI and FastAPI on one origin. The browser only calls same-origin /api. No provider keys.</li>
-        <li>Championship from f1api.dev. Live car, weather and location from OpenF1, including mid-session GPS so completed practice is not an empty garage blob.</li>
+        <li>Formula 1 dashboard bringing together live timing, circuit data, championship standings and driver comparisons.</li>
+        <li>Developed the backend using FastAPI and integrated external Formula 1 data sources.</li>
+        <li>Added live timing and GPS circuit visualisation to present race information in real time.</li>
+        <li>Built championship and driver comparison features to analyse the current season.</li>
+        <li>Kept external API requests and API keys on the backend rather than exposing them in the browser.</li>
+        <li>Developed the frontend using Next.js and connected it to the FastAPI backend.</li>
       </ul>
     </div>
 
     <div class="entry">
       <div class="entry-title"><a href="https://github.com/code-by-panashe-sanyanga/PremierIQ">PremierIQ</a> | Python, FastAPI, Next.js, NumPy | 2026</div>
       <ul>
-        <li>Premier League dashboard with live standings, match simulation, squads, a stadium map and remaining fixture Season IQ.</li>
-        <li>Match IQ blends season form, last five games, venue, head to head and second half rates, then runs 10,000 Poisson Monte Carlo draws.</li>
-        <li>FastAPI talks to football-data.org and weather APIs behind an in process cache. Keys stay on the server. Optional Gemini narrates the simulation JSON only.</li>
+        <li>Premier League dashboard providing live standings, match simulation, squad information, stadium data and fixture analysis.</li>
+        <li>Developed a match prediction system using recent form, last five matches, venue, head to head results and second half scoring rates.</li>
+        <li>Used 10,000 Poisson Monte Carlo simulations to generate possible match outcomes.</li>
+        <li>Built a FastAPI backend connecting to football data and weather APIs.</li>
+        <li>Added an in process cache to reduce repeated API requests and kept API keys on the server.</li>
+        <li>Used Gemini to provide optional explanations based on the simulation results.</li>
       </ul>
     </div>
 
     <div class="entry">
       <div class="entry-title"><a href="https://github.com/code-by-panashe-sanyanga/NovaBank">NovaBank</a> | Python, FastAPI, SQLAlchemy, PostgreSQL | 2026</div>
       <ul>
-        <li>Online banking application with accounts, transfers, savings pots with round ups, spending insights, card freeze and an admin audit panel.</li>
-        <li>Built on a double entry ledger: every transfer writes a balanced debit and credit inside a single database transaction, so the books cannot go out of balance partway through.</li>
-        <li>Used row level locking on account rows to keep concurrent transfers correct, and wrote tests that run against a real PostgreSQL instance to exercise that path rather than mocking it.</li>
-        <li>JWT authentication, bcrypt password hashing, rate limited login, masked card numbers and ownership checks on every route.</li>
-        <li>11 pytest cases across the ledger and transfer path, with Docker Compose to bring up PostgreSQL locally.</li>
+        <li>Online banking application covering accounts, transfers, savings pots, spending insights, card freezing and administration.</li>
+        <li>Built the transfer system using a double entry ledger, recording debit and credit entries within the same database transaction.</li>
+        <li>Used PostgreSQL row level locking to handle concurrent transfers safely.</li>
+        <li>Tested transfer and ledger functionality against a real PostgreSQL database.</li>
+        <li>Implemented JWT authentication, bcrypt password hashing, login rate limiting and account ownership checks.</li>
+        <li>Added masked card numbers and an administration audit panel.</li>
+        <li>Wrote 11 pytest tests covering the ledger and transfer functionality.</li>
+        <li>Used Docker Compose to run the application with PostgreSQL locally.</li>
       </ul>
     </div>
 
     <div class="entry">
       <div class="entry-title"><a href="https://github.com/code-by-panashe-sanyanga/ChatWire">ChatWire</a> | Python, Flask, Socket.IO, SQLite | 2026</div>
       <ul>
-        <li>Real time messaging application using Socket.IO for live message delivery, with cursor pagination over channel history and rate limits on writes.</li>
-        <li>Authentication with bcrypt and signed session tokens, plus login lockout after repeated failed attempts.</li>
-        <li>24 pytest cases covering authentication hardening, access control checks and socket flows.</li>
+        <li>Real time messaging application supporting live message delivery and persistent channel history.</li>
+        <li>Used Socket.IO to handle real time communication between users.</li>
+        <li>Added cursor based pagination for channel history and rate limits on message writes.</li>
+        <li>Implemented bcrypt authentication, signed session tokens and login lockout following repeated failed attempts.</li>
+        <li>Added access control checks to restrict users from accessing unauthorised channels.</li>
+        <li>Wrote 24 pytest tests covering authentication, access control and socket functionality.</li>
       </ul>
     </div>
 
@@ -137,61 +149,66 @@
     <div class="entry">
       <div class="entry-title">IT Advisor | Manchester Metropolitan University | Sep 2025 – Present · Part time</div>
       <ul>
-        <li>Diagnose hardware, software, account and network issues for staff and students on the university service desk.</li>
-        <li>Image and deploy Windows PCs and Macs, and support Microsoft 365, MFA and campus printing.</li>
-        <li>Work a busy ticket queue, reproducing problems from vague reports and following them through to a fix.</li>
+        <li>Diagnose hardware, software, account and network issues for staff and students through the university service desk.</li>
+        <li>Image and deploy Windows PCs and Macs and provide support for Microsoft 365, MFA and campus printing.</li>
+        <li>Investigate technical problems from initial reports, reproduce issues and work through to a suitable solution.</li>
+        <li>Manage a busy ticket queue while communicating technical information clearly to people with different levels of technical knowledge.</li>
       </ul>
     </div>
 
     <div class="entry">
       <div class="entry-title">Sales Advisor | Belstaff, Manchester | Oct 2024 – Oct 2025</div>
       <ul>
-        <li>Wrote SQL against the customer database to segment clients by purchase history for targeted outreach.</li>
-        <li>Worked to individual sales targets in a luxury retail environment.</li>
+        <li>Used SQL to query customer data and segment clients by purchase history for targeted outreach.</li>
+        <li>Worked towards individual sales targets within a luxury retail environment.</li>
       </ul>
     </div>
 
     <div class="entry">
       <div class="entry-title">Supervisor | Origin Kicks, Trafford Centre | Oct 2023 – Sep 2024</div>
       <ul>
-        <li>Trained new and existing staff on customer service, till procedures and store standards, and coordinated the team during busy trading periods.</li>
+        <li>Trained new and existing staff on customer service, till procedures and store standards.</li>
+        <li>Coordinated the team during busy trading periods and supported day to day store operations.</li>
       </ul>
     </div>
 
     <div class="entry">
       <div class="entry-title">Loss Prevention Officer | Selfridges, Exchange Square, Manchester | Sep 2022 – Sep 2023</div>
       <ul>
-        <li>Introduced processes across departments that helped reduce shrinkage.</li>
+        <li>Introduced processes across departments that helped reduce stock loss.</li>
+        <li>Worked with different teams to identify and address operational issues.</li>
       </ul>
     </div>
 
     <div class="entry">
       <div class="entry-title">Loss Prevention Supervisor | UNIQLO, Market Street, Manchester | Oct 2020 – Sep 2022</div>
       <ul>
-        <li>Trained employees on safety and compliance procedures, and supported management with internal investigations and reporting.</li>
+        <li>Trained employees on safety and compliance procedures.</li>
+        <li>Supported management with internal investigations and reporting.</li>
       </ul>
     </div>
 
     <div class="entry">
       <div class="entry-title">Assistant Manager | Harding Brothers Retail, Avonmouth, Bristol | Jun 2019 – Mar 2020</div>
       <ul>
-        <li>Led a sales team onboard a cruise ship, managing day to day performance and developing team members.</li>
+        <li>Led a sales team onboard a cruise ship and supported day to day performance.</li>
+        <li>Trained and developed team members while working towards sales targets.</li>
       </ul>
     </div>
 
     <div class="entry">
       <div class="entry-title">Key Holder | Anya Hindmarch, Bicester Village | Nov 2018 – Jun 2019</div>
       <ul>
-        <li>Held keyholder responsibility for opening and closing the store, and maintained operational compliance and shop floor standards.</li>
-        <li>Built client relationships through personalised service and regular follow up, working towards individual sales targets.</li>
+        <li>Responsible for opening and closing the store and maintaining operational standards.</li>
+        <li>Built client relationships through personalised service and regular follow up.</li>
       </ul>
     </div>
 
     <div class="entry">
       <div class="entry-title">Sales Associate | Ralph Lauren, Bicester Village | Mar 2017 – May 2018</div>
       <ul>
-        <li>Maintained a client database to support future contact and repeat business.</li>
-        <li>Worked towards individual and team sales targets in a premium retail environment.</li>
+        <li>Maintained customer records to support future contact and repeat business.</li>
+        <li>Worked towards individual and team sales targets within a premium retail environment.</li>
       </ul>
     </div>
 
