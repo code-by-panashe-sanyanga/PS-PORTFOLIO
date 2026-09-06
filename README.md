@@ -8,9 +8,10 @@ Personal portfolio site where I show project write ups, my CV, and coursework to
 
 ## Strongest work
 
-If you're skimming this repo, these are the three worth actually opening:
+If you're skimming this repo, these are the four worth actually opening:
 
-- **[PremierIQ](https://code-by-panashe-sanyanga.github.io/PS-PORTFOLIO/project-premieriq.html)** ([GitHub](https://github.com/code-by-panashe-sanyanga/PremierIQ)): a Premier League dashboard in FastAPI and Next.js, with Poisson Monte Carlo Match IQ, a night stadium map, and Season IQ from remaining fixtures.
+- **[ApexIQ](https://code-by-panashe-sanyanga.github.io/PS-PORTFOLIO/project-apexiq.html)** ([GitHub](https://github.com/code-by-panashe-sanyanga/ApexIQ) · [live demo](https://apexiq-production-75e5.up.railway.app)): a Formula 1 pit wall in FastAPI and Next.js, with live timing, a GPS circuit trace, championship standings, and driver compare. No provider API keys.
+- **[PremierIQ](https://code-by-panashe-sanyanga.github.io/PS-PORTFOLIO/project-premieriq.html)** ([GitHub](https://github.com/code-by-panashe-sanyanga/PremierIQ) · [live demo](https://premieriq-production.up.railway.app)): a Premier League dashboard in FastAPI and Next.js, with Poisson Monte Carlo Match IQ, a night stadium map, and Season IQ from remaining fixtures.
 - **[NovaBank](https://code-by-panashe-sanyanga.github.io/PS-PORTFOLIO/project-novabank.html)** ([GitHub](https://github.com/code-by-panashe-sanyanga/NovaBank) · [live demo](https://novabank-api-production-2778.up.railway.app)): a double-entry banking API in FastAPI and PostgreSQL, with row-locked transfers, idempotency keys, and pytest covering the money path.
 - **[ChatWire](https://code-by-panashe-sanyanga.github.io/PS-PORTFOLIO/project-chatwire.html)** ([GitHub](https://github.com/code-by-panashe-sanyanga/ChatWire) · [live demo](https://chat-wire-production.up.railway.app)): real-time messaging with auth, cursor pagination, and rate limits on the write paths.
 
@@ -62,11 +63,11 @@ What I did not fix: Lighthouse's accessibility audit also flagged a color-contra
 
 ## Decisions
 
-**Plain HTML/CSS/JS over a static site generator.** A handful of site pages plus nine project write ups don't need a build step, a framework, or npm to manage. The cost is repetition beyond just project cards: there's no shared template for the header, nav, or footer either, so a nav change means editing it by hand in every one of the fourteen HTML files.
+**Plain HTML/CSS/JS over a static site generator.** A handful of site pages plus eleven project write ups don't need a build step, a framework, or npm to manage. The cost is repetition beyond just project cards: there's no shared template for the header, nav, or footer either, so a nav change means editing it by hand in every one of the sixteen HTML files.
 
 **Chose not to add a CMS or database.** Content changes rarely enough that editing HTML directly is faster than standing up anything to manage it. I'd revisit this if the project list grew past what I can keep straight by eye, maybe past 20 pages.
 
-**Got wrong: duplicating the project card markup instead of generating it.** Copying the same `<article class="project-card">` block into `index.html` and `projects.html` for every project works fine at nine projects but it's already easy to let one copy drift out of date. I'd pull the card data into one JSON or JS file and render both pages from it if I touched this again.
+**Got wrong: duplicating the project card markup instead of generating it.** Copying the same `<article class="project-card">` block into `index.html` and `projects.html` for every project works fine at eleven projects but it's already easy to let one copy drift out of date. I'd pull the card data into one JSON or JS file and render both pages from it if I touched this again.
 
 ## Results
 
