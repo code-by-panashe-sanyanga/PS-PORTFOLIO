@@ -76,7 +76,7 @@
 
     <h2>Profile</h2>
     <p>
-      Final year Computer Science student with a strong interest in backend software development and building reliable applications. Experienced in developing APIs, working with relational databases and testing software against real database environments. Alongside my degree, I work as an IT Advisor at Manchester Metropolitan University, supporting staff and students with technical issues and explaining solutions clearly. My previous supervisory and customer facing experience has also developed my ability to take responsibility, work under pressure and communicate effectively with different people.
+      Final year Computer Science student with hands on experience building backend systems that handle real constraints, including concurrent transactions, authentication and data integrity under load. My four self directed projects total over 35 automated tests and span database transaction safety, real time messaging and probabilistic simulation. Alongside my degree I work as an IT Advisor at Manchester Metropolitan University, resolving technical issues for staff and students and translating problems between technical and non technical people daily. Seven years in supervisory and customer facing retail roles before that built my ability to work under pressure, take ownership and communicate clearly under scrutiny.
     </p>
 
     <h2>Technical skills</h2>
@@ -87,14 +87,13 @@
     <h2>Projects</h2>
 
     <div class="entry">
-      <div class="entry-title"><a href="https://github.com/code-by-panashe-sanyanga/ApexIQ">ApexIQ</a> | Python, FastAPI, Next.js | 2026</div>
+      <div class="entry-title"><a href="https://github.com/code-by-panashe-sanyanga/NovaBank">NovaBank</a> | Python, FastAPI, SQLAlchemy, PostgreSQL | 2026</div>
       <ul>
-        <li>Formula 1 dashboard bringing together live timing, circuit data, championship standings and driver comparisons.</li>
-        <li>Developed the backend using FastAPI and integrated external Formula 1 data sources.</li>
-        <li>Added live timing and GPS circuit visualisation to present race information in real time.</li>
-        <li>Built championship and driver comparison features to analyse the current season.</li>
-        <li>Kept external API requests and API keys on the backend rather than exposing them in the browser.</li>
-        <li>Developed the frontend using Next.js and connected it to the FastAPI backend.</li>
+        <li>Online banking application covering accounts, transfers, savings pots, spending insights, card freezing and administration.</li>
+        <li>Built the transfer system using a double entry ledger, recording debit and credit entries within the same database transaction.</li>
+        <li>Used PostgreSQL row level locking to handle concurrent transfers safely and tested against a real PostgreSQL database.</li>
+        <li>Implemented JWT authentication, bcrypt password hashing, login rate limiting and account ownership checks.</li>
+        <li>Wrote 11 pytest tests covering the ledger and transfer functionality; ran the full stack with Docker Compose.</li>
       </ul>
     </div>
 
@@ -102,25 +101,9 @@
       <div class="entry-title"><a href="https://github.com/code-by-panashe-sanyanga/PremierIQ">PremierIQ</a> | Python, FastAPI, Next.js, NumPy | 2026</div>
       <ul>
         <li>Premier League dashboard providing live standings, match simulation, squad information, stadium data and fixture analysis.</li>
-        <li>Developed a match prediction system using recent form, last five matches, venue, head to head results and second half scoring rates.</li>
-        <li>Used 10,000 Poisson Monte Carlo simulations to generate possible match outcomes.</li>
-        <li>Built a FastAPI backend connecting to football data and weather APIs.</li>
-        <li>Added an in process cache to reduce repeated API requests and kept API keys on the server.</li>
-        <li>Used Gemini to provide optional explanations based on the simulation results.</li>
-      </ul>
-    </div>
-
-    <div class="entry">
-      <div class="entry-title"><a href="https://github.com/code-by-panashe-sanyanga/NovaBank">NovaBank</a> | Python, FastAPI, SQLAlchemy, PostgreSQL | 2026</div>
-      <ul>
-        <li>Online banking application covering accounts, transfers, savings pots, spending insights, card freezing and administration.</li>
-        <li>Built the transfer system using a double entry ledger, recording debit and credit entries within the same database transaction.</li>
-        <li>Used PostgreSQL row level locking to handle concurrent transfers safely.</li>
-        <li>Tested transfer and ledger functionality against a real PostgreSQL database.</li>
-        <li>Implemented JWT authentication, bcrypt password hashing, login rate limiting and account ownership checks.</li>
-        <li>Added masked card numbers and an administration audit panel.</li>
-        <li>Wrote 11 pytest tests covering the ledger and transfer functionality.</li>
-        <li>Used Docker Compose to run the application with PostgreSQL locally.</li>
+        <li>Built a match prediction system using recent form, last five matches, venue, head to head results and second half scoring rates.</li>
+        <li>Ran 10,000 Poisson Monte Carlo simulations per fixture to generate probability distributed match outcomes.</li>
+        <li>Built a FastAPI backend connecting to football data and weather APIs with an in process cache to reduce repeated requests, keeping API keys server side.</li>
       </ul>
     </div>
 
@@ -128,11 +111,18 @@
       <div class="entry-title"><a href="https://github.com/code-by-panashe-sanyanga/ChatWire">ChatWire</a> | Python, Flask, Socket.IO, SQLite | 2026</div>
       <ul>
         <li>Real time messaging application supporting live message delivery and persistent channel history.</li>
-        <li>Used Socket.IO to handle real time communication between users.</li>
-        <li>Added cursor based pagination for channel history and rate limits on message writes.</li>
-        <li>Implemented bcrypt authentication, signed session tokens and login lockout following repeated failed attempts.</li>
-        <li>Added access control checks to restrict users from accessing unauthorised channels.</li>
+        <li>Used Socket.IO to handle real time communication between users, with cursor based pagination for channel history.</li>
+        <li>Implemented bcrypt authentication, signed session tokens, login lockout and access control checks restricting users to authorised channels.</li>
         <li>Wrote 24 pytest tests covering authentication, access control and socket functionality.</li>
+      </ul>
+    </div>
+
+    <div class="entry">
+      <div class="entry-title"><a href="https://github.com/code-by-panashe-sanyanga/ApexIQ">ApexIQ</a> | Python, FastAPI, Next.js | 2026</div>
+      <ul>
+        <li>Formula 1 dashboard bringing together live timing, circuit data, championship standings and driver comparisons.</li>
+        <li>Developed the backend using FastAPI, integrating external Formula 1 data sources while keeping API requests and keys server side.</li>
+        <li>Added live timing and GPS circuit visualisation, and built championship and driver comparison features.</li>
       </ul>
     </div>
 
@@ -141,7 +131,7 @@
       <div class="entry-title">BSc (Hons) Computer Science | Manchester Metropolitan University | Sep 2023 – May 2027</div>
     </div>
     <div class="entry">
-      <div class="entry-title">BTEC Level 3 Extended Diploma in Engineering – DDD | Milton Keynes College | Sep 2013 – Jul 2015</div>
+      <div class="entry-title">BTEC Level 3 Extended Diploma in Engineering (DDD) | Milton Keynes College | Sep 2013 – Jul 2015</div>
     </div>
 
     <h2>Experience</h2>
@@ -150,8 +140,7 @@
       <div class="entry-title">IT Advisor | Manchester Metropolitan University | Sep 2025 – Present · Part time</div>
       <ul>
         <li>Diagnose hardware, software, account and network issues for staff and students through the university service desk.</li>
-        <li>Image and deploy Windows PCs and Macs and provide support for Microsoft 365, MFA and campus printing.</li>
-        <li>Investigate technical problems from initial reports, reproduce issues and work through to a suitable solution.</li>
+        <li>Image and deploy Windows PCs and Macs; provide support for Microsoft 365, MFA and campus printing.</li>
         <li>Manage a busy ticket queue while communicating technical information clearly to people with different levels of technical knowledge.</li>
       </ul>
     </div>
@@ -165,50 +154,10 @@
     </div>
 
     <div class="entry">
-      <div class="entry-title">Supervisor | Origin Kicks, Trafford Centre | Oct 2023 – Sep 2024</div>
+      <div class="entry-title">Retail Leadership | Origin Kicks, Selfridges, UNIQLO, Anya Hindmarch, Ralph Lauren, Harding Brothers | 2017 – 2024</div>
       <ul>
-        <li>Trained new and existing staff on customer service, till procedures and store standards.</li>
-        <li>Coordinated the team during busy trading periods and supported day to day store operations.</li>
-      </ul>
-    </div>
-
-    <div class="entry">
-      <div class="entry-title">Loss Prevention Officer | Selfridges, Exchange Square, Manchester | Sep 2022 – Sep 2023</div>
-      <ul>
-        <li>Introduced processes across departments that helped reduce stock loss.</li>
-        <li>Worked with different teams to identify and address operational issues.</li>
-      </ul>
-    </div>
-
-    <div class="entry">
-      <div class="entry-title">Loss Prevention Supervisor | UNIQLO, Market Street, Manchester | Oct 2020 – Sep 2022</div>
-      <ul>
-        <li>Trained employees on safety and compliance procedures.</li>
-        <li>Supported management with internal investigations and reporting.</li>
-      </ul>
-    </div>
-
-    <div class="entry">
-      <div class="entry-title">Assistant Manager | Harding Brothers Retail, Avonmouth, Bristol | Jun 2019 – Mar 2020</div>
-      <ul>
-        <li>Led a sales team onboard a cruise ship and supported day to day performance.</li>
-        <li>Trained and developed team members while working towards sales targets.</li>
-      </ul>
-    </div>
-
-    <div class="entry">
-      <div class="entry-title">Key Holder | Anya Hindmarch, Bicester Village | Nov 2018 – Jun 2019</div>
-      <ul>
-        <li>Responsible for opening and closing the store and maintaining operational standards.</li>
-        <li>Built client relationships through personalised service and regular follow up.</li>
-      </ul>
-    </div>
-
-    <div class="entry">
-      <div class="entry-title">Sales Associate | Ralph Lauren, Bicester Village | Mar 2017 – May 2018</div>
-      <ul>
-        <li>Maintained customer records to support future contact and repeat business.</li>
-        <li>Worked towards individual and team sales targets within a premium retail environment.</li>
+        <li>Progressed through supervisory and loss prevention roles across luxury and high street retail, including leading a sales team on a cruise ship deployment (Harding Brothers) and reducing stock loss through new cross department processes (Selfridges).</li>
+        <li>Consistently trained and developed junior staff while managing customer facing operations under pressure.</li>
       </ul>
     </div>
 
