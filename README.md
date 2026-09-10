@@ -1,121 +1,74 @@
 # PS Portfolio
 
-Personal portfolio site where I show project write ups, my CV, and coursework to recruiters.
+Personal portfolio: one interactive experience that presents my backend projects as systems to inspect, plus my CV and coursework, for recruiters in software, fintech and quant roles.
 
-![Home page of the portfolio site](images/portfolio-home.png)
-
-**Live:** [code-by-panashe-sanyanga.github.io/PS-PORTFOLIO](https://code-by-panashe-sanyanga.github.io/PS-PORTFOLIO/) · **Stack:** HTML, CSS, vanilla JavaScript, hosted on GitHub Pages
+**Live:** [code-by-panashe-sanyanga.github.io/PS-PORTFOLIO](https://code-by-panashe-sanyanga.github.io/PS-PORTFOLIO/) · **Stack:** React 19, TypeScript, Vite, React Router, Framer Motion, Canvas 2D. Deployed to GitHub Pages by GitHub Actions.
 
 ## Strongest work
 
 If you're skimming this repo, these are the four worth actually opening:
 
-- **[ApexIQ](https://code-by-panashe-sanyanga.github.io/PS-PORTFOLIO/project-apexiq.html)** ([GitHub](https://github.com/code-by-panashe-sanyanga/ApexIQ) · [live demo](https://apexiq-production-75e5.up.railway.app)): a Formula 1 pit wall in FastAPI and Next.js, with live timing, a GPS circuit trace, championship standings, and driver compare. No provider API keys.
-- **[PremierIQ](https://code-by-panashe-sanyanga.github.io/PS-PORTFOLIO/project-premieriq.html)** ([GitHub](https://github.com/code-by-panashe-sanyanga/PremierIQ) · [live demo](https://premieriq-production.up.railway.app)): a Premier League dashboard in FastAPI and Next.js, with Poisson Monte Carlo Match IQ, a night stadium map, and Season IQ from remaining fixtures.
-- **[NovaBank](https://code-by-panashe-sanyanga.github.io/PS-PORTFOLIO/project-novabank.html)** ([GitHub](https://github.com/code-by-panashe-sanyanga/NovaBank) · [live demo](https://novabank-api-production-2778.up.railway.app)): a double-entry banking API in FastAPI and PostgreSQL, with row-locked transfers, idempotency keys, and pytest covering the money path.
-- **[ChatWire](https://code-by-panashe-sanyanga.github.io/PS-PORTFOLIO/project-chatwire.html)** ([GitHub](https://github.com/code-by-panashe-sanyanga/ChatWire) · [live demo](https://chat-wire-production.up.railway.app)): real-time messaging with auth, cursor pagination, and rate limits on the write paths.
+- **[ApexIQ](https://code-by-panashe-sanyanga.github.io/PS-PORTFOLIO/work/apexiq)** ([GitHub](https://github.com/code-by-panashe-sanyanga/ApexIQ) · [live demo](https://apexiq-production-75e5.up.railway.app)): a Formula 1 pit wall in FastAPI and Next.js, with live timing, a GPS circuit trace, championship standings, and driver compare. No provider API keys.
+- **[PremierIQ](https://code-by-panashe-sanyanga.github.io/PS-PORTFOLIO/work/premieriq)** ([GitHub](https://github.com/code-by-panashe-sanyanga/PremierIQ) · [live demo](https://premieriq-production.up.railway.app)): a Premier League dashboard in FastAPI and Next.js, with Poisson Monte Carlo Match IQ, a night stadium map, and Season IQ from remaining fixtures.
+- **[NovaBank](https://code-by-panashe-sanyanga.github.io/PS-PORTFOLIO/work/novabank)** ([GitHub](https://github.com/code-by-panashe-sanyanga/NovaBank) · [live demo](https://novabank-api-production-2778.up.railway.app)): a double-entry banking API in FastAPI and PostgreSQL, with row-locked transfers, idempotency keys, and pytest covering the money path.
+- **[ChatWire](https://code-by-panashe-sanyanga.github.io/PS-PORTFOLIO/work/chatwire)** ([GitHub](https://github.com/code-by-panashe-sanyanga/ChatWire) · [live demo](https://chat-wire-production.up.railway.app)): real-time messaging with auth, cursor pagination, and rate limits on the write paths.
 
-This site itself is just the hub that points at that work and explains it.
+This site is the hub that points at that work and explains it.
 
-## Why
+## What the site is
 
-I needed one link to send recruiters instead of a CV attachment plus a pile of separate GitHub repos. A CV can't show a screenshot, explain a specific design decision, or link straight to a live demo, and a bare repo on its own doesn't explain any of that either. Each project's own README already covers its own reasoning in depth, NovaBank's included; this site is just the one place that collects all of them with a consistent write up and a link to the real thing.
+One environment, five pages, one visual system. A sparse network of nodes and data packets (Canvas 2D, one animation loop) sits behind every page and reacts to the pointer and to scroll; each page tunes its density. Pages emerge from that environment rather than swapping in.
+
+| Route | What it is |
+| --- | --- |
+| `/` | Opening sequence (name → role → environment materialises, skippable, once per session), then one continuous scroll: selected work, engineering flows, experience log, about, contact. |
+| `/work` | Project index. Each row is a system: number, name, one line, year, role; opening it reveals the description, stack, an illustrative system visual and the case study link. Coursework archive underneath. |
+| `/work/:slug` | Case study: Overview · The problem · The system · Architecture (interactive graph) · Technology · Engineering decisions · Challenges · What I built · Result · Links. The original write-ups are rendered verbatim. |
+| `/about` | Scroll-driven journey from the engineering diploma through hardware, markets, the degree and backend systems; how I work; interests; a technical map that links each technology to the projects where it was actually used. |
+| `/experience` | Experience as a system log: status, role, environment, responsibilities, technical experience, skills developed. |
+| `/contact` | Email, GitHub, LinkedIn, a mail action and the CV. No generic form. |
+
+Old static URLs (`project-novabank.html`, `about.html`, …) redirect into the router. `cv.html` and the PDF are served as they were.
 
 ## How it works
 
 ```mermaid
 flowchart LR
-  Browser -->|GET HTML CSS JS| Pages[GitHub Pages]
-  Pages --> Browser
-  Browser -->|lightbox state| Script[script.js]
-  Browser -->|POST contact| FormSubmit
-  FormSubmit -->|email| Inbox[inbox]
+  Browser -->|GET| Pages[GitHub Pages]
+  Pages -->|index.html + assets| Browser
+  Browser --> Router[React Router]
+  Router --> Data[typed data: profile, projects, skills, write-ups]
+  Browser --> Field[Field canvas]
+  Actions[GitHub Actions] -->|npm run build| Pages
 ```
 
-There's no database or CMS behind any of this: every page's content is just the HTML sitting in that file, and GitHub Pages serves the files as they are, nothing is rendered at request time because there's no request to render anything from. The only real runtime state anywhere on the site is in `script.js`, which tracks which lightbox slide is showing and whether its autoplay timer is running, both plain JS variables that reset every time a page loads or the lightbox opens.
-
-```mermaid
-flowchart TD
-  Home[index.html] --> Projects[projects.html]
-  Home --> About[about.html]
-  Projects --> Detail[project-*.html]
-  About --> CV[cv.html]
-  About --> Contact[contact form]
-  Contact -->|FormSubmit| Inbox[email]
-```
-
-## Accessibility
-
-I did a real pass on the one piece of custom interactive behaviour on the site, the screenshot gallery lightbox in `script.js` and its styles in `styles.css`, rather than just listing this as future work.
-
-What I checked and changed:
-
-- **Focus trap.** Didn't exist before. Tab and Shift+Tab now cycle through the lightbox's own controls (close, prev, next, dots) and wrap around, instead of escaping to the page underneath. Verified with a scripted keyboard walk through a real page, not just by reading the code.
-- **Focus restore.** Didn't exist before. Closing the lightbox (Escape, the close button, or clicking outside the image) now returns focus to the thumbnail button that opened it, tracked per-open rather than assumed.
-- **Arrow key navigation.** This one already worked (Left/Right moved between slides). Left as is.
-- **aria attributes on dots/controls.** The dots were using `role="tab"` / `aria-selected` without the rest of the ARIA tabs pattern (a real tab list needs roving tabindex and matching tabpanels, which this isn't). Changed the dots container to `role="group"` and each dot to `aria-current` instead, which matches what they actually are: a set of position indicators, not tabs. The overlay's `aria-hidden` is now also toggled explicitly on open/close alongside the `hidden` attribute.
-- **Alt text.** Checked every `<img>` on the site (project cards, project detail galleries, the lightbox). All of them already had specific, non-empty alt text describing what's actually in the screenshot. Nothing to fix here.
-- **Semantic landmarks.** Checked header/nav/main/footer on every page. All of them were already there with one of each per page. Nothing to fix here either.
-- **prefers-reduced-motion (JS).** Autoplay had no check for it. It now reads `window.matchMedia("(prefers-reduced-motion: reduce)")` on load and via a change listener, so autoplay never starts (and stops immediately if the OS setting changes mid-session).
-- **prefers-reduced-motion (CSS).** Added a matching rule that collapses animation and transition durations sitewide, which also covers the decorative floating background orbs.
-
-What I did not fix: Lighthouse's accessibility audit also flagged a color-contrast issue (`--accent-color` text on `--bg-light` backgrounds, e.g. the coursework `<summary>` links, falls just under the 4.5:1 ratio for normal text). That's a real finding but it's a site-wide colour decision, not part of the gallery audit, so I've left it alone rather than repainting the site as a side effect. I also haven't tested any of this with an actual screen reader, my verification was automated (a scripted keyboard walkthrough with Puppeteer) plus reading the resulting DOM state, which catches focus order and attribute correctness but not how something actually sounds read aloud.
-
-## Decisions
-
-**Plain HTML/CSS/JS over a static site generator.** A handful of site pages plus eleven project write ups don't need a build step, a framework, or npm to manage. The cost is repetition beyond just project cards: there's no shared template for the header, nav, or footer either, so a nav change means editing it by hand in every one of the sixteen HTML files.
-
-**Chose not to add a CMS or database.** Content changes rarely enough that editing HTML directly is faster than standing up anything to manage it. I'd revisit this if the project list grew past what I can keep straight by eye, maybe past 20 pages.
-
-**Got wrong: duplicating the project card markup instead of generating it.** Copying the same `<article class="project-card">` block into `index.html` and `projects.html` for every project works fine at eleven projects but it's already easy to let one copy drift out of date. I'd pull the card data into one JSON or JS file and render both pages from it if I touched this again.
-
-## Results
-
-I ran a real Lighthouse audit (`npx lighthouse` against headless Chrome, 11 Aug 2026) rather than guessing at numbers.
-
-**Live before** (`https://code-by-panashe-sanyanga.github.io/PS-PORTFOLIO/`): Performance 89, Accessibility 93, Best Practices 100, SEO 100.
-
-Then I compressed every project screenshot (resized anything over 1200px wide down to 1200px, re-encoded as palette-quantized PNG with `sharp`). Total image payload across the 14 screenshots went from 4.92 MB to 1.28 MB, a 74% reduction, with no visible quality loss on any of them (checked by eye, before/after, at full size). I also fixed the lightbox accessibility issues described above, and wired the contact form to FormSubmit so submissions arrive by email without needing a local mail client.
-
-**Live after** (same URL, redeployed 11 Aug 2026): Performance 92, Accessibility 95, Best Practices 100, SEO 100.
-
-## The hard bit
-
-The worst bug wasn't in the JavaScript, it was invisible characters. At some points editing HTML through PowerShell replaced ordinary apostrophes and dashes with characters that looked identical in the editor but rendered as mojibake once the page was actually opened in a browser or pushed to GitHub Pages. It didn't show up by reading the source, only by opening the affected pages and noticing broken punctuation where an apostrophe or dash should have been. The fix was going back through the content and normalising apostrophes and dashes to plain ASCII wherever it mattered.
-
-## Testing
-
-There is a small automated suite under `tests/` (Puppeteer against a local static server):
-
-```bash
-npm install
-npm test
-```
-
-It checks page landmarks and image alts, walks the lightbox (focus trap, Escape restore, slide keys, reduced-motion autoplay off), and asserts the contact form posts to FormSubmit (network request asserted; delivery depends on the one-time FormSubmit activation).
-
-What it deliberately does not cover: visual regression, cross-browser Safari/Firefox matrix, or a real screen reader. Those stay manual. I also re-check nav links and the live Pages URL after each deploy.
-
-## Limitations
-
-No CMS, so any content change means editing HTML directly. No search across projects. No analytics, so I don't actually know what recruiters look at or click on. Contact submissions go through FormSubmit; a new setup needs one activation click before delivery is live. I haven't tested any of this with a real screen reader, and the known color-contrast gap on accent-colored text over the light background is unfixed. At several times the current number of projects, the thing that breaks first is the hand-copied card markup described under Decisions: keeping `index.html` and `projects.html` in sync by eye stops being realistic well before that point.
-
-## Future improvements
-
-- Generate project cards from one JSON or JS source so `index.html` and `projects.html` can't drift apart.
-- Share header, nav, and footer instead of editing the same markup in every HTML file (a tiny template step or static site generator once the page count grows).
-- Fix the accent-on-light contrast gap Lighthouse flagged, and verify the lightbox with a real screen reader rather than only Puppeteer keyboard walks.
-- Drop the FormSubmit activation caveat once the live form has been confirmed end to end, and add light analytics so I know what recruiters actually open.
-- Project search across write ups if the list grows past what skimming the projects page can handle.
+- **Content is data.** `src/data/profile.ts`, `projects.ts` and `skills.ts` hold the real profile, project and skill information. `src/data/writeups.generated.ts` holds the eleven project write-ups extracted verbatim from the previous HTML pages, so nothing was rewritten or lost. Nothing on the site is invented: every job, qualification, technology and number comes from those files or the CV.
+- **Motion respects the reader.** Framer Motion springs and reveals; every animation checks `prefers-reduced-motion`, the opening sequence is skipped entirely under it, the canvas renders one static frame, and nothing blocks reading or navigation.
+- **Accessible by construction.** Semantic landmarks, one `h1` per route, keyboard-operable project rows, architecture nodes, pipelines and skill nodes (`aria-pressed` / `aria-expanded`), focus-visible styling, real alt text on screenshots, an Escape-closable menu.
+- **Performance.** No 3D library: depth comes from parallax, layered UI and one 2D canvas that pauses when the tab is hidden. Route code is split per page; screenshots are lazy-loaded.
 
 ## Running it
 
-Prereqs: any modern browser. Python 3 only if you want a local server rather than opening files directly. Node 18+ for `npm test`.
+Node 20+.
 
 ```bash
-git clone https://github.com/code-by-panashe-sanyanga/PS-PORTFOLIO.git
-cd PS-PORTFOLIO
-python -m http.server 5500
+npm install
+npm run dev        # http://localhost:5173
+npm run build      # type-check + production build into dist/ (also writes 404.html for SPA routing)
+npm run preview    # serve the production build
+npm test           # Puppeteer smoke tests against dist/ (run build first)
 ```
 
-Then open [http://localhost:5500/](http://localhost:5500/). All links are relative and images are local, so double-clicking `index.html` and browsing straight from disk works too, a server just matches how GitHub Pages actually serves it.
+The tests serve `dist/` the way GitHub Pages does (base path `/PS-PORTFOLIO/`, `404.html` fallback) and check: landmarks and a single `h1` on every route, alt text on project images, legacy redirects, the opening sequence and its Skip button, the reduced-motion path, keyboard expansion of the project index, contact links, and that the mobile menu opens/closes with no horizontal overflow.
+
+## Deploying
+
+`.github/workflows/pages.yml` builds on every push to `main` and deploys `dist/` with `actions/deploy-pages`. In the repository settings, **Pages → Build and deployment → Source** must be set to **GitHub Actions** (the previous site deployed straight from the branch).
+
+## History
+
+Version 1 (2025 – 2026) was plain HTML, CSS and vanilla JavaScript with a screenshot lightbox. The accessibility pass on that lightbox (focus trap, focus restore, arrow and Escape keys, autoplay disabled under reduced motion, Puppeteer keyboard walkthroughs) is documented in the [Portfolio case study](https://code-by-panashe-sanyanga.github.io/PS-PORTFOLIO/work/portfolio) and in the git history. Version 2 (this) rebuilt the experience around a shared visual and motion system while keeping every write-up.
+
+## Limitations
+
+No CMS or search; content changes are edits to the data files. Contact is a `mailto:` link rather than a form. I have not tested with a real screen reader; verification is automated (Puppeteer) plus reading the DOM state. The system visuals on project rows are illustrative diagrams of the data each system handles, not live or historical statistics.

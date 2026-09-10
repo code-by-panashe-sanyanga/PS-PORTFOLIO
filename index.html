@@ -1,304 +1,35 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Panashe Sanyanga | Backend Software Engineer</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Panashe Sanyanga | Software Engineer</title>
     <meta
       name="description"
-      content="Final year Computer Science student at Manchester Metropolitan University, graduating in 2027. Projects, technical write-ups, accessibility work, and updates."
+      content="Panashe Sanyanga, Software Engineer. Final year Computer Science student at Manchester Metropolitan University building backend systems, APIs, financial technology and data-driven applications."
     />
-    <meta property="og:title" content="Panashe Sanyanga | Backend Software Engineer" />
+    <meta property="og:title" content="Panashe Sanyanga | Software Engineer" />
     <meta
       property="og:description"
-      content="Final year CS student at MMU, graduating 2027. Projects, technical write-ups, accessibility, and updates."
+      content="Backend systems, APIs, financial technology and data-driven applications. ApexIQ, NovaBank, PremierIQ, ChatWire."
     />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://code-by-panashe-sanyanga.github.io/PS-PORTFOLIO/" />
     <meta property="og:image" content="https://code-by-panashe-sanyanga.github.io/PS-PORTFOLIO/images/og-preview.png" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
+    <meta property="og:image:width" content="1440" />
+    <meta property="og:image:height" content="756" />
     <meta name="twitter:card" content="summary_large_image" />
-
-    <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#070707" />
+    <link rel="icon" href="/images/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto:wght@400;500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Syne:wght@600;700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=32" />
   </head>
   <body>
-    <div class="floating-orbs" aria-hidden="true"></div>
-
-    <header>
-      <div class="container header-bar">
-        <div class="logo">PS</div>
-        <nav class="nav">
-          <a href="index.html" class="active">HOME</a>
-          <a href="projects.html">PROJECTS</a>
-          <a href="about.html">ABOUT</a>
-        </nav>
-      </div>
-    </header>
-
-    <main>
-      <section class="hero container" id="home">
-        <div class="hero-content">
-          <div class="intro">
-            <h1>Panashe Sanyanga</h1>
-            <p>
-              I build software to understand how systems work, solve technical problems and turn ideas into working applications. My projects cover backend development, APIs, databases, real time systems, data and AI assisted development, with a particular interest in financial technology and systems where reliability matters.
-            </p>
-            <p class="hero-find-label">What you'll find here</p>
-            <p>
-              This portfolio brings together the projects I’ve built, the technologies I’ve worked with and the engineering decisions behind them. I document not just what I built, but the problems I came across, how I approached them and what I learned along the way.
-          </p>
-          </div>
-        </div>
-      </section>
-
-      <section class="container home-projects-section" aria-label="Featured projects">
-        <h2>Featured work</h2>
-        <div class="project-grid">
-          <article class="project-card project-card-featured" id="apexiq">
-            <a href="project-apexiq.html" class="project-card-link">
-              <img
-                src="images/apexiq-dashboard.png"
-                alt="ApexIQ pit wall with 3D car"
-                class="project-screenshot project-screenshot-hero"
-                loading="lazy"
-              />
-              <h3>ApexIQ</h3>
-              <p class="project-card-date">Sep 2026 · personal</p>
-              <p>
-                Formula 1 race intelligence dashboard combining live timing, telemetry, GPS circuit data, championship standings and driver comparisons. Built with FastAPI, Next.js, TypeScript and Three.js, with server-side API integration, caching and request throttling.
-                
-              </p>
-            </a>
-            <div class="project-tech">
-              <span class="tech-tag">Python</span>
-              <span class="tech-tag">FastAPI</span>
-              <span class="tech-tag">Next.js</span>
-              <span class="tech-tag">Three.js</span>
-              <span class="tech-tag">TypeScript</span>
-            </div>
-            <div class="project-links">
-              <a href="project-apexiq.html" class="button-link">Details</a>
-              <a
-                href="https://github.com/code-by-panashe-sanyanga/ApexIQ"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="button-link secondary"
-                >GitHub</a
-              >
-              <a
-                href="https://apexiq-production-75e5.up.railway.app"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="button-link secondary"
-                >Live</a
-              >
-            </div>
-          </article>
-
-          <article class="project-card project-card-featured" id="premieriq">
-            <a href="project-premieriq.html" class="project-card-link">
-              <img
-                src="images/premieriq-standings.png"
-                alt="PremierIQ live standings table"
-                class="project-screenshot"
-                loading="lazy"
-              />
-              <h3>PremierIQ</h3>
-              <p class="project-card-date">Sep 2026 · personal</p>
-              <p>
-                Premier League analytics platform combining live football data with statistical modelling. Uses a 10,000-draw Poisson Monte Carlo engine for match predictions, alongside weather, squad, stadium and remaining fixture analysis. Built with FastAPI, NumPy, Next.js and TypeScript.
-                
-              </p>
-            </a>
-            <div class="project-tech">
-              <span class="tech-tag">Python</span>
-              <span class="tech-tag">FastAPI</span>
-              <span class="tech-tag">Next.js</span>
-               <span class="tech-tag">TypeScript</span>
-               <span class="tech-tag">NumPy</span>
-            </div>
-            <div class="project-links">
-              <a href="project-premieriq.html" class="button-link">Details</a>
-              <a
-                href="https://github.com/code-by-panashe-sanyanga/PremierIQ"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="button-link secondary"
-                >GitHub</a
-              >
-              <a
-                href="https://premieriq-production.up.railway.app"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="button-link secondary"
-                >Live</a
-              >
-            </div>
-          </article>
-
-          <article class="project-card project-card-featured" id="novabank">
-            <a href="project-novabank.html" class="project-card-link">
-              <img
-                src="images/novabank-dashboard.png"
-                alt="NovaBank dashboard"
-                class="project-screenshot"
-                loading="lazy"
-              />
-              <h3>NovaBank</h3>
-              <p class="project-card-date">Jun to Jul 2026 · personal</p>
-              <p>
-              Banking application focused on transaction safety and database correctness. Built a double-entry ledger with PostgreSQL row-level locking, ACID transactions and idempotency keys, alongside JWT authentication, ownership checks, fraud rules and concurrent transaction testing.
-          
-              </p>
-            </a>
-            <div class="project-tech">
-              <span class="tech-tag">Python</span>
-              <span class="tech-tag">FastAPI</span>
-              <span class="tech-tag">PostgreSQL</span>
-               <span class="tech-tag">SQLAlchemy</span>
-               <span class="tech-tag">Docker</span>
-            </div>
-            <div class="project-links">
-              <a href="project-novabank.html" class="button-link">Details</a>
-              <a
-                href="https://github.com/code-by-panashe-sanyanga/NovaBank"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="button-link secondary"
-                >GitHub</a
-              >
-              <a
-                href="https://novabank-api-production-2778.up.railway.app"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="button-link secondary"
-                >Live</a
-              >
-            </div>
-          </article>
-
-          <article class="project-card project-card-featured" id="chatwire">
-            <a href="project-chatwire.html" class="project-card-link">
-              <img
-                src="images/chatwire-chat.png"
-                alt="ChatWire chat UI"
-                class="project-screenshot"
-                loading="lazy"
-              />
-              <h3>ChatWire</h3>
-              <p class="project-card-date">May 2026 · personal</p>
-              <p>
-                Real-time messaging platform with live channels, direct messages, presence and optional WebRTC calls. Built with Flask-SocketIO and SQLite, with cursor-based pagination, signed sessions, permission checks, login lockout and rate limiting.
-              </p>
-            </a>
-            <div class="project-tech">
-               <span class="tech-tag">Python</span>
-               <span class="tech-tag">Flask</span>
-              <span class="tech-tag">Flask-SocketIO</span>
-              <span class="tech-tag">SQLite</span>
-              <span class="tech-tag">pytest</span>
-            </div>
-            <div class="project-links">
-              <a href="project-chatwire.html" class="button-link">Details</a>
-              <a
-                href="https://github.com/code-by-panashe-sanyanga/ChatWire"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="button-link secondary"
-                >GitHub</a
-              >
-              <a
-                href="https://chat-wire-production.up.railway.app"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="button-link secondary"
-                >Live</a
-              >
-            </div>
-          </article>
-        </div>
-        <p class="projects-more"><a href="projects.html">All projects</a></p>
-      </section>
-
-      <section class="skills-section container" id="skills" aria-label="Technical skills">
-        <h2>Skills</h2>
-        <div class="skills-grid">
-          <div class="skill-card">
-            <h3>Languages</h3>
-            <ul>
-              <li>Python</li>
-              <li>SQL</li>
-              <li>C#</li>
-              <li>Java</li>
-              <li>JavaScript</li>
-            </ul>
-          </div>
-          <div class="skill-card">
-            <h3>Backend</h3>
-            <ul>
-              <li>FastAPI</li>
-              <li>PostgreSQL</li>
-              <li>Flask</li>
-              <li>Socket.IO</li>
-              <li>REST</li>
-              <li>JWT</li>
-            </ul>
-          </div>
-          <div class="skill-card">
-            <h3>Tooling</h3>
-            <ul>
-              <li>pytest</li>
-              <li>Docker Compose</li>
-              <li>Git</li>
-              <li>HTML / CSS</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <section class="container coursework-section" aria-label="Coursework">
-        <h2>Coursework</h2>
-        <details class="coursework-fold">
-          <summary>University modules </summary>
-          <ul class="coursework-list">
-            <li>
-              <a href="project-emergency-call-queue.html">Emergency call queue</a>,
-              <a href="project-video-game-catalogue.html">game catalogue</a>,
-              <a href="project-aid-optimiser.html">aid optimiser</a>,
-              <a href="project-metro-routes.html">metro routes</a>
-              · Year 2 ADS (C#)
-            </li>
-            <li>
-              <a href="project-whats-for-dinner.html">What's For Dinner</a>
-              · Year 2 web group project
-            </li>
-            <li>
-              <a href="project-vault-comics.html">Vault Comics</a>,
-              <a href="project-space-survival.html">Space Survival</a>
-              · Year 1
-            </li>
-          </ul>
-        </details>
-      </section>
-
-      <section class="container home-contact-cta" id="contact-cta">
-        <h2>About</h2>
-        <p>Background, CV, and how to get in touch.</p>
-        <a href="about.html" class="button-link">About page</a>
-      </section>
-    </main>
-
-    <footer>
-      &copy; <span id="footer-year">2026</span>
-      <strong>Panashe Sanyanga</strong>
-    </footer>
-    <script src="script.js?v=24"></script>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
