@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Panashe Sanyanga | CV</title>
+    <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
+    <style>
+      @page { size: A4; margin: 8mm; }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      body {
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        color: #111;
+        line-height: 1.28;
+        max-width: 780px;
+        margin: 0 auto;
+        padding: 1rem 1.1rem 1.5rem;
+        font-size: 0.78rem;
+      }
+      h1 { font-size: 1.35rem; letter-spacing: -0.02em; margin-bottom: 0.1rem; }
+      h2 {
+        font-size: 0.68rem;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: #0b5cab;
+        border-bottom: 1px solid #ccc;
+        margin: 0.55rem 0 0.22rem;
+        padding-bottom: 0.08rem;
+      }
+      .subtitle { color: #444; margin-bottom: 0.2rem; font-size: 0.78rem; }
+      .contact { color: #333; font-size: 0.75rem; }
+      .contact a { color: #0b5cab; text-decoration: none; }
+      .subtitle a { color: #0b5cab; text-decoration: none; }
+      ul { margin-left: 0.95rem; }
+      li { margin-bottom: 0.08rem; }
+      .entry { margin-bottom: 0.28rem; }
+      .entry-title { font-weight: 650; font-size: 0.78rem; }
+      .entry-title a { color: inherit; text-decoration: none; }
+      .entry-title a:hover { color: #0b5cab; text-decoration: underline; }
+      .entry-meta { color: #555; font-size: 0.74rem; margin: 0.05rem 0 0.08rem; }
+      .skills-line { margin-bottom: 0.08rem; }
+      .skills-line strong { font-weight: 650; }
+      .back-link {
+        margin-bottom: 0.7rem;
+        padding: 0.45rem 0.7rem;
+        background: #f0f2f5;
+        border-radius: 6px;
+        font-size: 0.78rem;
+        display: inline-block;
+        text-decoration: none;
+        color: #0b5cab;
+      }
+      @media print {
+        .back-link { display: none !important; }
+        body {
+          padding: 0;
+          margin: 0;
+          font-size: 8pt;
+          line-height: 1.22;
+          max-width: none;
+        }
+        h1 { font-size: 13.5pt; margin-bottom: 0.05rem; }
+        .subtitle { font-size: 8pt; margin-bottom: 0.08rem; }
+        h2 {
+          margin-top: 0.28rem;
+          margin-bottom: 0.1rem;
+          font-size: 7pt;
+          padding-bottom: 0.04rem;
+        }
+        .entry { margin-bottom: 0.14rem; }
+        .entry-title { font-size: 8pt; }
+        .entry-meta { font-size: 7.5pt; margin: 0.02rem 0 0.04rem; }
+        li { margin-bottom: 0.02rem; }
+        .skills-line { margin-bottom: 0.04rem; }
+      }
+    </style>
+  </head>
+  <body>
+    <a class="back-link" href="./"><- Back to portfolio</a>
+
+    <h1>Panashe Sanyanga</h1>
+    <p class="subtitle">
+      Salford, Manchester · 07568 450060 ·
+      <a href="mailto:panashe.sanyanga@hotmail.com">panashe.sanyanga@hotmail.com</a>
+      · <a href="https://github.com/code-by-panashe-sanyanga">GitHub</a>
+      · <a href="https://code-by-panashe-sanyanga.github.io/PS-PORTFOLIO/">Portfolio</a>
+    </p>
+
+    <h2>Profile</h2>
+    <p>
+      Final year Computer Science student at Manchester Metropolitan University, building backend
+      systems in Python with FastAPI and PostgreSQL. My projects include a banking platform with a
+      double entry ledger and row level locking to keep balances consistent during transfers, a
+      football analytics tool using Monte Carlo simulations, and a real time messaging app with
+      authentication and access control. I use Git, Docker and pytest in my projects and have
+      deployed applications to Railway. I have also used the Gemini API in PremierIQ to add AI
+      generated analysis to football data. Alongside my degree I work as an IT Advisor, resolving
+      hardware, software, network and account issues for staff and students. I am looking for a
+      software engineering role where I can keep developing and take on harder technical problems.
+    </p>
+
+    <h2>Technical skills</h2>
+    <p class="skills-line"><strong>Languages:</strong> Python, SQL, C#, Java, JavaScript, TypeScript</p>
+    <p class="skills-line"><strong>Backend:</strong> FastAPI, Flask, SQLAlchemy, REST APIs, JWT authentication</p>
+    <p class="skills-line"><strong>Databases:</strong> PostgreSQL, SQLite, transactions, indexing, row level locking</p>
+    <p class="skills-line"><strong>Tools:</strong> Git, GitHub, Docker, Docker Compose, pytest, Railway, Google Gemini API</p>
+    <p class="skills-line"><strong>Systems and IT:</strong> Networking, SCCM, Windows, macOS, Microsoft 365, MFA, troubleshooting</p>
+
+    <h2>Projects</h2>
+
+    <div class="entry">
+      <div class="entry-title">
+        <a href="https://github.com/code-by-panashe-sanyanga/NovaBank">NovaBank</a>
+        · Python, FastAPI, SQLAlchemy, PostgreSQL, Docker Compose, Railway · 2026
+      </div>
+      <p class="entry-meta">
+        Online banking application covering accounts, transfers, savings pots, spending insights and card freezing.
+      </p>
+      <ul>
+        <li>
+          Built transfers around a double entry ledger, with matching debit and credit entries written
+          in the same database transaction
+        </li>
+        <li>
+          Used PostgreSQL row level locking to stop concurrent transfers from corrupting account
+          balances, with 11 pytest tests covering the ledger and transfers
+        </li>
+        <li>
+          Added JWT authentication, bcrypt password hashing and login rate limiting, then deployed
+          the backend to Railway
+        </li>
+      </ul>
+    </div>
+
+    <div class="entry">
+      <div class="entry-title">
+        <a href="https://github.com/code-by-panashe-sanyanga/PremierIQ">PremierIQ</a>
+        · Python, FastAPI, Next.js, NumPy, Google Gemini API · 2026
+      </div>
+      <p class="entry-meta">
+        Premier League analytics platform combining live football data with match prediction and simulation.
+      </p>
+      <ul>
+        <li>
+          Built a match prediction model using recent form and home and away scoring data, then ran
+          10,000 Poisson Monte Carlo simulations per fixture
+        </li>
+        <li>
+          Built a FastAPI backend pulling from football and weather APIs, with an in process cache to
+          reduce repeated requests
+        </li>
+        <li>
+          Used the Gemini API to turn the football data and simulation results into natural language
+          match analysis, while keeping API credentials server side
+        </li>
+      </ul>
+    </div>
+
+    <div class="entry">
+      <div class="entry-title">
+        <a href="https://github.com/code-by-panashe-sanyanga/ChatWire">ChatWire</a>
+        · Python, Flask, Socket.IO, SQLite · 2026
+      </div>
+      <p class="entry-meta">
+        Real time messaging application with live message delivery and persistent channel history.
+      </p>
+      <ul>
+        <li>Used Socket.IO for live communication between users and cursor based pagination for channel history</li>
+        <li>Implemented bcrypt authentication, signed session tokens, login lockout and access control checks</li>
+        <li>Wrote 24 pytest tests covering authentication, access control and socket functionality</li>
+      </ul>
+    </div>
+
+    <div class="entry">
+      <div class="entry-title">
+        <a href="https://github.com/code-by-panashe-sanyanga/ApexIQ">ApexIQ</a>
+        · Python, FastAPI, Next.js · 2026
+      </div>
+      <p class="entry-meta">
+        Formula 1 dashboard bringing together live timing, circuit data and championship standings.
+      </p>
+      <ul>
+        <li>
+          Built the FastAPI backend using external F1 data sources, with live timing, circuit
+          visualisation and driver comparison features
+        </li>
+        <li>Kept API credentials server side</li>
+      </ul>
+    </div>
+
+    <h2>Education</h2>
+    <div class="entry">
+      <div class="entry-title">
+        BSc (Hons) Computer Science · Manchester Metropolitan University · Sep 2023 to May 2027
+      </div>
+    </div>
+    <div class="entry">
+      <div class="entry-title">
+        BTEC Level 3 Extended Diploma in Engineering (DDD) · Milton Keynes College · Sep 2013 to Jul 2015
+      </div>
+    </div>
+
+    <h2>Experience</h2>
+
+    <div class="entry">
+      <div class="entry-title">
+        IT Advisor · Manchester Metropolitan University · Sep 2025 to Present · Part time
+      </div>
+      <ul>
+        <li>Diagnose hardware, software, account and network issues for staff and students through the university service desk</li>
+        <li>Image and deploy Windows PCs and Macs using SCCM, and support Microsoft 365, MFA and campus printing</li>
+        <li>Manage a busy ticket queue on Freshservice while explaining technical issues clearly to users</li>
+      </ul>
+    </div>
+
+    <div class="entry">
+      <div class="entry-title">Sales Advisor · Belstaff, Manchester · Oct 2024 to Oct 2025</div>
+      <ul>
+        <li>Used SQL to query customer data and segment clients by purchase history for targeted outreach</li>
+        <li>Worked towards individual sales targets in a luxury retail environment</li>
+      </ul>
+    </div>
+
+    <div class="entry">
+      <div class="entry-title">
+        Retail Leadership · Origin Kicks, Selfridges, UNIQLO, Anya Hindmarch, Ralph Lauren, Harding Brothers ·
+        2017 to 2024
+      </div>
+      <ul>
+        <li>
+          Progressed through supervisory and loss prevention roles across luxury and high street retail,
+          including leading a sales team during cruise ship deployment
+        </li>
+        <li>Trained junior staff, managed customer facing operations and helped introduce processes to reduce stock loss</li>
+      </ul>
+    </div>
+
+    <h2>Additional information</h2>
+    <ul>
+      <li>Available to start from May 2027</li>
+    </ul>
+  </body>
+</html>
