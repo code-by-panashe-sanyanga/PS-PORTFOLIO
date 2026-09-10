@@ -1,12 +1,10 @@
 # PS Portfolio
 
-Personal portfolio: one interactive experience that presents my backend projects as systems to inspect, plus my CV and coursework, for recruiters in software, fintech and quant roles.
+Personal portfolio for my projects, write-ups and CV.
 
-**Live:** [code-by-panashe-sanyanga.github.io/PS-PORTFOLIO](https://code-by-panashe-sanyanga.github.io/PS-PORTFOLIO/) · **Stack:** React 19, TypeScript, Vite, React Router, Framer Motion, Canvas 2D. Deployed to GitHub Pages by GitHub Actions.
+**Live:** [code-by-panashe-sanyanga.github.io/PS-PORTFOLIO](https://code-by-panashe-sanyanga.github.io/PS-PORTFOLIO/) · **Stack:** React 19, TypeScript, Vite, React Router, Framer Motion. Deployed to GitHub Pages.
 
-## Strongest work
-
-If you're skimming this repo, these are the four worth actually opening:
+## Projects
 
 - **[ApexIQ](https://code-by-panashe-sanyanga.github.io/PS-PORTFOLIO/work/apexiq)** ([GitHub](https://github.com/code-by-panashe-sanyanga/ApexIQ) · [live demo](https://apexiq-production-75e5.up.railway.app)): a Formula 1 pit wall in FastAPI and Next.js, with live timing, a GPS circuit trace, championship standings, and driver compare. No provider API keys.
 - **[PremierIQ](https://code-by-panashe-sanyanga.github.io/PS-PORTFOLIO/work/premieriq)** ([GitHub](https://github.com/code-by-panashe-sanyanga/PremierIQ) · [live demo](https://premieriq-production.up.railway.app)): a Premier League dashboard in FastAPI and Next.js, with Poisson Monte Carlo Match IQ, a night stadium map, and Season IQ from remaining fixtures.

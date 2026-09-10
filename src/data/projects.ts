@@ -239,7 +239,7 @@ export const projects: Project[] = [
     name: "Portfolio",
     title: "This site",
     description:
-      "This portfolio site: project pages, screenshots, demos and source links in one place. Built so a recruiter can open it without a pile of separate repos.",
+      "This portfolio site: project pages, screenshots, demos and source links.",
     year: "2026",
     role: "Design, build, test, deploy",
     tech: ["React", "TypeScript", "Vite", "Framer Motion", "Puppeteer", "GitHub Pages"],
@@ -250,7 +250,7 @@ export const projects: Project[] = [
     live: "https://code-by-panashe-sanyanga.github.io/PS-PORTFOLIO/",
     featured: false,
     problem:
-      "I needed one link that shows the work: screenshots, why I built each project, and demos, not a CV plus a list of GitHub repos. It also had to work with a keyboard and a screen reader, and calm down motion when someone asks the system to reduce it.",
+      "I wanted my projects, screenshots and demos in one site instead of scattered links. It also had to work with a keyboard and a screen reader, and calm down motion when the system asks for less of it.",
     decisions: [
       "Screenshot viewer moves keyboard focus into the dialog, keeps Tab inside it, and returns focus when you close it.",
       "Arrow keys and Escape work while the viewer is open.",
