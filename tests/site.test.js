@@ -56,7 +56,7 @@ function assert(condition, message) {
   if (!condition) throw new Error(message);
 }
 
-const routes = ["/", "/work", "/work/apexiq", "/work/novabank", "/work/premieriq", "/work/chatwire", "/work/portfolio", "/work/emergency-call-queue", "/about", "/experience", "/contact"];
+const routes = ["/", "/work", "/work/apexiq", "/work/novabank", "/work/premieriq", "/work/chatwire", "/work/portfolio", "/work/emergency-call-queue", "/about", "/contact"];
 
 async function settle(page) {
   await page.evaluate(() => new Promise((r) => setTimeout(r, 700)));

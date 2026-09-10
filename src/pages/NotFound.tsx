@@ -9,7 +9,7 @@ export default function NotFound() {
         <h1 id="nf" className="display display-xl">
           No route
         </h1>
-        <p className="lede">That path is not part of this system.</p>
+        <p className="lede">That page does not exist.</p>
         <div className="case-links">
           <SysLink to="/" idx="00" variant="primary">
             Home

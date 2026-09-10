@@ -7,8 +7,7 @@ const links = [
   { to: "/", label: "Home", idx: "00" },
   { to: "/work", label: "Work", idx: "01" },
   { to: "/about", label: "About", idx: "02" },
-  { to: "/experience", label: "Experience", idx: "03" },
-  { to: "/contact", label: "Contact", idx: "04" },
+  { to: "/contact", label: "Contact", idx: "03" },
 ];
 
 function MagneticLink({ to, label, idx }: { to: string; label: string; idx: string }) {
@@ -72,9 +71,7 @@ export default function Nav() {
         <div className="wrap nav-bar">
           <Link to="/" className="brand" aria-label="Panashe Sanyanga, home">
             <span className="brand-mark">PS</span>
-            <span className="brand-meta mono">
-              {profile.role} <span className="brand-dot" aria-hidden="true" /> {profile.focus}
-            </span>
+            <span className="brand-meta mono">{profile.role}</span>
           </Link>
 
           <nav className="nav-links" aria-label="Primary">

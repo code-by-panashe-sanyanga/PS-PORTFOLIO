@@ -21,11 +21,10 @@ One environment, five pages, one visual system. A sparse network of nodes and da
 
 | Route | What it is |
 | --- | --- |
-| `/` | Opening sequence (name → role → environment materialises, skippable, once per session), then one continuous scroll: selected work, engineering flows, experience log, about, contact. |
+| `/` | Opening sequence (skippable, once per session), then selected work, about and contact. |
 | `/work` | Project index. Each row is a system: number, name, one line, year, role; opening it reveals the description, stack, an illustrative system visual and the case study link. Coursework archive underneath. |
 | `/work/:slug` | Case study: Overview · The problem · The system · Architecture (interactive graph) · Technology · Engineering decisions · Challenges · What I built · Result · Links. The original write-ups are rendered verbatim. |
-| `/about` | Scroll-driven journey from the engineering diploma through hardware, markets, the degree and backend systems; how I work; interests; a technical map that links each technology to the projects where it was actually used. |
-| `/experience` | Experience as a system log: status, role, environment, responsibilities, technical experience, skills developed. |
+| `/about` | Background journey, how I work, interests, skills map linking each technology to the projects where it was used, CV links. |
 | `/contact` | Email, GitHub, LinkedIn, a mail action and the CV. No generic form. |
 
 Old static URLs (`project-novabank.html`, `about.html`, …) redirect into the router. `cv.html` and the PDF are served as they were.

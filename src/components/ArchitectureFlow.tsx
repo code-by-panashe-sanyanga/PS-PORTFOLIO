@@ -96,7 +96,7 @@ export default function ArchitectureFlow({ nodes, edges }: Props) {
               <li key={n.id}>
                 <span className="mono accent">{n.label}</span>
                 <p>{n.note}</p>
-                {outs.length > 0 && <span className="mono arch-outs">→ {outs.join(" · ")}</span>}
+                {outs.length > 0 && <span className="mono arch-outs">→ {outs.join(", ")}</span>}
               </li>
             );
           })}

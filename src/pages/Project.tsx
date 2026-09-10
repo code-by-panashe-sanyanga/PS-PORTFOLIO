@@ -111,7 +111,7 @@ function Hero({
               </SysLink>
             )}
             <SysLink href={github} idx={live ? "02" : "01"}>
-              GitHub
+              View the implementation
             </SysLink>
           </div>
         </div>
@@ -235,11 +235,15 @@ function FeaturedCase({ p }: { p: ProjectT }) {
             ),
           },
           {
-            id: "result",
-            label: "Result",
+            id: "testing",
+            label: "Testing",
+            node: <Html html={sec(w, 6)} />,
+          },
+          {
+            id: "deployment",
+            label: "Deployment",
             node: (
               <>
-                <Html html={sec(w, 6)} />
                 <Html html={sec(w, 7)} />
                 {w.images.length > 0 && (
                   <ul className="case-gallery">
@@ -261,21 +265,33 @@ function FeaturedCase({ p }: { p: ProjectT }) {
             node: (
               <div className="prose">
                 <p>
-                  A static portfolio: hub pages, a project write-up per system, a CV page, a screenshot lightbox with keyboard
-                  and screen reader support, and a Puppeteer smoke test suite. Rebuilt in 2026 as a React and Vite application
-                  with the write-ups preserved verbatim as data.
+                  Hub pages, a case study per project, a CV page, and a screenshot lightbox with keyboard and screen reader
+                  support. Puppeteer smoke tests cover landmarks, a single h1, alt text, the focus trap and reduced motion.
+                  Rebuilt in 2026 as React and Vite with the original writeups kept as typed data.
                 </p>
               </div>
             ),
           },
           {
-            id: "result",
-            label: "Result",
+            id: "testing",
+            label: "Testing",
             node: (
               <div className="prose">
                 <p>
-                  One link that shows a screenshot, explains a specific design decision and links straight to a live demo, for
-                  every project. Keyboard, screen reader and reduced motion paths are tested rather than assumed.
+                  Puppeteer walks the built site: landmarks, one h1 per route, non empty alt on project images, intro skip,
+                  reduced motion, and keyboard expansion of a project row.
+                </p>
+              </div>
+            ),
+          },
+          {
+            id: "deployment",
+            label: "Deployment",
+            node: (
+              <div className="prose">
+                <p>
+                  Static build on GitHub Pages under /PS-PORTFOLIO/. Vite emits the SPA; 404.html mirrors index.html for client
+                  routing. cv.html and the PDF are served from public/.
                 </p>
               </div>
             ),
@@ -283,17 +299,17 @@ function FeaturedCase({ p }: { p: ProjectT }) {
         ]),
     {
       id: "links",
-      label: "GitHub / Live demo",
+      label: "Implementation",
       node: (
         <div className="case-links">
+          <SysLink href={p.github} idx="01" variant="primary">
+            View the implementation
+          </SysLink>
           {p.live && (
-            <SysLink href={p.live} idx="01" variant="primary">
+            <SysLink href={p.live} idx="02">
               Live demo
             </SysLink>
           )}
-          <SysLink href={p.github} idx={p.live ? "02" : "01"}>
-            GitHub
-          </SysLink>
         </div>
       ),
     },
@@ -333,8 +349,8 @@ function CourseworkCase({ slug }: { slug: string }) {
       label: "GitHub",
       node: (
         <div className="case-links">
-          <SysLink href={c.github} idx="01">
-            GitHub
+          <SysLink href={c.github} idx="01" variant="primary">
+            View the implementation
           </SysLink>
         </div>
       ),
@@ -346,7 +362,7 @@ function CourseworkCase({ slug }: { slug: string }) {
         index="CW"
         name={c.title}
         title={c.module}
-        meta={["Coursework", "Manchester Metropolitan University"]}
+        meta={["Archive", c.module]}
         tech={c.tech}
         github={c.github}
         visual={<SystemVisual motif="algorithm" signals={c.tech} />}
@@ -357,7 +373,7 @@ function CourseworkCase({ slug }: { slug: string }) {
       <Reveal className="wrap case-next">
         <span className="mono">Back to</span>
         <Link to="/work#coursework" className="case-next-link">
-          <span className="display display-lg">Coursework archive</span>
+          <span className="display display-lg">Archive</span>
         </Link>
       </Reveal>
     </>

@@ -53,8 +53,7 @@ export function Words({
   const go = reduced || !inView || seen;
   const words = text.split(" ");
   return (
-    <span className={`words ${className ?? ""}`} ref={ref}>
-      <span className="sr-only">{text}</span>
+    <span className={`words ${className ?? ""}`} ref={ref} aria-label={text}>
       <span aria-hidden="true">
         {words
           .map((w, i) => (
@@ -122,7 +121,7 @@ export function SectionHead({ idx, label, meta }: { idx: string; label: string; 
   return (
     <Reveal className="sec-head" as="header">
       <span className="mono accent">
-        {idx} / {label}
+        {idx} {label}
       </span>
       <span className="hairline" />
       {meta && <span className="mono">{meta}</span>}
@@ -148,7 +147,7 @@ export function Footer() {
       <span className="mono">
         © {new Date().getFullYear()} <strong>Panashe Sanyanga</strong>
       </span>
-      <span className="mono">Manchester, UK</span>
+      <span className="mono">Software Engineer</span>
       <a className="mono" href="https://github.com/code-by-panashe-sanyanga/PS-PORTFOLIO" target="_blank" rel="noopener noreferrer">
         Source
       </a>

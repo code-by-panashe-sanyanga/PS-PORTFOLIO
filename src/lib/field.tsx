@@ -23,6 +23,7 @@ const Ctx = createContext<FieldApi | null>(null);
 
 export function FieldProvider({ children }: { children: ReactNode }) {
   const [mode, setModeState] = useState<FieldMode>(DEFAULT);
+  /** Catalogue reading surface: canvas stays off. */
   const [on, setOn] = useState(false);
   const pulseRef = useRef(0);
   const setMode = useCallback((m: Partial<FieldMode>) => setModeState((prev) => ({ ...DEFAULT, ...prev, ...m })), []);

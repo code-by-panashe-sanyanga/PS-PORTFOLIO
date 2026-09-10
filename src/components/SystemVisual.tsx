@@ -59,7 +59,7 @@ function Telemetry({ live }: { live: boolean }) {
         <rect x="256" width="104" height="3" className="s3" />
       </g>
       <g className="hud mono-svg" transform="translate(300 24)">
-        <text y="0">P1 · SOFT · 12 LAPS</text>
+        <text y="0">P1 SOFT 12 LAPS</text>
         <text y="16">S1 S2 S3</text>
       </g>
     </svg>
@@ -96,7 +96,7 @@ function Ledger({ live }: { live: boolean }) {
         </div>
       ))}
       <div className="ledger-foot mono">
-        <span>FOR UPDATE · ordered by id</span>
+        <span>FOR UPDATE, ordered by id</span>
         <span className="ok">Σ debits = Σ credits</span>
       </div>
     </div>
@@ -139,7 +139,7 @@ function Probability({ live }: { live: boolean }) {
             <span className="mono">{k}</span>
           </span>
         ))}
-        <span className="mono lam">λ {lam.toFixed(2)} · 10,000 draws</span>
+        <span className="mono lam">λ {lam.toFixed(2)}, 10,000 draws</span>
       </div>
     </div>
   );
@@ -179,7 +179,7 @@ function Stream({ live }: { live: boolean }) {
 /* 05 — accessibility checks passing */
 function Audit({ live }: { live: boolean }) {
   const tick = useTicker(live, 1100);
-  const checks = ["role=dialog + aria-modal", "focus moved into dialog", "Tab / Shift+Tab trapped", "Escape closes, focus restored", "arrow keys navigate", "reduced motion: autoplay off"];
+  const checks = ["role=dialog + aria-modal", "focus moved into dialog", "Tab and Shift+Tab trapped", "Escape closes, focus restored", "arrow keys navigate", "reduced motion: autoplay off"];
   const done = live ? tick % (checks.length + 2) : checks.length;
   return (
     <ul className="audit mono">

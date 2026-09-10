@@ -7,7 +7,7 @@ const rows = [
   { label: "LinkedIn", value: profile.linkedinHandle, href: profile.linkedin, ext: true },
 ];
 
-export default function ContactBlock({ headline = "Let’s build something." }: { headline?: string }) {
+export default function ContactBlock({ headline = "Contact" }: { headline?: string }) {
   return (
     <div className="contact">
       <h2 className="display display-lg contact-head">
@@ -28,9 +28,12 @@ export default function ContactBlock({ headline = "Let’s build something." }: 
       </ul>
       <Reveal className="contact-actions" delay={0.2}>
         <SysLink href={`mailto:${profile.email}?subject=Hello%20Panashe`} idx="01" variant="primary">
-          Send an email
+          Email me
         </SysLink>
-        <SysLink href={`${import.meta.env.BASE_URL}${profile.cvPdf}`} idx="02">
+        <SysLink href={profile.linkedin} idx="02">
+          LinkedIn
+        </SysLink>
+        <SysLink href={`${import.meta.env.BASE_URL}${profile.cvPdf}`} idx="03">
           Download CV
         </SysLink>
         <span className="mono contact-note">{profile.availability}</span>

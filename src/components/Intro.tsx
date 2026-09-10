@@ -2,34 +2,18 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { profile } from "../data/profile";
 
-const KEY = "ps-intro-seen";
-
-export function shouldPlayIntro(pathname: string) {
-  if (typeof window === "undefined") return false;
-  if (pathname !== "/") return false;
-  try {
-    return sessionStorage.getItem(KEY) !== "1";
-  } catch {
-    return true;
-  }
+/** Splash off. First paint is the work. */
+export function shouldPlayIntro(_pathname: string) {
+  return false;
 }
 
 /**
- * Opening sequence. Dark screen → name → role → the environment materialises.
- * ~3.2s, skippable, plays once per session, disabled under reduced motion.
+ * Opening sequence kept for optional use. Currently disabled via shouldPlayIntro.
  */
 export default function Intro({ onDone }: { onDone: () => void }) {
   const reduced = useReducedMotion();
   const [phase, setPhase] = useState(0); // 0 dark, 1 name, 2 role, 3 systems, 4 out
   const [visible, setVisible] = useState(true);
-
-  useEffect(() => {
-    try {
-      sessionStorage.setItem(KEY, "1");
-    } catch {
-      /* private mode */
-    }
-  }, []);
 
   useEffect(() => {
     if (reduced) {
@@ -38,14 +22,14 @@ export default function Intro({ onDone }: { onDone: () => void }) {
       return;
     }
     const t = [
-      window.setTimeout(() => setPhase(1), 250),
-      window.setTimeout(() => setPhase(2), 1150),
-      window.setTimeout(() => setPhase(3), 1750),
-      window.setTimeout(() => setPhase(4), 2750),
+      window.setTimeout(() => setPhase(1), 120),
+      window.setTimeout(() => setPhase(2), 700),
+      window.setTimeout(() => setPhase(3), 1100),
+      window.setTimeout(() => setPhase(4), 1700),
       window.setTimeout(() => {
         setVisible(false);
         onDone();
-      }, 3250),
+      }, 2100),
     ];
     return () => t.forEach(clearTimeout);
   }, [reduced, onDone]);
@@ -55,7 +39,7 @@ export default function Intro({ onDone }: { onDone: () => void }) {
     onDone();
   };
 
-  const labels = ["BACKEND", "SYSTEMS", "FINTECH", "DATA"];
+  const labels = ["DESIGN", "BUILD", "TEST", "SHIP"];
 
   return (
     <AnimatePresence>
@@ -119,10 +103,10 @@ export default function Intro({ onDone }: { onDone: () => void }) {
 
           <div className="intro-corners mono" aria-hidden="true">
             <motion.span initial={{ opacity: 0 }} animate={phase >= 3 && phase < 4 ? { opacity: 1 } : { opacity: 0 }}>
-              {profile.location} · {profile.coords}
+              {profile.role}
             </motion.span>
             <motion.span initial={{ opacity: 0 }} animate={phase >= 3 && phase < 4 ? { opacity: 1 } : { opacity: 0 }}>
-              {profile.graduation}
+              {profile.focus}
             </motion.span>
           </div>
 

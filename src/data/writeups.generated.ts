@@ -21,8 +21,8 @@ export const writeups: Writeup[] = [
   {
     "slug": "apexiq",
     "title": "ApexIQ",
-    "date": "Sep 2026 · personal project",
-    "description": "ApexIQ project write up: purpose, tech stack, design, features, testing, and deployment.",
+    "date": "Sep 2026, personal project",
+    "description": "ApexIQ F1 pit wall: purpose, stack, design, features, testing and deploy.",
     "images": [
       {
         "src": "apexiq-dashboard.png",
@@ -49,19 +49,19 @@ export const writeups: Writeup[] = [
     "sections": [
       {
         "heading": "Purpose and tech stack",
-        "html": "<p>\n  ApexIQ is a Formula 1 race intelligence dashboard. I built it after PremierIQ, using the\n  same one-origin layout: Next.js on the public port, FastAPI on localhost, browser only\n  calls <code>/api</code>. Championship data comes from f1api.dev. Live timing, weather, and\n  GPS come from OpenF1. Neither needs an API key. Empty feeds stay empty: no fake tyre\n  temperatures, ERS, or practice interval gaps.\n</p>\n<table>\n  <thead>\n    <tr>\n      <th>Layer</th>\n      <th>Choice</th>\n      <th>Reason</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>API</td>\n      <td>Python, FastAPI, httpx</td>\n      <td>Briefing, pit wall, map, telemetry compose on one process</td>\n    </tr>\n    <tr>\n      <td>Championship</td>\n      <td>f1api.dev</td>\n      <td>Standings, calendar, drivers, teams, circuits, compare. No token</td>\n    </tr>\n    <tr>\n      <td>Live timing / GPS</td>\n      <td>OpenF1</td>\n      <td>Sessions, car_data, location, laps, stints, weather, race control. No token</td>\n    </tr>\n    <tr>\n      <td>UI</td>\n      <td>Next.js 15, React 19, TypeScript, Three.js</td>\n      <td>Single page. Same origin /api proxy. Procedural 3D car, no licensed mesh</td>\n    </tr>\n  </tbody>\n</table>",
+        "html": "<p>\n  ApexIQ is an F1 pit wall dashboard. The public site is Next.js. FastAPI runs on the server.\n  The browser only calls <code>/api</code> on the Next.js host. Championship data comes from\n  f1api.dev. Live timing, weather and GPS come from OpenF1. Neither feed needs an API key.\n  When OpenF1 omits tyre temperatures, ERS or practice gaps, the UI leaves those fields blank\n  instead of inventing numbers.\n</p>\n<table>\n  <thead>\n    <tr>\n      <th>Layer</th>\n      <th>Choice</th>\n      <th>Reason</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>API</td>\n      <td>Python, FastAPI, httpx</td>\n      <td>One process builds briefing, pit wall, map and live data</td>\n    </tr>\n    <tr>\n      <td>Championship</td>\n      <td>f1api.dev</td>\n      <td>Standings, calendar, drivers, teams, circuits, compare. No key</td>\n    </tr>\n    <tr>\n      <td>Live timing / GPS</td>\n      <td>OpenF1</td>\n      <td>Sessions, car data, GPS, laps, stints, weather, race control. No key</td>\n    </tr>\n    <tr>\n      <td>UI</td>\n      <td>Next.js 15, React 19, TypeScript, Three.js</td>\n      <td>Single page. /api proxy on the same host. 3D car drawn in code</td>\n    </tr>\n  </tbody>\n</table>",
         "mermaid": []
       },
       {
         "heading": "Design (request path)",
-        "html": "<p>\n  The browser only talks to the Next.js origin. Next proxies <code>/api/*</code> to FastAPI.\n  FastAPI throttles OpenF1 (about 3 requests a second and 30 a minute), caches composed\n  feeds, and builds the pit wall and circuit map.\n</p>\n\n<p>\n  OpenF1 driver numbers are not f1api.dev numbers. The UI joins on name and acronym.\n  Circuit GPS uses a mid-session location window. Sampling the last seconds of a completed\n  practice returns garage coordinates, so that window is skipped if the points have no\n  spatial spread.\n</p>",
+        "html": "<p>\n  The browser only talks to Next.js. Next.js forwards <code>/api/*</code> to FastAPI.\n  FastAPI limits OpenF1 to about 3 requests a second and 30 a minute, caches the built\n  pit wall and map responses, then returns them to the UI.\n</p>\n\n<p>\n  OpenF1 and f1api.dev use different driver numbers, so the UI matches drivers by name and\n  acronym. For the track map, GPS is taken from the middle of the session. If you take the\n  last seconds of a finished practice, the points sit in the garage, so those samples are\n  dropped when they barely move on the map.\n</p>",
         "mermaid": [
           "flowchart LR\n  Browser[Browser UI] -->|same origin /api| Next[Next.js]\n  Next -->|proxy localhost| API[FastAPI]\n  API --> Cache[TTL cache]\n  API --> F1[f1api.dev]\n  API --> OF[OpenF1]\n  API --> Next\n  Next --> Browser"
         ]
       },
       {
         "heading": "Features implemented",
-        "html": "<ul>\n  <li>Pit wall: position, compound, tyre age, speed, sectors when published</li>\n  <li>Circuit trace from OpenF1 location GPS, plus driver dots</li>\n  <li>Championship standings and remaining-round window from f1api.dev</li>\n  <li>Last-round grid-to-flag, calendar times, 2026 grid, driver compare</li>\n  <li>Procedural Three.js car HUD from the selected pit-wall driver</li>\n  <li>CORS allowlist, trusted hosts, 120 requests a minute, OpenAPI off unless debug is on</li>\n</ul>",
+        "html": "<ul>\n  <li>Pit wall with position, tyre compound, tyre age, speed and sectors when the feed sends them</li>\n  <li>Track outline from OpenF1 GPS, with driver dots on the circuit</li>\n  <li>Championship standings and remaining rounds from f1api.dev</li>\n  <li>Last race grid to finish, calendar times, 2026 grid and driver compare</li>\n  <li>3D car view for the driver selected on the pit wall, drawn in Three.js</li>\n  <li>CORS allowlist, trusted hosts, 120 requests a minute on the API, OpenAPI docs off unless debug is on</li>\n</ul>",
         "mermaid": []
       },
       {
@@ -71,22 +71,22 @@ export const writeups: Writeup[] = [
       },
       {
         "heading": "Timescale",
-        "html": "<table>\n  <thead>\n    <tr>\n      <th>Phase</th>\n      <th>When</th>\n      <th>Work</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>Clients and pit wall</td>\n      <td>Sep 2026</td>\n      <td>f1api.dev + OpenF1 clients, command centre, 3D hero</td>\n    </tr>\n    <tr>\n      <td>Circuit GPS and polish</td>\n      <td>Sep 2026</td>\n      <td>Mid-session location windows, rate-limit cache, UI copy without provider jargon</td>\n    </tr>\n    <tr>\n      <td>Repo</td>\n      <td>Sep 2026</td>\n      <td>GitHub, README, one-container Dockerfile</td>\n    </tr>\n  </tbody>\n</table>",
+        "html": "<table>\n  <thead>\n    <tr>\n      <th>Phase</th>\n      <th>When</th>\n      <th>Work</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>Clients and pit wall</td>\n      <td>Sep 2026</td>\n      <td>f1api.dev and OpenF1 clients, pit wall UI, 3D car</td>\n    </tr>\n    <tr>\n      <td>Circuit GPS and polish</td>\n      <td>Sep 2026</td>\n      <td>Mid session GPS window, rate limit cache, clearer UI labels</td>\n    </tr>\n    <tr>\n      <td>Repo</td>\n      <td>Sep 2026</td>\n      <td>GitHub, README, one-container Dockerfile</td>\n    </tr>\n  </tbody>\n</table>",
         "mermaid": []
       },
       {
         "heading": "Challenges and how they were handled",
-        "html": "<table>\n  <thead>\n    <tr>\n      <th>Challenge</th>\n      <th>Approach</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>OpenF1 ~30 requests a minute</td>\n      <td>Global throttle, composed pit-wall and map caches, slower polls when the session is completed</td>\n    </tr>\n    <tr>\n      <td>GPS at session end is the garage</td>\n      <td>Sample a mid-session window. Ignore blobs with almost no x/y spread</td>\n    </tr>\n    <tr>\n      <td>httpx encoding <code>date&gt;=</code> as <code>date&gt;==</code></td>\n      <td>Build OpenF1 query strings by hand so filters are <code>date&gt;=VALUE</code></td>\n    </tr>\n    <tr>\n      <td>Driver numbers disagree across APIs</td>\n      <td>Join on acronym / name, not number</td>\n    </tr>\n    <tr>\n      <td>Feeds missing tyre temps and ERS</td>\n      <td>Do not invent them. HUD only shows compound, age, RPM, throttle, gear, speed, DRS</td>\n    </tr>\n  </tbody>\n</table>",
+        "html": "<table>\n  <thead>\n    <tr>\n      <th>Challenge</th>\n      <th>Approach</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>OpenF1 allows about 30 requests a minute</td>\n      <td>Shared rate limit, cache the built pit wall and map, poll less often after the session ends</td>\n    </tr>\n    <tr>\n      <td>GPS after the session ends sits in the garage</td>\n      <td>Use mid session GPS. Drop point sets that barely move</td>\n    </tr>\n    <tr>\n      <td>httpx turns <code>date&gt;=</code> into <code>date&gt;==</code></td>\n      <td>Build OpenF1 query strings by hand so the filter stays <code>date&gt;=VALUE</code></td>\n    </tr>\n    <tr>\n      <td>Driver numbers differ between the two APIs</td>\n      <td>Match on acronym and name, not number</td>\n    </tr>\n    <tr>\n      <td>Feed omits tyre temperatures and ERS</td>\n      <td>Leave them blank. Show compound, age, RPM, throttle, gear, speed and DRS when present</td>\n    </tr>\n  </tbody>\n</table>",
         "mermaid": []
       },
       {
         "heading": "Testing",
-        "html": "<p>\n  There is no pytest suite on this repo. Checks were manual against the live APIs:\n</p>\n<ul>\n  <li>Briefing and championship load from f1api.dev</li>\n  <li>Pit wall uses OpenF1 session latest without inventing practice gaps</li>\n  <li><code>GET /api/live/map</code> returns a path with real x/y spread when GPS exists</li>\n  <li>Empty location windows stay empty in the UI</li>\n  <li><code>GET /health</code> on Next.js</li>\n</ul>",
+        "html": "<p>\n  There is no pytest suite on this repo. Checks were done by hand against the live APIs:\n</p>\n<ul>\n  <li>Briefing and championship load from f1api.dev</li>\n  <li>Pit wall uses the latest OpenF1 session and does not invent practice gaps</li>\n  <li><code>GET /api/live/map</code> returns a path that actually spreads in x/y when GPS exists</li>\n  <li>If GPS is missing or useless, the map stays blank</li>\n  <li><code>GET /health</code> on Next.js</li>\n</ul>",
         "mermaid": []
       },
       {
         "heading": "Deployment and links",
-        "html": "<p>\n  Local: FastAPI on <code>127.0.0.1:8000</code>, Next on\n  <code>http://127.0.0.1:3000</code> with <code>API_INTERNAL_URL</code> pointing at the API.\n  Open the UI origin, not port 8000. Source is on GitHub. Public demo is one Railway service.\n</p>",
+        "html": "<p>\n  Locally, FastAPI runs on <code>127.0.0.1:8000</code> and Next.js on\n  <code>http://127.0.0.1:3000</code> with <code>API_INTERNAL_URL</code> pointing at the API.\n  Open the Next.js URL, not port 8000. Source is on GitHub. The public demo is one Railway service.\n</p>",
         "mermaid": []
       }
     ]
@@ -94,7 +94,7 @@ export const writeups: Writeup[] = [
   {
     "slug": "novabank",
     "title": "NovaBank",
-    "date": "Jun to Jul 2026 · personal project",
+    "date": "Jun to Jul 2026, personal project",
     "description": "NovaBank project write up: purpose, tech stack, design, features, testing, and deployment.",
     "images": [
       {
@@ -130,7 +130,7 @@ export const writeups: Writeup[] = [
     "sections": [
       {
         "heading": "Purpose and tech stack",
-        "html": "<p>\n  NovaBank is a small online banking demo with customer and admin roles. I built it to\n  practise transfers, auth, and database transactions the way a real bank would need to\n  handle them, not a happy path only demo. Money moves through a double-entry ledger rather\n  than a single mutable balance field.\n</p>\n<table>\n  <thead>\n    <tr>\n      <th>Layer</th>\n      <th>Choice</th>\n      <th>Reason</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>API</td>\n      <td>Python, FastAPI</td>\n      <td>Clear route modules and OpenAPI docs for checking endpoints</td>\n    </tr>\n    <tr>\n      <td>Database</td>\n      <td>PostgreSQL (Docker Compose); SQLite for quick smoke</td>\n      <td>Postgres for ACID and row locks on transfers</td>\n    </tr>\n    <tr>\n      <td>ORM / money types</td>\n      <td>SQLAlchemy, Decimal</td>\n      <td>Avoid float for currency</td>\n    </tr>\n    <tr>\n      <td>Auth</td>\n      <td>bcrypt + JWT with role claim</td>\n      <td>Customer vs admin gates; ownership checks on accounts and cards</td>\n    </tr>\n    <tr>\n      <td>UI</td>\n      <td>HTML, CSS, JavaScript, Chart.js</td>\n      <td>Browser client for dashboard, pots, cards, admin</td>\n    </tr>\n    <tr>\n      <td>Live updates</td>\n      <td>WebSockets</td>\n      <td>Balance refresh after money posts</td>\n    </tr>\n    <tr>\n      <td>Ops</td>\n      <td>Docker Compose, Railway deploy</td>\n      <td>Local Postgres parity; public demo</td>\n    </tr>\n  </tbody>\n</table>",
+        "html": "<p>\n  NovaBank is a small online bank with a dashboard. I built it because I wanted to understand\n  how banks move money, not just store a balance. Transfers write matching debit and credit\n  lines, login checks who you are, and money routes check you only touch your own accounts.\n</p>\n<table>\n  <thead>\n    <tr>\n      <th>Layer</th>\n      <th>Choice</th>\n      <th>Reason</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>API</td>\n      <td>Python, FastAPI</td>\n      <td>Clear route modules and OpenAPI docs for checking endpoints</td>\n    </tr>\n    <tr>\n      <td>Database</td>\n      <td>PostgreSQL (Docker Compose); SQLite for quick smoke</td>\n      <td>Postgres for ACID and row locks on transfers</td>\n    </tr>\n    <tr>\n      <td>ORM / money types</td>\n      <td>SQLAlchemy, Decimal</td>\n      <td>Avoid float for currency</td>\n    </tr>\n    <tr>\n      <td>Auth</td>\n      <td>bcrypt + JWT with role claim</td>\n      <td>Customer vs admin gates; ownership checks on accounts and cards</td>\n    </tr>\n    <tr>\n      <td>UI</td>\n      <td>HTML, CSS, JavaScript, Chart.js</td>\n      <td>Browser client for dashboard, pots, cards, admin</td>\n    </tr>\n    <tr>\n      <td>Live updates</td>\n      <td>WebSockets</td>\n      <td>Balance refresh after money posts</td>\n    </tr>\n    <tr>\n      <td>Ops</td>\n      <td>Docker Compose, Railway deploy</td>\n      <td>Local Postgres parity; public demo</td>\n    </tr>\n  </tbody>\n</table>",
         "mermaid": []
       },
       {
@@ -147,7 +147,7 @@ export const writeups: Writeup[] = [
       },
       {
         "heading": "Folder structure",
-        "html": "<pre class=\"folder-tree\">NovaBank/\n├── novabank/\n│   ├── main.py              # app, pages, WebSocket, /docs\n│   ├── api.py               # REST routes\n│   ├── auth.py / database.py / features.py\n│   └── services/\n│       ├── ledger.py        # double-entry transfer service\n│       └── fraud.py         # anomaly rules (flag, do not block)\n├── templates/ + static/     # UI\n├── tests/                   # pytest (incl. concurrent Postgres suite)\n├── seed_ledger.py\n├── docker-compose.yml\n├── Dockerfile\n└── requirements.txt</pre>",
+        "html": "<pre class=\"folder-tree\">NovaBank/\n├── novabank/\n│   ├── main.py              # app, pages, WebSocket, /docs\n│   ├── api.py               # REST routes\n│   ├── auth.py / database.py / features.py\n│   └── services/\n│       ├── ledger.py        # double entry transfer service\n│       └── fraud.py         # anomaly rules (flag, do not block)\n├── templates/ + static/     # UI\n├── tests/                   # pytest (incl. concurrent Postgres suite)\n├── seed_ledger.py\n├── docker-compose.yml\n├── Dockerfile\n└── requirements.txt</pre>",
         "mermaid": []
       },
       {
@@ -175,7 +175,7 @@ export const writeups: Writeup[] = [
   {
     "slug": "premieriq",
     "title": "PremierIQ",
-    "date": "Sep 2026 · personal project",
+    "date": "Sep 2026, personal project",
     "description": "PremierIQ project write up: purpose, tech stack, design, features, testing, and deployment.",
     "images": [
       {
@@ -211,7 +211,7 @@ export const writeups: Writeup[] = [
     "sections": [
       {
         "heading": "Purpose and tech stack",
-        "html": "<p>\n  PremierIQ is a Premier League dashboard. I built it to practise mixing live sports data\n  with a statistical model, without pretending the feed has injuries, confirmed lineups, or\n  betting odds. The numbers come from a Poisson Monte Carlo engine in NumPy. Gemini is\n  optional and only writes a briefing from that JSON.\n</p>\n<table>\n  <thead>\n    <tr>\n      <th>Layer</th>\n      <th>Choice</th>\n      <th>Reason</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>API</td>\n      <td>Python, FastAPI, NumPy</td>\n      <td>Standings, squads, weather, Match IQ and Season IQ on one process</td>\n    </tr>\n    <tr>\n      <td>Football data</td>\n      <td>football-data.org v4</td>\n      <td>Premier League table, teams, matches, scorers. About 10 requests a minute on the free tier</td>\n    </tr>\n    <tr>\n      <td>Weather</td>\n      <td>OpenWeather, Open-Meteo fallback</td>\n      <td>Current conditions at the home stadium when a sim runs</td>\n    </tr>\n    <tr>\n      <td>Briefing text</td>\n      <td>Gemini 3.8 Flash (optional)</td>\n      <td>Narrates Monte Carlo JSON only. Missing key means ai is null</td>\n    </tr>\n    <tr>\n      <td>UI</td>\n      <td>Next.js 15, React 19, TypeScript, MapLibre GL</td>\n      <td>Single page. Same origin /api rewrite so keys never reach the browser</td>\n    </tr>\n    <tr>\n      <td>Map tiles</td>\n      <td>OpenFreeMap liberty style</td>\n      <td>Night restyle and 3D buildings without a paid map key</td>\n    </tr>\n  </tbody>\n</table>",
+        "html": "<p>\n  PremierIQ is a Premier League dashboard closer to a BBC Sport style football page: live\n  standings, match chances and a season outlook. Match chances come from many simulated\n  scorelines in NumPy. The free feed does not include injuries, confirmed lineups or odds, so\n  the app does not invent them. Optional Gemini text only summarises the simulation numbers.\n</p>\n<table>\n  <thead>\n    <tr>\n      <th>Layer</th>\n      <th>Choice</th>\n      <th>Reason</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>API</td>\n      <td>Python, FastAPI, NumPy</td>\n      <td>Standings, squads, weather, Match IQ and Season IQ on one process</td>\n    </tr>\n    <tr>\n      <td>Football data</td>\n      <td>football-data.org v4</td>\n      <td>Premier League table, teams, matches, scorers. About 10 requests a minute on the free tier</td>\n    </tr>\n    <tr>\n      <td>Weather</td>\n      <td>OpenWeather, Open-Meteo fallback</td>\n      <td>Current conditions at the home stadium when a sim runs</td>\n    </tr>\n    <tr>\n      <td>Briefing text</td>\n      <td>Gemini 3.8 Flash (optional)</td>\n      <td>Narrates Monte Carlo JSON only. Missing key means ai is null</td>\n    </tr>\n    <tr>\n      <td>UI</td>\n      <td>Next.js 15, React 19, TypeScript, MapLibre GL</td>\n      <td>Single page. Same origin /api rewrite so keys never reach the browser</td>\n    </tr>\n    <tr>\n      <td>Map tiles</td>\n      <td>OpenFreeMap liberty style</td>\n      <td>Night restyle and 3D buildings without a paid map key</td>\n    </tr>\n  </tbody>\n</table>",
         "mermaid": []
       },
       {
@@ -256,7 +256,7 @@ export const writeups: Writeup[] = [
   {
     "slug": "chatwire",
     "title": "ChatWire",
-    "date": "May 2026 · personal project",
+    "date": "May 2026, personal project",
     "description": "ChatWire project write up: purpose, tech stack, design, features, testing, and deployment.",
     "images": [
       {
@@ -291,7 +291,7 @@ export const writeups: Writeup[] = [
     "sections": [
       {
         "heading": "Purpose and tech stack",
-        "html": "<p>\n  ChatWire is a real-time chat app with a Discord style layout. I built it after mostly doing\n  request/response HTTP work, as a way to learn server push, auth, and permission checks\n  outside of a banking context. The browser uses JSON HTTP for login and Socket.IO for live\n  messages. Accounts and history live in SQLite.\n</p>\n<table>\n  <thead>\n    <tr>\n      <th>Layer</th>\n      <th>Choice</th>\n      <th>Reason</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>Server</td>\n      <td>Python, Flask, Flask-SocketIO</td>\n      <td>HTTP APIs plus live events on one process for a demo scale app</td>\n    </tr>\n    <tr>\n      <td>Data</td>\n      <td>SQLite</td>\n      <td>Simple persistence for users, messages, friends, feed</td>\n    </tr>\n    <tr>\n      <td>Auth</td>\n      <td>bcrypt + signed session tokens</td>\n      <td>Reconnect with a token, not the password</td>\n    </tr>\n    <tr>\n      <td>Client</td>\n      <td>HTML, CSS, JavaScript</td>\n      <td>Channel UI, DMs, feed, Ctrl+K switcher</td>\n    </tr>\n    <tr>\n      <td>Channel calls</td>\n      <td>Socket.IO + WebRTC (STUN)</td>\n      <td>Meet now presence plus optional mic/camera peer media</td>\n    </tr>\n    <tr>\n      <td>Presence</td>\n      <td>In memory</td>\n      <td>Online status changes often and need not survive restart</td>\n    </tr>\n  </tbody>\n</table>",
+        "html": "<p>\n  ChatWire is a live chat app with channels, direct messages and online status. I built it to\n  understand how apps like Discord and Instagram get a message onto every open screen at once.\n  Login uses normal HTTP. Live messages use Socket.IO. Accounts and history sit in SQLite.\n</p>\n<table>\n  <thead>\n    <tr>\n      <th>Layer</th>\n      <th>Choice</th>\n      <th>Reason</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>Server</td>\n      <td>Python, Flask, Flask-SocketIO</td>\n      <td>HTTP APIs plus live events on one process for this demo</td>\n    </tr>\n    <tr>\n      <td>Data</td>\n      <td>SQLite</td>\n      <td>Simple persistence for users, messages, friends, feed</td>\n    </tr>\n    <tr>\n      <td>Auth</td>\n      <td>bcrypt + signed session tokens</td>\n      <td>Reconnect with a token, not the password</td>\n    </tr>\n    <tr>\n      <td>Client</td>\n      <td>HTML, CSS, JavaScript</td>\n      <td>Channel UI, DMs, feed, Ctrl+K switcher</td>\n    </tr>\n    <tr>\n      <td>Channel calls</td>\n      <td>Socket.IO + WebRTC (STUN)</td>\n      <td>Meet now presence plus optional mic/camera peer media</td>\n    </tr>\n    <tr>\n      <td>Presence</td>\n      <td>In memory</td>\n      <td>Online status changes often and need not survive restart</td>\n    </tr>\n  </tbody>\n</table>",
         "mermaid": []
       },
       {
@@ -318,7 +318,7 @@ export const writeups: Writeup[] = [
       },
       {
         "heading": "Challenges and how they were handled",
-        "html": "<table>\n  <thead>\n    <tr>\n      <th>Challenge</th>\n      <th>Approach</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>Reloading full history on every room switch</td>\n      <td>Load once, then append events; cursor pagination for older messages</td>\n    </tr>\n    <tr>\n      <td>Auth only on login</td>\n      <td>Signed tokens; ownership and friend checks on feed / stories / renames</td>\n    </tr>\n    <tr>\n      <td>Brute force on login or change password</td>\n      <td>Short account lockout after repeated failures</td>\n    </tr>\n    <tr>\n      <td>Spam on sockets</td>\n      <td>Per connection rate limits on write events</td>\n    </tr>\n    <tr>\n      <td>Presence scale</td>\n      <td>Keep online status in memory for demo scale; document JOIN batching for later</td>\n    </tr>\n  </tbody>\n</table>",
+        "html": "<table>\n  <thead>\n    <tr>\n      <th>Challenge</th>\n      <th>Approach</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>Reloading full history on every room switch</td>\n      <td>Load once, then append events; cursor pagination for older messages</td>\n    </tr>\n    <tr>\n      <td>Auth only on login</td>\n      <td>Signed tokens; ownership and friend checks on feed / stories / renames</td>\n    </tr>\n    <tr>\n      <td>Brute force on login or change password</td>\n      <td>Short account lockout after repeated failures</td>\n    </tr>\n    <tr>\n      <td>Spam on sockets</td>\n      <td>Per connection rate limits on write events</td>\n    </tr>\n    <tr>\n      <td>Presence scale</td>\n      <td>Keep online status in memory for this demo; document JOIN batching for later</td>\n    </tr>\n  </tbody>\n</table>",
         "mermaid": []
       },
       {
@@ -336,7 +336,7 @@ export const writeups: Writeup[] = [
   {
     "slug": "emergency-call-queue",
     "title": "Emergency Call Queue",
-    "date": "Year 2 · 6G5Z0024 ADS · Assessed Exercise 1",
+    "date": "Year 2, 6G5Z0024 ADS, Assessed Exercise 1",
     "description": "Emergency Call Queue: ADS assessed exercise on custom circular queues in C#.",
     "images": [],
     "tech": [
@@ -388,7 +388,7 @@ export const writeups: Writeup[] = [
       },
       {
         "heading": "Deployment and links",
-        "html": "<p>\n  Re-upload of the ADS coursework on my personal GitHub. Open <code>ADS_Assess1.sln</code> in\n  Visual Studio (F5 / Ctrl+F5), or build with <code>msbuild ADS_Assess1.sln</code> and run\n  <code>ADS_Assess1\\bin\\Debug\\ADS_Assess1.exe</code>. There is no web deploy; the artefact is\n  the ADT and menu for marking and portfolio evidence.\n</p>",
+        "html": "<p>\n  Open <code>ADS_Assess1.sln</code> in Visual Studio (F5 / Ctrl+F5), or build with\n  <code>msbuild ADS_Assess1.sln</code> and run\n  <code>ADS_Assess1\\bin\\Debug\\ADS_Assess1.exe</code>. No web deploy. The artefact is the ADT\n  and interactive menu.\n</p>",
         "mermaid": []
       }
     ]
@@ -396,7 +396,7 @@ export const writeups: Writeup[] = [
   {
     "slug": "video-game-catalogue",
     "title": "Video Game Catalogue",
-    "date": "Year 2 · 6G5Z0024 ADS · Assessed Exercise 2",
+    "date": "Year 2, 6G5Z0024 ADS, Assessed Exercise 2",
     "description": "Video Game Catalogue: ADS trees exercise, BST then AVL in C#.",
     "images": [],
     "tech": [
@@ -448,7 +448,7 @@ export const writeups: Writeup[] = [
       },
       {
         "heading": "Deployment and links",
-        "html": "<p>\n  Re-upload of the ADS coursework on my personal GitHub. Open <code>ADSPortEx2.sln</code> in\n  Visual Studio (F5 / Ctrl+F5), or build with <code>msbuild ADSPortEx2.sln</code> and run\n  <code>ADSPortEx2\\bin\\Debug\\ADSPortEx2.exe</code>. Evidence for the unit is the recursive\n  ADTs and menu coverage of BST versus AVL.\n</p>",
+        "html": "<p>\n  Open <code>ADSPortEx2.sln</code> in Visual Studio (F5 / Ctrl+F5), or build with\n  <code>msbuild ADSPortEx2.sln</code> and run\n  <code>ADSPortEx2\\bin\\Debug\\ADSPortEx2.exe</code>. The artefact is recursive ADTs with menu\n  coverage of BST versus AVL.\n</p>",
         "mermaid": []
       }
     ]
@@ -456,7 +456,7 @@ export const writeups: Writeup[] = [
   {
     "slug": "aid-optimiser",
     "title": "Aid Distribution Optimiser",
-    "date": "Year 2 · 6G5Z0024 ADS · Assessed Task 3",
+    "date": "Year 2, 6G5Z0024 ADS, Assessed Task 3",
     "description": "Aid Distribution Optimiser: complexity, generic QuickSort, greedy drone loadout.",
     "images": [],
     "tech": [
@@ -508,7 +508,7 @@ export const writeups: Writeup[] = [
       },
       {
         "heading": "Deployment and links",
-        "html": "<p>\n  Re-upload of the ADS coursework on my personal GitHub. Open <code>ADSPortEx3.sln</code> in\n  Visual Studio (F5 / Ctrl+F5), or build with <code>msbuild ADSPortEx3.sln</code> and run\n  <code>ADSPortEx3\\bin\\Debug\\ADSPortEx3.exe</code>. No server deploy; the deliverable is\n  analysis plus working sort and greedy paths.\n</p>",
+        "html": "<p>\n  Open <code>ADSPortEx3.sln</code> in Visual Studio (F5 / Ctrl+F5), or build with\n  <code>msbuild ADSPortEx3.sln</code> and run\n  <code>ADSPortEx3\\bin\\Debug\\ADSPortEx3.exe</code>. No server deploy. Analysis plus working\n  sort and greedy paths.\n</p>",
         "mermaid": []
       }
     ]
@@ -516,7 +516,7 @@ export const writeups: Writeup[] = [
   {
     "slug": "metro-routes",
     "title": "Metro Network Route Planner",
-    "date": "Year 2 · 6G5Z0024 ADS · Assessed Exercise 4",
+    "date": "Year 2, 6G5Z0024 ADS, Assessed Exercise 4",
     "description": "Metro Network Route Planner: list based weighted graphs, traversal, greedy route.",
     "images": [],
     "tech": [
@@ -568,7 +568,7 @@ export const writeups: Writeup[] = [
       },
       {
         "heading": "Deployment and links",
-        "html": "<p>\n  Re-upload of the ADS coursework on my personal GitHub. Open <code>ADSPortEx4.sln</code> in\n  Visual Studio (F5 / Ctrl+F5), or build with <code>msbuild ADSPortEx4.sln</code> and run\n  <code>ADSPortEx4\\bin\\Debug\\ADSPortEx4.exe</code>. No web host; the graph ADT and harness\n  are the marked artefact.\n</p>",
+        "html": "<p>\n  Open <code>ADSPortEx4.sln</code> in Visual Studio (F5 / Ctrl+F5), or build with\n  <code>msbuild ADSPortEx4.sln</code> and run\n  <code>ADSPortEx4\\bin\\Debug\\ADSPortEx4.exe</code>. No web host. The graph ADT and harness\n  are the artefact.\n</p>",
         "mermaid": []
       }
     ]
@@ -576,7 +576,7 @@ export const writeups: Writeup[] = [
   {
     "slug": "whats-for-dinner",
     "title": "What's For Dinner",
-    "date": "Year 2 · 6G5Z0023 Thematic Project · group",
+    "date": "Year 2, 6G5Z0023 Thematic Project, group",
     "description": "What's For Dinner: Year 2 Thematic Project recipe finder. Architecture, delivery, testing, and team practice.",
     "images": [
       {
@@ -648,7 +648,7 @@ export const writeups: Writeup[] = [
   {
     "slug": "vault-comics",
     "title": "Vault Comics",
-    "date": "Year 1 · 6G4Z0024 Web Development · individual",
+    "date": "Year 1, 6G4Z0024 Web Development, individual",
     "description": "Vault Comics: Year 1 comic shop site with catalogue, localStorage cart, checkout demo, and PHP contact form.",
     "images": [
       {
@@ -675,7 +675,7 @@ export const writeups: Writeup[] = [
     "sections": [
       {
         "heading": "Purpose and tech stack",
-        "html": "<p>\n  Vault Comics is a comic book shop site from my Year 1 Web Development unit. Shoppers can\n  browse a catalogue, add titles to a cart that survives a refresh, walk a demo checkout, and\n  send a contact message. The published GitHub copy is a re-upload of that coursework so it\n  sits on my personal profile with the rest of my work.\n</p>\n<table>\n  <thead>\n    <tr>\n      <th>Layer</th>\n      <th>Choice</th>\n      <th>Reason</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>Pages</td>\n      <td>HTML5 (home, catalogue, basket, pay, success, about, contact)</td>\n      <td>Multi-page shop flow rather than a single landing page</td>\n    </tr>\n    <tr>\n      <td>Presentation</td>\n      <td>CSS Grid and Flexbox in <code>css/style.css</code></td>\n      <td>Responsive catalogue and layout without a framework</td>\n    </tr>\n    <tr>\n      <td>Behaviour</td>\n      <td>JavaScript in <code>js/script.js</code></td>\n      <td>Cart, forms, and mobile nav</td>\n    </tr>\n    <tr>\n      <td>Persistence</td>\n      <td>browser <code>localStorage</code></td>\n      <td>Cart items stay after closing the tab</td>\n    </tr>\n    <tr>\n      <td>Contact</td>\n      <td>PHP handler plus EmailJS / mailto fallbacks</td>\n      <td>Hosting environments handle mail differently</td>\n    </tr>\n  </tbody>\n</table>",
+        "html": "<p>\n  Vault Comics is a comic book shop site. Shoppers can browse a catalogue, add titles to a cart\n  that survives a refresh, walk a demo checkout, and send a contact message.\n</p>\n<table>\n  <thead>\n    <tr>\n      <th>Layer</th>\n      <th>Choice</th>\n      <th>Reason</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>Pages</td>\n      <td>HTML5 (home, catalogue, basket, pay, success, about, contact)</td>\n      <td>Multi-page shop flow rather than a single landing page</td>\n    </tr>\n    <tr>\n      <td>Presentation</td>\n      <td>CSS Grid and Flexbox in <code>css/style.css</code></td>\n      <td>Responsive catalogue and layout without a framework</td>\n    </tr>\n    <tr>\n      <td>Behaviour</td>\n      <td>JavaScript in <code>js/script.js</code></td>\n      <td>Cart, forms, and mobile nav</td>\n    </tr>\n    <tr>\n      <td>Persistence</td>\n      <td>browser <code>localStorage</code></td>\n      <td>Cart items stay after closing the tab</td>\n    </tr>\n    <tr>\n      <td>Contact</td>\n      <td>PHP handler plus EmailJS / mailto fallbacks</td>\n      <td>Hosting environments handle mail differently</td>\n    </tr>\n  </tbody>\n</table>",
         "mermaid": []
       },
       {
@@ -712,7 +712,7 @@ export const writeups: Writeup[] = [
       },
       {
         "heading": "Deployment and links",
-        "html": "<p>\n  Static site: open <code>index.html</code> or serve the folder with\n  <code>python -m http.server 8000</code>. Contact mail needs PHP configured on the host, or\n  EmailJS / mailto as fallback. Source is on GitHub as a personal-profile re-upload of the\n  coursework.\n</p>",
+        "html": "<p>\n  Static site: open <code>index.html</code> or serve the folder with\n  <code>python -m http.server 8000</code>. Contact mail needs PHP configured on the host, or\n  EmailJS / mailto as fallback. Source is on GitHub.\n</p>",
         "mermaid": []
       }
     ]
@@ -720,7 +720,7 @@ export const writeups: Writeup[] = [
   {
     "slug": "space-survival",
     "title": "Space Survival",
-    "date": "Year 1 · 6G4Z0020 Programming · Don't Crash!! coursework",
+    "date": "Year 1, 6G4Z0020 Programming, Don't Crash!! coursework",
     "description": "Space Survival: Processing arcade game with centred ship, lives, scoring, levels, and OOP entities in one sketch.",
     "images": [
       {
@@ -746,7 +746,7 @@ export const writeups: Writeup[] = [
     "sections": [
       {
         "heading": "Purpose and tech stack",
-        "html": "<p>\n  Space Survival is a 2D arcade survival game in Processing (Java). The ship stays centred;\n  arrow keys shove the whole obstacle field away from the middle. Coloured shapes (circles,\n  squares, triangles) fly in from the edges. The GitHub copy is a re-upload of the Year 1\n  Programming coursework so it sits on my personal profile.\n</p>\n<table>\n  <thead>\n    <tr><th>Layer</th><th>Choice</th><th>Reason</th></tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>Runtime</td>\n      <td>Processing 3 / 4 (Java)</td>\n      <td>Required by the unit assessment</td>\n    </tr>\n    <tr>\n      <td>Layout</td>\n      <td>Single sketch <code>Space_Survival.pde</code></td>\n      <td>All classes and the draw loop live in one file</td>\n    </tr>\n    <tr>\n      <td>Entities</td>\n      <td><code>Player</code>, <code>Obstacle</code>, <code>ExplosionAnimation</code>, <code>Particle</code></td>\n      <td>Ship, hazards, and hit effects</td>\n    </tr>\n    <tr>\n      <td>Collision</td>\n      <td>Circle distance via <code>dist()</code></td>\n      <td>Compare ship and obstacle radii</td>\n    </tr>\n    <tr>\n      <td>Evidence</td>\n      <td><code>Development-report.pdf</code></td>\n      <td>Design, features, and testing write-up</td>\n    </tr>\n  </tbody>\n</table>",
+        "html": "<p>\n  Space Survival is a 2D arcade survival game in Processing (Java). The ship stays centred;\n  arrow keys shove the whole obstacle field away from the middle. Coloured shapes (circles,\n  squares, triangles) fly in from the edges.\n</p>\n<table>\n  <thead>\n    <tr><th>Layer</th><th>Choice</th><th>Reason</th></tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>Runtime</td>\n      <td>Processing 3 / 4 (Java)</td>\n      <td>Required by the unit assessment</td>\n    </tr>\n    <tr>\n      <td>Layout</td>\n      <td>Single sketch <code>Space_Survival.pde</code></td>\n      <td>All classes and the draw loop live in one file</td>\n    </tr>\n    <tr>\n      <td>Entities</td>\n      <td><code>Player</code>, <code>Obstacle</code>, <code>ExplosionAnimation</code>, <code>Particle</code></td>\n      <td>Ship, hazards, and hit effects</td>\n    </tr>\n    <tr>\n      <td>Collision</td>\n      <td>Circle distance via <code>dist()</code></td>\n      <td>Compare ship and obstacle radii</td>\n    </tr>\n    <tr>\n      <td>Evidence</td>\n      <td><code>Development-report.pdf</code></td>\n      <td>Design, features, and testing write-up</td>\n    </tr>\n  </tbody>\n</table>",
         "mermaid": []
       },
       {

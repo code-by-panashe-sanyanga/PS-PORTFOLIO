@@ -2,9 +2,8 @@ import { lazy, Suspense, useCallback, useEffect, useState } from "react";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { PointerProvider } from "./lib/pointer";
-import { FieldProvider, useField } from "./lib/field";
+import { FieldProvider } from "./lib/field";
 import { pageVariants } from "./lib/motion";
-import Field from "./components/Field";
 import Nav from "./components/Nav";
 import Intro, { shouldPlayIntro } from "./components/Intro";
 import { Footer } from "./components/primitives";
@@ -13,7 +12,6 @@ import Home from "./pages/Home";
 const Work = lazy(() => import("./pages/Work"));
 const Project = lazy(() => import("./pages/Project"));
 const About = lazy(() => import("./pages/About"));
-const Experience = lazy(() => import("./pages/Experience"));
 const Contact = lazy(() => import("./pages/Contact"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
@@ -54,7 +52,6 @@ function ScrollManager() {
 function Shell() {
   const location = useLocation();
   const reduced = useReducedMotion();
-  const { setOn } = useField();
   const [intro, setIntro] = useState(() => shouldPlayIntro(location.pathname) && !reduced);
   const [introDone, setIntroDone] = useState(!intro);
 
@@ -63,20 +60,8 @@ function Shell() {
     setIntroDone(true);
   }, []);
 
-  useEffect(() => {
-    if (!intro) setOn(true);
-  }, [intro, setOn]);
-
-  // Field materialises during the last phase of the intro.
-  useEffect(() => {
-    if (!intro) return;
-    const t = window.setTimeout(() => setOn(true), 1900);
-    return () => window.clearTimeout(t);
-  }, [intro, setOn]);
-
   return (
     <>
-      <Field />
       {intro && <Intro onDone={finish} />}
       <Nav />
       <ScrollManager />
@@ -95,7 +80,7 @@ function Shell() {
               <Route path="/work" element={<Work />} />
               <Route path="/work/:slug" element={<Project />} />
               <Route path="/about" element={<About />} />
-              <Route path="/experience" element={<Experience />} />
+              <Route path="/experience" element={<Navigate to="/about" replace />} />
               <Route path="/contact" element={<Contact />} />
               {Object.entries(legacy).map(([from, to]) => (
                 <Route key={from} path={from} element={<Navigate to={to} replace />} />

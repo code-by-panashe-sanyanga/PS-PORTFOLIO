@@ -10,6 +10,8 @@ interface Props {
   items: Project[];
   /** Work page: every row open. Home: rows open on hover / tap. */
   expanded?: boolean;
+  /** Home: open one system by default so proof is visible without a hover. */
+  defaultOpen?: string;
 }
 
 /**
@@ -17,8 +19,8 @@ interface Props {
  * Opening a row reveals the description, stack, a live system visual and the
  * link into the case study. The background field pulses on hover.
  */
-export default function ProjectIndex({ items, expanded = false }: Props) {
-  const [open, setOpen] = useState<string | null>(null);
+export default function ProjectIndex({ items, expanded = false, defaultOpen }: Props) {
+  const [open, setOpen] = useState<string | null>(defaultOpen ?? null);
   const { pulse } = useField();
   const reduced = useReducedMotion();
   const fine = typeof window !== "undefined" && window.matchMedia("(pointer: fine)").matches;
@@ -40,7 +42,7 @@ export default function ProjectIndex({ items, expanded = false }: Props) {
               pulse();
             }}
             onMouseLeave={() => {
-              if (!expanded && fine) setOpen(null);
+              if (!expanded && fine) setOpen(defaultOpen ?? null);
             }}
           >
             <div className="pindex-head">
@@ -93,11 +95,11 @@ export default function ProjectIndex({ items, expanded = false }: Props) {
                           View project
                         </SysLink>
                         <a className="mono pindex-ext" href={p.github} target="_blank" rel="noopener noreferrer">
-                          GitHub
+                          View the implementation
                         </a>
                         {p.live && (
                           <a className="mono pindex-ext" href={p.live} target="_blank" rel="noopener noreferrer">
-                            Live
+                            Live demo
                           </a>
                         )}
                       </div>

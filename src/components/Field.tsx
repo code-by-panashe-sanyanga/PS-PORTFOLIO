@@ -55,21 +55,23 @@ export default function Field() {
 
     const build = () => {
       const area = w * h;
-      const base = isTouch ? 26000 : 17000;
-      const count = Math.round((area / base) * (0.55 + modeRef.current.density * 0.75));
-      nodes = Array.from({ length: Math.max(24, Math.min(170, count)) }, () => ({
+      const base = isTouch ? 32000 : 24000;
+      const dens = modeRef.current.density * (modeRef.current.calm ? 0.7 : 1);
+      const count = Math.round((area / base) * (0.4 + dens * 0.7));
+      nodes = Array.from({ length: Math.max(14, Math.min(110, count)) }, () => ({
         x: Math.random() * w,
         y: Math.random() * h,
         z: 0.35 + Math.random() * 0.65,
-        vx: (Math.random() - 0.5) * 0.08,
-        vy: (Math.random() - 0.5) * 0.08,
+        vx: (Math.random() - 0.5) * 0.06,
+        vy: (Math.random() - 0.5) * 0.06,
         seed: Math.random() * Math.PI * 2,
       }));
-      packets = Array.from({ length: Math.round(nodes.length * 0.08) }, () => ({
+      const pktRate = modeRef.current.calm ? 0.03 : 0.08;
+      packets = Array.from({ length: Math.round(nodes.length * pktRate) }, () => ({
         a: 0,
         b: 0,
         t: Math.random(),
-        speed: 0.15 + Math.random() * 0.25,
+        speed: 0.12 + Math.random() * 0.2,
       }));
       packets.forEach(retarget);
     };
@@ -195,7 +197,7 @@ export default function Field() {
           if (d2 > linkDist2) continue;
           const t = 1 - d2 / linkDist2;
           const z = (a.z + b.z) / 2;
-          const alpha = t * (0.05 + z * 0.16) * (m.calm ? 0.6 : 1);
+          const alpha = t * (0.03 + z * 0.1) * (m.calm ? 0.45 : 1);
           ctx.strokeStyle = `rgba(255,255,255,${alpha.toFixed(3)})`;
           ctx.beginPath();
           ctx.moveTo(a.x, a.y);
@@ -205,9 +207,10 @@ export default function Field() {
       }
 
       // nodes
+      const nodeMul = m.calm ? 0.55 : 1;
       for (const p of proj) {
-        const r = 0.6 + p.z * 1.2;
-        ctx.fillStyle = `rgba(243,243,240,${(0.18 + p.z * 0.5).toFixed(3)})`;
+        const r = 0.5 + p.z * 1.0;
+        ctx.fillStyle = `rgba(243,243,240,${((0.12 + p.z * 0.35) * nodeMul).toFixed(3)})`;
         ctx.beginPath();
         ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
         ctx.fill();
@@ -231,15 +234,16 @@ export default function Field() {
           const x = a.x + (b.x - a.x) * pk.t;
           const y = a.y + (b.y - a.y) * pk.t;
           const fade = Math.sin(pk.t * Math.PI);
-          ctx.fillStyle = `rgba(226,163,59,${(0.25 + fade * 0.55).toFixed(3)})`;
+          const pktA = (0.12 + fade * 0.35) * (m.calm ? 0.55 : 1);
+          ctx.fillStyle = `rgba(226,163,59,${pktA.toFixed(3)})`;
           ctx.beginPath();
-          ctx.arc(x, y, 1.4 + fade * 0.8, 0, Math.PI * 2);
+          ctx.arc(x, y, 1.1 + fade * 0.6, 0, Math.PI * 2);
           ctx.fill();
         }
       }
 
       // pointer halo: faint ring that reads as a lens over the network
-      if (hasPointer && !isTouch) {
+      if (hasPointer && !isTouch && !m.calm) {
         const g = ctx.createRadialGradient(px, py, 0, px, py, 220);
         g.addColorStop(0, "rgba(226,163,59,0.05)");
         g.addColorStop(1, "rgba(226,163,59,0)");

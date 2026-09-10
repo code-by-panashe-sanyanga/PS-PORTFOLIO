@@ -1,10 +1,10 @@
-// Technical map. "use" lines describe how each technology has actually been used
-// in the projects on this site or in work; items without project evidence say so.
+// Technical map. "use" lines describe how each technology has actually been used.
+// Items without project evidence say so. No percentage bars, no invented depth.
 
 export interface Skill {
   name: string;
   use: string[];
-  refs?: string[]; // project slugs
+  refs?: string[];
 }
 
 export interface SkillGroup {
@@ -20,27 +20,54 @@ export const skillGroups: SkillGroup[] = [
     items: [
       {
         name: "Python",
-        use: ["Backend development", "APIs", "Automation", "Data processing"],
+        use: ["FastAPI services on ApexIQ, NovaBank and PremierIQ", "Flask and Socket.IO on ChatWire", "NumPy Monte Carlo on PremierIQ"],
         refs: ["apexiq", "novabank", "premieriq", "chatwire"],
       },
       {
+        name: "SQL",
+        use: ["NovaBank ledger schema and locking", "ChatWire message and friend tables"],
+        refs: ["novabank", "chatwire"],
+      },
+      {
         name: "C#",
-        use: ["Custom queues and circular buffers", "BST / AVL trees", "Sorting and greedy algorithms", "Graph search"],
+        use: ["Queues, BST and AVL trees, sorting, greedy packers, graph search"],
         refs: ["emergency-call-queue", "video-game-catalogue", "aid-optimiser", "metro-routes"],
       },
       {
-        name: "C++",
-        use: ["Compiled, systems-level programming", "Working knowledge alongside C#"],
-      },
-      {
-        name: "JavaScript / TypeScript",
-        use: ["Next.js and React front ends", "Browser clients for ChatWire and NovaBank", "This site"],
+        name: "JavaScript and TypeScript",
+        use: ["Next.js UIs for ApexIQ and PremierIQ", "ChatWire and NovaBank browser clients", "This site"],
         refs: ["apexiq", "premieriq", "chatwire", "portfolio"],
       },
+    ],
+  },
+  {
+    id: "frontend",
+    label: "Frontend",
+    items: [
       {
-        name: "SQL",
-        use: ["Schema design and queries", "Transactions and row level locking", "Customer segmentation at Belstaff"],
-        refs: ["novabank", "chatwire"],
+        name: "Next.js",
+        use: ["ApexIQ and PremierIQ product UIs", "Same origin /api proxy so keys stay server side"],
+        refs: ["apexiq", "premieriq"],
+      },
+      {
+        name: "React",
+        use: ["This portfolio", "Interactive case-study pages"],
+        refs: ["portfolio"],
+      },
+      {
+        name: "HTML, CSS and JS",
+        use: ["ChatWire and NovaBank clients", "Vault Comics shop flow"],
+        refs: ["chatwire", "novabank", "vault-comics"],
+      },
+      {
+        name: "Three.js",
+        use: ["Procedural car HUD on ApexIQ"],
+        refs: ["apexiq"],
+      },
+      {
+        name: "MapLibre",
+        use: ["Night stadium map on PremierIQ"],
+        refs: ["premieriq"],
       },
     ],
   },
@@ -50,23 +77,28 @@ export const skillGroups: SkillGroup[] = [
     items: [
       {
         name: "FastAPI",
-        use: ["Route modules and OpenAPI docs", "Server side provider keys and caching", "Rate limits, CORS allowlists, trusted hosts"],
+        use: ["REST routes and OpenAPI on NovaBank", "Server side provider keys and caches on ApexIQ and PremierIQ"],
         refs: ["apexiq", "novabank", "premieriq"],
       },
       {
         name: "Flask",
-        use: ["JSON HTTP auth routes", "Flask-SocketIO live events on one process"],
+        use: ["JSON auth routes", "Socket.IO live events on the same process as ChatWire"],
         refs: ["chatwire"],
       },
       {
-        name: ".NET",
-        use: [".NET Framework console applications for the ADS coursework"],
-        refs: ["emergency-call-queue", "video-game-catalogue"],
+        name: "SQLAlchemy",
+        use: ["ORM and Decimal money types on NovaBank"],
+        refs: ["novabank"],
       },
       {
         name: "REST APIs",
-        use: ["JWT protected resources", "Idempotency keys on money routes", "Same origin /api proxies"],
+        use: ["JWT protected money routes", "Idempotency keys on deposit, withdraw and transfer", "Same origin /api proxies"],
         refs: ["novabank", "apexiq", "premieriq"],
+      },
+      {
+        name: "JWT",
+        use: ["Login issues a token with a role claim", "Protected routes validate the token and check ownership"],
+        refs: ["novabank"],
       },
     ],
   },
@@ -76,12 +108,12 @@ export const skillGroups: SkillGroup[] = [
     items: [
       {
         name: "PostgreSQL",
-        use: ["ACID transactions", "FOR UPDATE row locks ordered by id", "Concurrent transfer tests against a real database"],
+        use: ["NovaBank ACID transfers", "FOR UPDATE locks ordered by account id", "Concurrent transfer tests against a real database"],
         refs: ["novabank"],
       },
       {
         name: "SQLite",
-        use: ["Users, messages, friends and feed for ChatWire", "Quick smoke database for NovaBank"],
+        use: ["ChatWire persistence", "NovaBank smoke database"],
         refs: ["chatwire", "novabank"],
       },
     ],
@@ -90,26 +122,27 @@ export const skillGroups: SkillGroup[] = [
     id: "tools",
     label: "Tools",
     items: [
-      { name: "Git", use: ["Every project on GitHub", "Branch and pull request workflow for this site"] },
+      { name: "Git", use: ["Repos for every project", "Branch and PR workflow on this site"] },
       {
         name: "Docker",
-        use: ["Docker Compose with Postgres for NovaBank", "One container Dockerfile for ApexIQ", "Railway deploys"],
+        use: ["Docker Compose Postgres for NovaBank", "Dockerfile for ApexIQ"],
         refs: ["novabank", "apexiq"],
       },
-      { name: "Linux / Bash", use: ["Container and deployment environments", "Working knowledge"] },
-      { name: "Azure", use: ["Microsoft cloud platform", "Working knowledge alongside Microsoft 365 support at MMU"] },
+      { name: "Linux and Bash", use: ["Containers and Railway deploys", "Working knowledge"] },
+      { name: "pytest", use: ["11 tests on the NovaBank ledger path", "24 tests on ChatWire auth, access control and sockets"], refs: ["novabank", "chatwire"] },
+      { name: "Azure", use: ["Working knowledge of Microsoft 365 and Azure support tooling"] },
     ],
   },
   {
     id: "concepts",
     label: "Concepts",
     items: [
-      { name: "Algorithms", use: ["QuickSort and greedy selection", "BFS / DFS", "Poisson Monte Carlo simulation"] },
-      { name: "Data Structures", use: ["Circular buffers", "Binary search and AVL trees", "Graphs"] },
-      { name: "APIs", use: ["Designing the route surface", "Provider integration with throttling and caching"] },
-      { name: "Databases", use: ["Double-entry ledgers", "Balanced debit and credit entries", "Indexing and locking"] },
-      { name: "Concurrency", use: ["Ordered row locks to avoid deadlock", "Idempotent retries", "Racing transfer tests"] },
-      { name: "System Design", use: ["One origin layouts", "Keys never in the browser", "Empty feeds stay empty"] },
+      { name: "Algorithms", use: ["Sorting, trees and graphs", "PremierIQ Poisson Monte Carlo"] },
+      { name: "Data Structures", use: ["Circular buffers", "BST and AVL trees", "Graphs"] },
+      { name: "System Design", use: ["Browser talks to my site only", "API keys stay on the server", "Missing feed fields stay blank"] },
+      { name: "Concurrency", use: ["Ordered row locks", "Idempotent retries", "Racing transfer tests"] },
+      { name: "Testing", use: ["pytest on money and socket paths", "Puppeteer smoke tests on this site"] },
+      { name: "Deployment", use: ["Docker Compose", "Railway live demos", "GitHub Pages"] },
     ],
   },
 ];

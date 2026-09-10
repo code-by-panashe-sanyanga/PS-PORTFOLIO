@@ -1,6 +1,6 @@
 import { useFieldMode } from "../lib/field";
 import { profile } from "../data/profile";
-import { Words, useTitle } from "../components/primitives";
+import { useTitle } from "../components/primitives";
 import ContactBlock from "../components/ContactBlock";
 
 export default function Contact() {
@@ -10,16 +10,12 @@ export default function Contact() {
   return (
     <section className="page-head contact-page" aria-labelledby="contact-title">
       <div className="wrap">
-        <span className="mono accent">04 / Contact</span>
+        <span className="mono accent">03 Contact</span>
         <h1 id="contact-title" className="display display-lg contact-name">
-          <span className="hero-line">
-            <Words text={profile.name} inView={false} delay={0.05} />
-          </span>
-          <span className="hero-line contact-role">
-            <Words text={profile.role} inView={false} delay={0.2} />
-          </span>
+          <span className="hero-line">{profile.name}</span>
+          <span className="hero-line contact-role">{profile.role}</span>
         </h1>
-        <ContactBlock headline="Let’s build something." />
+        <ContactBlock />
       </div>
     </section>
   );

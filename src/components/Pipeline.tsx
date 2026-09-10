@@ -22,7 +22,7 @@ export const flows: Flow[] = [
       { label: "Request", note: "The browser only ever talks to one origin. In ApexIQ and PremierIQ that is Next.js; the FastAPI process is never exposed." },
       { label: "API", note: "FastAPI validates the route and applies the guard rails: CORS allowlist, trusted hosts, a per-minute rate limit, OpenAPI off unless debug is on." },
       { label: "Service", note: "Composition happens here: throttle the upstream provider, join data sets on stable keys (driver acronym, not number), and never invent fields the feed does not publish." },
-      { label: "Database / cache", note: "A TTL cache holds composed feeds so repeated UI polls do not hit a provider that allows ~10 to 30 requests a minute." },
+      { label: "Database and cache", note: "A TTL cache holds composed feeds so repeated UI polls do not hit a provider that allows ~10 to 30 requests a minute." },
       { label: "Response", note: "JSON with explicit empties. If a window has no GPS spread or Gemini has no key, the payload says so instead of filling the gap." },
     ],
   },
