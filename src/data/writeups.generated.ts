@@ -256,26 +256,52 @@ export const writeups: Writeup[] = [
   {
     "slug": "chatwire",
     "title": "ChatWire",
-    "date": "May 2026, personal project",
-    "description": "ChatWire project write up: purpose, tech stack, design, features, testing, and deployment.",
+    "date": "May 2026 · rebuilt Sep 2026 (v2)",
+    "description": "ChatWire case study: the version 2 social app (Home, Explore, Chat, You), what changed from the version 1 room chat, and how privacy, tests and deployment work.",
     "images": [
       {
+        "src": "chatwire-v2-home.png",
+        "alt": "ChatWire v2 Home timeline with a repost showing the quoted post"
+      },
+      {
+        "src": "chatwire-v2-explore.png",
+        "alt": "ChatWire v2 Explore media wall with photos and clips"
+      },
+      {
+        "src": "chatwire-v2-chat.png",
+        "alt": "ChatWire v2 Chat: communities, channels, stories, friends and DMs"
+      },
+      {
+        "src": "chatwire-v2-you.png",
+        "alt": "ChatWire v2 You profile with posts, reposts and private Saved"
+      },
+      {
+        "src": "chatwire-v2-login.png",
+        "alt": "ChatWire v2 login card with the demo account"
+      },
+      {
         "src": "chatwire-join.png",
-        "alt": "ChatWire join screen"
+        "alt": "Version 1 ChatWire join and login screen"
       },
       {
         "src": "chatwire-chat.png",
-        "alt": "ChatWire chat UI"
+        "alt": "Version 1 ChatWire channel chat UI"
       },
       {
         "src": "chatwire-timeline.png",
-        "alt": "ChatWire timeline"
+        "alt": "Version 1 ChatWire feed and timeline"
+      },
+      {
+        "src": "chatwire-light.png",
+        "alt": "Version 1 ChatWire light theme"
       }
     ],
     "tech": [
       "Python",
+      "Flask",
       "Flask-SocketIO",
       "SQLite",
+      "WebRTC",
       "pytest"
     ],
     "links": [
@@ -291,44 +317,44 @@ export const writeups: Writeup[] = [
     "sections": [
       {
         "heading": "Purpose and tech stack",
-        "html": "<p>\n  ChatWire is a live chat app with channels, direct messages and online status. I built it to\n  understand how apps like Discord and Instagram get a message onto every open screen at once.\n  Login uses normal HTTP. Live messages use Socket.IO. Accounts and history sit in SQLite.\n</p>\n<table>\n  <thead>\n    <tr>\n      <th>Layer</th>\n      <th>Choice</th>\n      <th>Reason</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>Server</td>\n      <td>Python, Flask, Flask-SocketIO</td>\n      <td>HTTP APIs plus live events on one process for this demo</td>\n    </tr>\n    <tr>\n      <td>Data</td>\n      <td>SQLite</td>\n      <td>Simple persistence for users, messages, friends, feed</td>\n    </tr>\n    <tr>\n      <td>Auth</td>\n      <td>bcrypt + signed session tokens</td>\n      <td>Reconnect with a token, not the password</td>\n    </tr>\n    <tr>\n      <td>Client</td>\n      <td>HTML, CSS, JavaScript</td>\n      <td>Channel UI, DMs, feed, Ctrl+K switcher</td>\n    </tr>\n    <tr>\n      <td>Channel calls</td>\n      <td>Socket.IO + WebRTC (STUN)</td>\n      <td>Meet now presence plus optional mic/camera peer media</td>\n    </tr>\n    <tr>\n      <td>Presence</td>\n      <td>In memory</td>\n      <td>Online status changes often and need not survive restart</td>\n    </tr>\n  </tbody>\n</table>",
+        "html": "<p>\n  ChatWire is a live social app: communities and channels, direct messages, a Home timeline,\n  Explore with short Clips and rooms, 24h stories, and a You profile with private Saved boards.\n  I built it to understand how apps like Discord and Instagram get a message onto every open screen\n  at once. Login uses normal HTTP. Everything live uses Socket.IO. Accounts and history sit in SQLite.\n  v2 (Sep 2026) is the current build: one consumer shell of Home, Explore, Chat and You instead of a\n  room-name join form.\n</p>\n<table>\n  <thead>\n    <tr>\n      <th>Layer</th>\n      <th>Choice</th>\n      <th>Reason</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>Server</td>\n      <td>Python, Flask, Flask-SocketIO</td>\n      <td>HTTP APIs plus live events on one process for this demo</td>\n    </tr>\n    <tr>\n      <td>Data</td>\n      <td>SQLite on a Railway volume</td>\n      <td>Users, messages, friends, posts, boards survive a deploy</td>\n    </tr>\n    <tr>\n      <td>Auth</td>\n      <td>bcrypt + signed session tokens</td>\n      <td>Reconnect with a token, not the password</td>\n    </tr>\n    <tr>\n      <td>Client</td>\n      <td>HTML, CSS, JavaScript</td>\n      <td>Home, Explore, Chat, You in one shell; Ctrl+K switcher</td>\n    </tr>\n    <tr>\n      <td>Calls</td>\n      <td>Socket.IO signalling + WebRTC</td>\n      <td>Meet now presence plus optional mic, camera and screen share</td>\n    </tr>\n    <tr>\n      <td>Presence</td>\n      <td>In memory</td>\n      <td>Online status changes often and need not survive restart</td>\n    </tr>\n  </tbody>\n</table>",
         "mermaid": []
       },
       {
-        "heading": "Design (request path and live path)",
-        "html": "<p>\n  Channel history loads once with cursor pagination (<code>before_id</code> /\n  <code>has_more</code>). New events append so switching rooms does not replay the whole\n  history. Unread counts and DM threads are stored in SQLite and pushed over sockets.\n</p>",
+        "heading": "Version 2 in full, and how it compares to version 1",
+        "html": "<p>\n  v2 is the version I would show someone first. The app opens on <strong>Home</strong>: a Following\n  or For you timeline where you post text, a photo or a short video, quote or repost, and open any\n  author's profile. <strong>Explore</strong> is media first: a masonry wall of photos and clips,\n  a Clips feed for vertical video, and rooms with votes. <strong>Chat</strong> keeps the Discord\n  shape: communities, channels, pins, direct messages, stories, Meet now and Go live.\n  <strong>You</strong> is a real profile: posts, reposts, story highlights, follower counts, and\n  Saved boards that only the owner can see. Open someone else's profile and you get their posts,\n  reposts and status with Follow and Message, never their Saved.\n</p>\n<p>\n  The interface work was deliberate: fewer words, more icons, one action per control, and the same\n  post actions everywhere so a comment, like, quote, repost or save looks the same in the timeline,\n  a room and a profile. Photos and videos upload from the device instead of asking for a URL.\n  Privacy is the part I care about most: posts, stories, boards and Saved counts are filtered in\n  the data layer, so a stranger who guesses a post or board id still gets nothing back.\n</p>\n<p>\n  Deployment moved with it. Railway now mounts a volume and the app reads <code>DATA_DIR</code>,\n  so the database and uploads survive a redeploy. A weak <code>SECRET_KEY</code> refuses to boot in\n  production, TURN credentials are only handed to a signed-in session, and <code>/api/version</code>\n  reports the running build so I can tell whether a deploy actually shipped.\n</p>\n<table>\n  <thead>\n    <tr>\n      <th>Area</th>\n      <th>Version 1</th>\n      <th>Version 2 (current)</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>Getting in</td>\n      <td>Display name plus a room name, no accounts</td>\n      <td>Register and login, bcrypt hashes, signed session token, lockout on repeated failures</td>\n    </tr>\n    <tr>\n      <td>Shape of the app</td>\n      <td>One shared room per page</td>\n      <td>Home, Explore, Chat and You in a single shell with one primary nav</td>\n    </tr>\n    <tr>\n      <td>Messaging</td>\n      <td>Broadcast messages to the room</td>\n      <td>Communities, channels, pins, DMs, typing, reactions, edit, unread counts</td>\n    </tr>\n    <tr>\n      <td>Social</td>\n      <td>None</td>\n      <td>Timeline with For you ranking, quotes and reposts, stories, follows, rooms with votes</td>\n    </tr>\n    <tr>\n      <td>Media</td>\n      <td>Text only</td>\n      <td>Device photo and short video uploads, Clips feed, saved boards of pins</td>\n    </tr>\n    <tr>\n      <td>Profiles</td>\n      <td>Just a display name</td>\n      <td>Avatar, status, posts, reposts, highlights, private Saved; other profiles get Follow and Message</td>\n    </tr>\n    <tr>\n      <td>Calls</td>\n      <td>None</td>\n      <td>Meet now presence with optional mic, camera and screen share over WebRTC</td>\n    </tr>\n    <tr>\n      <td>Privacy</td>\n      <td>Anything in the room was public</td>\n      <td>Friend and visibility checks on every read and write helper, Saved is owner only</td>\n    </tr>\n    <tr>\n      <td>Storage</td>\n      <td>In memory, gone on restart</td>\n      <td>SQLite on a mounted volume, uploads on the same volume</td>\n    </tr>\n    <tr>\n      <td>Tests</td>\n      <td>Manual only</td>\n      <td>38 pytest tests: auth, sockets, feed and story privacy, Saved privacy, Wave helpers</td>\n    </tr>\n  </tbody>\n</table>\n<p>\n  Channel history loads once with cursor pagination (<code>before_id</code> /\n  <code>has_more</code>). New events append so switching rooms does not replay the whole history.\n  Unread counts and DM threads are stored in SQLite and pushed over sockets.\n</p>",
         "mermaid": [
           "flowchart LR\n  UI[HTML CSS JS] -->|JSON HTTP| Flask\n  UI -->|Socket.IO| Sockets\n  Flask --> SQL[(SQLite)]\n  Sockets --> SQL\n  Sockets --> UI"
         ]
       },
       {
         "heading": "Features implemented",
-        "html": "<ul>\n  <li>Communities, channels, DMs, reactions, stories, friends, typing, edit / delete</li>\n  <li>Channel calls: Meet now presence plus optional mic/camera (WebRTC, STUN only)</li>\n  <li>Settings: theme, password, display name, notification sound, mic/camera allow</li>\n  <li>Ctrl+K quick switcher between channels</li>\n  <li>Admin rename gates for communities and channels</li>\n  <li>Login lockout after repeated failures; same check on change password</li>\n  <li>Rate limits on chat and social write paths</li>\n  <li>Friends only feed and story views check the viewer is allowed before returning data</li>\n</ul>",
+        "html": "<ul>\n  <li>Home: Following and For you timeline, create post, quote and repost, trending tags</li>\n  <li>Explore: media wall, Clips for short video, rooms with votes, boards of saved pins</li>\n  <li>Chat: communities, channels, pins, DMs, typing, reactions, edit, stories, Ctrl+K switcher</li>\n  <li>You: avatar, status, posts, reposts, story highlights, private Saved boards</li>\n  <li>Other profiles: posts, reposts and status with Follow, Message and back, never Saved</li>\n  <li>Meet now presence plus optional mic, camera and screen share (WebRTC, TURN via env)</li>\n  <li>Device photo and short video uploads for chat, posts, stories and Clips</li>\n  <li>Friend requests, block, report, sign out, dark and light theme</li>\n  <li>Login lockout, password rules, per connection write rate limits, CSP and security headers</li>\n  <li>Friends and visibility checks in the data layer before anything is returned or written</li>\n</ul>",
         "mermaid": []
       },
       {
         "heading": "Folder structure",
-        "html": "<pre class=\"folder-tree\">ChatWire/\n├── app.py                 # Flask routes (/api/auth/*, health)\n├── sockets/               # live chat / social / feed events\n├── db.py                  # schema + queries\n├── state.py               # online presence (memory)\n├── throttle.py            # per connection rate limits\n├── validate.py            # payload checks\n├── static/                # UI\n├── seed.py                # optional sample data\n└── tests/                 # pytest</pre>",
+        "html": "<pre class=\"folder-tree\">ChatWire/\n├── app.py                 # Flask routes (/api/auth/*, uploads, health, version, ICE)\n├── sockets/               # live chat, social, discover and wave events\n├── db.py                  # schema + core queries (DATA_DIR aware)\n├── db_ext.py              # social queries: feed ranking, boards, profiles, privacy\n├── state.py               # online presence (memory)\n├── throttle.py            # per connection rate limits\n├── validate.py            # payload checks\n├── static/                # UI (Home, Explore, Chat, You)\n├── seed.py                # optional sample data\n└── tests/                 # pytest</pre>",
         "mermaid": []
       },
       {
         "heading": "Timescale",
-        "html": "<table>\n  <thead>\n    <tr>\n      <th>Phase</th>\n      <th>When</th>\n      <th>Work</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>Auth and rooms</td>\n      <td>May 2026</td>\n      <td>Register / login, communities, channels, basic messages</td>\n    </tr>\n    <tr>\n      <td>Live product features</td>\n      <td>May 2026</td>\n      <td>DMs, reactions, typing, stories, presence</td>\n    </tr>\n    <tr>\n      <td>Calls and hardening</td>\n      <td>May 2026</td>\n      <td>Call presence + WebRTC media, lockout, rate limits, permission checks, pytest</td>\n    </tr>\n    <tr>\n      <td>Deploy</td>\n      <td>May 2026</td>\n      <td>Railway public demo</td>\n    </tr>\n  </tbody>\n</table>",
+        "html": "<table>\n  <thead>\n    <tr>\n      <th>Phase</th>\n      <th>When</th>\n      <th>Work</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>Rooms prototype (v1)</td>\n      <td>May 2026</td>\n      <td>Name plus room join, broadcast messages, join and leave notices</td>\n    </tr>\n    <tr>\n      <td>Accounts and communities</td>\n      <td>May 2026</td>\n      <td>Register and login, communities, channels, DMs, reactions, typing, stories</td>\n    </tr>\n    <tr>\n      <td>Calls and hardening</td>\n      <td>May 2026</td>\n      <td>Meet now, WebRTC media, lockout, rate limits, permission checks, pytest</td>\n    </tr>\n    <tr>\n      <td>v2 product shell</td>\n      <td>Sep 2026</td>\n      <td>Home, Explore, Chat, You; For you ranking, Clips, rooms, boards, profiles</td>\n    </tr>\n    <tr>\n      <td>v2 privacy and ops</td>\n      <td>Sep 2026</td>\n      <td>Saved made private, data layer visibility checks, DATA_DIR volume, secret and TURN gates</td>\n    </tr>\n  </tbody>\n</table>",
         "mermaid": []
       },
       {
         "heading": "Challenges and how they were handled",
-        "html": "<table>\n  <thead>\n    <tr>\n      <th>Challenge</th>\n      <th>Approach</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>Reloading full history on every room switch</td>\n      <td>Load once, then append events; cursor pagination for older messages</td>\n    </tr>\n    <tr>\n      <td>Auth only on login</td>\n      <td>Signed tokens; ownership and friend checks on feed / stories / renames</td>\n    </tr>\n    <tr>\n      <td>Brute force on login or change password</td>\n      <td>Short account lockout after repeated failures</td>\n    </tr>\n    <tr>\n      <td>Spam on sockets</td>\n      <td>Per connection rate limits on write events</td>\n    </tr>\n    <tr>\n      <td>Presence scale</td>\n      <td>Keep online status in memory for this demo; document JOIN batching for later</td>\n    </tr>\n  </tbody>\n</table>",
+        "html": "<table>\n  <thead>\n    <tr>\n      <th>Challenge</th>\n      <th>Approach</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>Filtering the feed list looked like privacy</td>\n      <td>Move the same visibility check into every read and write helper, then pin it with tests</td>\n    </tr>\n    <tr>\n      <td>Saved boards leaked through counts and board ids</td>\n      <td>Zero the counts for other viewers and check board ownership before returning pins</td>\n    </tr>\n    <tr>\n      <td>Reposts rendered as empty cards in the timeline</td>\n      <td>Return a quoted post stub with every feed row so a repost always shows what it quotes</td>\n    </tr>\n    <tr>\n      <td>Reloading full history on every room switch</td>\n      <td>Load once, then append events; cursor pagination for older messages</td>\n    </tr>\n    <tr>\n      <td>Railway resets the database on deploy</td>\n      <td>Read <code>DATA_DIR</code> and mount a volume so SQLite and uploads persist</td>\n    </tr>\n    <tr>\n      <td>Spam on sockets and brute force on login</td>\n      <td>Per connection write rate limits plus a short account lockout on login and change password</td>\n    </tr>\n  </tbody>\n</table>",
         "mermaid": []
       },
       {
         "heading": "Testing",
-        "html": "<p>From the ChatWire repo:</p>\n<pre class=\"checklist\">pip install -r requirements-dev.txt\npytest -q</pre>\n<p>Manual checks:</p>\n<ul>\n  <li>Two browsers: message in a channel appears live for both</li>\n  <li>Non friend cannot open a friends only feed or story</li>\n  <li>Non admin cannot rename a community or channel</li>\n  <li>Failed logins trigger lockout; change password is covered by the same gate</li>\n  <li>Reconnect with session token without retyping the password</li>\n</ul>",
+        "html": "<p>From the ChatWire repo:</p>\n<pre class=\"checklist\">pip install -r requirements-dev.txt\npytest -q</pre>\n<p>38 tests cover auth hardening, socket flows, feed and story privacy, Saved and board privacy,\nand the ranking helpers. Manual checks:</p>\n<ul>\n  <li>Two browsers: a channel message appears live for both</li>\n  <li>A stranger cannot read, like, comment on or view a friends only post or story</li>\n  <li>Another profile shows posts and reposts but never Saved</li>\n  <li>Non admin cannot rename a community or channel</li>\n  <li>Failed logins trigger lockout; change password uses the same gate</li>\n  <li>Reconnect with the session token without retyping the password</li>\n</ul>",
         "mermaid": []
       },
       {
         "heading": "Deployment and links",
-        "html": "<p>\n  Local: venv, <code>pip install -r requirements.txt</code>, <code>python app.py</code>,\n  open http://localhost:5001. Optional <code>python seed.py</code>. Live demo is on Railway.\n  Demo login: <code>demo</code> / <code>demo123456</code> (admin, so rename works in demos).\n</p>",
+        "html": "<p>\n  Local: venv, <code>pip install -r requirements.txt</code>, <code>python app.py</code>,\n  open http://localhost:5001. Optional <code>python seed.py</code>. Live demo is on Railway with a\n  volume mounted at <code>/data</code> and <code>DATA_DIR=/data</code>, so accounts, posts and\n  uploads survive a redeploy. A weak <code>SECRET_KEY</code> stops the boot in production and\n  <code>/api/version</code> confirms which build is live. Demo login: <code>demo</code> /\n  <code>demo123456</code> (admin, so rename works in demos).\n</p>\n<p>\n  The first five screenshots below are the current v2 build: Home, Explore, Chat, You and the login\n  card. The last four are version 1, kept as the record of what the app looked like before the\n  Home, Explore, Chat and You rebuild.\n</p>",
         "mermaid": []
       }
     ]
