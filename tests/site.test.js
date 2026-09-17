@@ -1,6 +1,6 @@
 /**
  * Smoke tests for the built site (dist/): landmarks, one h1 per route, alt text,
- * legacy redirects, intro skip + reduced motion, keyboard interaction, mobile menu.
+ * legacy redirects, no intro overlay + reduced motion, keyboard interaction, mobile menu.
  * Run: npm run build && npm test
  */
 import http from "node:http";
@@ -111,15 +111,19 @@ async function run() {
     assert(page.url().endsWith("/work/novabank"), `legacy redirect failed: ${page.url()}`);
     console.log("ok  legacy redirect project-novabank.html → /work/novabank");
 
-    // Intro plays once per session and can be skipped with the keyboard.
+    // The opening sequence is switched off (shouldPlayIntro returns false), so a
+    // first load should land straight on the hero with no overlay in the way.
     const fresh = await browser.newPage();
     await fresh.setViewport({ width: 1440, height: 900 });
-    await fresh.goto(ORIGIN + "/", { waitUntil: "domcontentloaded" });
-    await fresh.waitForSelector(".intro", { timeout: 4000 });
-    await fresh.focus(".intro-skip");
-    await fresh.keyboard.press("Enter");
-    await fresh.waitForSelector(".intro", { hidden: true, timeout: 3000 });
-    console.log("ok  intro renders and Skip works");
+    await fresh.goto(ORIGIN + "/", { waitUntil: "networkidle0" });
+    await settle(fresh);
+    const freshInfo = await fresh.evaluate(() => ({
+      intro: !!document.querySelector(".intro"),
+      heading: document.querySelector("h1")?.innerText.trim().length ?? 0,
+    }));
+    assert(!freshInfo.intro, "intro is disabled, so no intro overlay should render");
+    assert(freshInfo.heading > 0, "hero heading should render on a first load");
+    console.log("ok  no intro overlay, hero renders on first load");
 
     // Reduced motion: no intro, field static, page still fully usable.
     const rm = await browser.newPage();
