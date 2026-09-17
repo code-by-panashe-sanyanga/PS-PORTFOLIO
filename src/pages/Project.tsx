@@ -265,9 +265,9 @@ function FeaturedCase({ p }: { p: ProjectT }) {
             node: (
               <div className="prose">
                 <p>
-                  Hub pages, a case study per project, a CV page, and a screenshot lightbox with keyboard and screen reader
-                  support. Puppeteer smoke tests cover landmarks, a single h1, alt text, the focus trap and reduced motion.
-                  Rebuilt in 2026 as React and Vite with the original writeups kept as typed data.
+                  Hub pages, a case study for each project, a CV page, and a screenshot lightbox that works with a keyboard and a
+                  screen reader. Puppeteer smoke tests cover landmarks, a single h1, alt text, the focus trap and reduced motion. I
+                  rebuilt the site in 2026 with React and Vite, and kept the write-ups as typed data rather than loose HTML.
                 </p>
               </div>
             ),
@@ -278,8 +278,9 @@ function FeaturedCase({ p }: { p: ProjectT }) {
             node: (
               <div className="prose">
                 <p>
-                  Puppeteer walks the built site: landmarks, one h1 per route, non empty alt on project images, intro skip,
-                  reduced motion, and keyboard expansion of a project row.
+                  Puppeteer walks the built site and checks the parts that break without anyone noticing: landmarks, one h1 per
+                  route, non empty alt text on project images, skipping the intro, reduced motion, and expanding a project row with
+                  the keyboard.
                 </p>
               </div>
             ),
@@ -290,8 +291,9 @@ function FeaturedCase({ p }: { p: ProjectT }) {
             node: (
               <div className="prose">
                 <p>
-                  Static build on GitHub Pages under /PS-PORTFOLIO/. Vite emits the SPA; 404.html mirrors index.html for client
-                  routing. cv.html and the PDF are served from public/.
+                  It is a static build on GitHub Pages, served under /PS-PORTFOLIO/. Vite emits the SPA, and 404.html mirrors
+                  index.html so client side routing survives a direct link to a deep page. cv.html and the PDF come straight out of
+                  public/.
                 </p>
               </div>
             ),
@@ -380,7 +382,7 @@ function CourseworkCase({ slug }: { slug: string }) {
   );
 }
 
-/* helpers to split the verbatim "Purpose and tech stack" section */
+/* the first write-up section holds both the intro paragraph and the stack table, so split it */
 function firstParagraph(html: string) {
   const m = html.match(/<p>[\s\S]*?<\/p>/);
   return m ? m[0] : html;

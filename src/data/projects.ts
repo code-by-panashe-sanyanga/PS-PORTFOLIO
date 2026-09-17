@@ -50,7 +50,7 @@ export const projects: Project[] = [
     name: "ApexIQ",
     title: "Formula 1 pit wall dashboard",
     description:
-      "Live F1 dashboard: timing, track map, standings and driver compare. Built like a small BBC Sport style race page, with the server talking to free F1 data feeds. Live on Railway.",
+      "A live Formula 1 dashboard with timing, a track map, standings and driver compare, closer to a pit wall screen than a static race page. The server does all the talking to the free F1 feeds. Live on Railway.",
     year: "2026",
     role: "Full stack",
     tech: ["Python", "FastAPI", "Next.js", "TypeScript", "Three.js", "OpenF1"],
@@ -61,14 +61,14 @@ export const projects: Project[] = [
     live: "https://apexiq-production-75e5.up.railway.app",
     featured: true,
     problem:
-      "I wanted a live Formula 1 page I could trust, closer to a pit wall or a BBC Sport race view than a static site. Free data feeds do not line up cleanly: the same driver can have different numbers in each feed, you can only ask for live data a limited number of times per minute, the track map can jump into the garage when a session ends, and some live values never arrive at all. The hard part was stitching that into one dashboard without inventing numbers the feed never sent.",
+      "I wanted a live Formula 1 page I could actually trust during a session, closer to a pit wall view than a static site. The free feeds are the difficult part. The same driver can carry a different number in each feed, live data can only be requested a limited number of times a minute, the track map jumps into the garage once a session ends, and some values never arrive at all. Getting those two feeds into one dashboard without inventing numbers they never sent was most of the work.",
     decisions: [
-      "The browser only talks to my site. The site asks the server for data, so the free feed details stay off the client.",
-      "I limit how often the live feed is called and cache answers, so I do not burn through the request limit.",
-      "Drivers are matched by name and short code, not by number, because the two feeds disagree on numbers.",
-      "The track map uses GPS from the middle of the session. If the points barely move, they are treated as garage noise and ignored.",
-      "If tyre temperatures, ERS or practice gaps are missing from the feed, those spots stay blank on screen.",
-      "The 3D car is drawn in code, so there is no licensed car model.",
+      "The browser only ever calls my own site. Next.js forwards those calls to FastAPI, so the provider details stay off the client.",
+      "The API throttles how often the live feed is called and caches what it builds, otherwise the request limit runs out quickly.",
+      "Drivers are matched on name and short code rather than number, because the two feeds disagree on numbers.",
+      "The track map reads GPS from the middle of a session. Point sets that barely move are garage noise, so they get dropped.",
+      "When tyre temperatures, ERS or practice gaps are missing from the feed, those fields stay blank instead of being filled with a guess.",
+      "The 3D car is drawn in code, which avoids needing a licensed car model.",
     ],
     arch: {
       nodes: [
@@ -96,7 +96,7 @@ export const projects: Project[] = [
     name: "NovaBank",
     title: "Banking app with transfers",
     description:
-      "A small online bank with a dashboard: accounts, cards, pots and transfers. Built to learn how banks move money safely. Live on Railway.",
+      "A small online bank with a dashboard: accounts, cards, pots and transfers, written to work out how banks move money without losing track of it. Live on Railway.",
     year: "2026",
     role: "Full stack",
     tech: ["Python", "FastAPI", "PostgreSQL", "SQLAlchemy", "JWT", "Docker"],
@@ -107,14 +107,14 @@ export const projects: Project[] = [
     live: "https://novabank-api-production-2778.up.railway.app",
     featured: true,
     problem:
-      "I wanted to understand how a bank moves money, not just store a balance number on a user. Two people can transfer at the same time, a slow phone can send the same payment twice, and a crash halfway through must not leave one side paid and the other unpaid. Customers also must not see each other's accounts or card numbers.",
+      "Storing a balance and editing the number is easy. Doing it the way a bank does, so the money is always accounted for, is not. Two people can transfer at the same moment, a slow phone can send the same payment twice, and a crash halfway through must not leave one side paid and the other unpaid. On top of that, no customer should be able to see somebody else's accounts or card numbers.",
     decisions: [
-      "Every transfer writes a debit and a matching credit, like a real ledger, instead of editing one balance field.",
-      "Only one service is allowed to post money rows, so payments cannot sneak in through random routes.",
-      "When two transfers touch the same accounts, the database locks those rows in a fixed order so they cannot freeze waiting on each other.",
-      "The transfer header, the ledger lines and the balance update succeed or fail together as one database commit.",
-      "If the client sends the same payment key again, the app returns the first result instead of moving the money twice.",
-      "Money uses exact decimal values, not floating point. Card numbers are masked. Fraud rules can flag odd behaviour, but they do not block payments in this demo.",
+      "Every transfer writes a debit and a matching credit, the way a real ledger does, rather than editing a single balance field.",
+      "Only the ledger service is allowed to post money rows, so a payment cannot sneak in through some other route.",
+      "When two transfers touch the same accounts, the database locks those rows in id order, so they queue instead of deadlocking on each other.",
+      "The transfer header, the ledger lines and the balance update commit together or not at all.",
+      "If a client repeats the same idempotency key, the app hands back the original transaction instead of moving the money twice.",
+      "Money is stored and calculated as exact decimals, never floats. Card numbers are masked in responses, and the fraud rules flag odd behaviour for review rather than blocking payments.",
     ],
     arch: {
       nodes: [
@@ -143,7 +143,7 @@ export const projects: Project[] = [
     name: "PremierIQ",
     title: "Premier League dashboard",
     description:
-      "Premier League standings, match chances, season outlook and a stadium map. Built like a BBC Sport style football page with live table data. Live on Railway.",
+      "Premier League standings, match chances, a season outlook and a stadium map. The match chances are simulated rather than looked up anywhere. Live on Railway.",
     year: "2026",
     role: "Full stack",
     tech: ["Python", "FastAPI", "NumPy", "Next.js", "TypeScript", "MapLibre"],
@@ -154,14 +154,14 @@ export const projects: Project[] = [
     live: "https://premieriq-production.up.railway.app",
     featured: true,
     problem:
-      "I wanted a football site closer to BBC Sport: live standings, and a clear view of match chances, without pretending the free data feed has injuries, confirmed lineups or betting odds. The feed only allows about ten requests a minute, and the secret keys for that feed must never end up in the browser.",
+      "I wanted live standings alongside a clear read on how a fixture might go, without pretending the free feed carries injuries, confirmed lineups or odds, because it does not. The feed also allows only about ten requests a minute, and its key cannot be allowed anywhere near the browser.",
     decisions: [
-      "Match chances come from many simulated scorelines in NumPy (10,000 per fixture). Season outlook runs the remaining table 2,000 times.",
-      "The model mixes season form, recent games, home and away splits, and head to head when those pieces exist. Weights are adjusted if something is missing.",
-      "If a team has played fewer than five games, confidence is capped so early-season noise does not look certain.",
-      "Standings and team lists are fetched separately and cached briefly, so the app does not hammer the free feed on a timer.",
-      "The browser only talks to my site. The site asks the server for data, so football API keys stay on the server.",
-      "Optional Gemini text only summarises the simulation numbers. If that key is missing, the match view still works.",
+      "Match chances come out of simulation, not a lookup: 10,000 Poisson draws per fixture in NumPy, and 2,000 full runs of the remaining table for the season outlook.",
+      "The strength model mixes season form, the last five matches, home and away splits and head to head. Any of those can be missing early in a season, so the weights are rescaled when a piece drops out.",
+      "Confidence is capped for teams with fewer than five games played, since early-season noise should not look like certainty.",
+      "Standings and team lists are separate calls with a short in-process cache, and nothing is polled on a timer, which keeps the app inside the rate limit.",
+      "The browser only calls my own origin. Next rewrites those requests to FastAPI, so the football and weather keys stay server side.",
+      "Gemini is optional and only narrates the simulation JSON. With no key it returns null and the match view still stands on its own.",
     ],
     arch: {
       nodes: [
@@ -193,7 +193,7 @@ export const projects: Project[] = [
     name: "ChatWire",
     title: "Live social app",
     description:
-      "v2 rebuild of a room chat into a social product: Home timeline, Explore with clips and boards, Chat with communities and DMs, and You profiles. Privacy checks in the data layer, 38 tests. Live on Railway.",
+      "A room chat rebuilt into a social app: a Home timeline, Explore with clips and boards, Chat with communities and DMs, and You profiles. Visibility checks sit in the data layer, with 38 tests behind them. Live on Railway.",
     year: "2026",
     role: "Full stack",
     tech: ["Python", "Flask", "Flask-SocketIO", "SQLite", "WebRTC", "pytest"],
@@ -204,16 +204,16 @@ export const projects: Project[] = [
     live: "https://chat-wire-production.up.railway.app",
     featured: true,
     problem:
-      "I wanted to understand how apps like Discord and Instagram get a message onto every open screen at once. Refreshing a page is not enough. People need to stay signed in after a reconnect without typing the password again, friends-only posts must stay private, and login or chat spam should not be easy. Version 1 was a display name plus a room name, so anything in the room was public and nothing survived a restart. Version 2 had to become a product someone could actually sign into and trust.",
+      "I started this to work out how apps like Discord and Instagram get one message onto every open screen at once, because refreshing a page clearly is not how they do it. Version 1 was a display name and a room name, so everything said in a room was public and nothing survived a restart. Turning that into something people could sign into meant staying logged in across a reconnect without retyping a password, keeping friends-only posts genuinely private, and making login and chat spam awkward rather than trivial.",
     decisions: [
-      "Login uses normal HTTP. Everything live rides Socket.IO on the same server process.",
-      "v2 replaced the room join form with one shell: Home, Explore, Chat and You, so posting, browsing, messaging and your profile all live in the same app.",
-      "Privacy is enforced in the data layer, not the UI. Feed, stories, boards and Saved are checked on every read and write helper because post and board ids are sequential.",
-      "Saved is owner only: other people see your posts, reposts, highlights and status, never what you saved.",
-      "Security: bcrypt hashes, signed session tokens for reconnect, lockout on login and change-password, CSP and related headers, and per-connection write rate limits.",
-      "A channel loads older messages in pages. New messages append live, instead of reloading the whole history every time you switch room.",
-      "Calls use WebRTC; /api/webrtc/ice hands STUN and optional TURN to a signed-in session only. Go live and screen share sit on the same call path.",
-      "SQLite and uploads live on a Railway volume via DATA_DIR, so a deploy does not wipe accounts or media.",
+      "Login goes over ordinary HTTP. Everything live runs through Socket.IO in the same server process.",
+      "v2 dropped the room join form for one shell of Home, Explore, Chat and You, so posting, browsing, messaging and your profile are all parts of the same app.",
+      "Post and board ids are sequential, so hiding things in the UI proved worthless. Feed, stories, boards and Saved are checked in the data layer, on every read and write helper.",
+      "Saved is owner only. Other people get your posts, reposts, highlights and status, and never what you saved.",
+      "Security is bcrypt hashes, signed session tokens for reconnect, a lockout on login and change password, CSP and related headers, and per-connection write rate limits.",
+      "A channel loads its history once and pages older messages with a cursor. New messages append, rather than the whole history reloading each time you switch room.",
+      "Calls run on WebRTC, with /api/webrtc/ice handing STUN and optional TURN to a signed-in session only. Go live and screen share reuse the same call path.",
+      "SQLite and the uploads live on a Railway volume through DATA_DIR, because a deploy was wiping accounts and media before that.",
     ],
     arch: {
       nodes: [
@@ -241,7 +241,7 @@ export const projects: Project[] = [
     name: "Portfolio",
     title: "This site",
     description:
-      "This portfolio site: project pages, screenshots, demos and source links.",
+      "The site you are reading: a page per project, with screenshots, live demos and links to the source.",
     year: "2026",
     role: "Design, build, test, deploy",
     tech: ["React", "TypeScript", "Vite", "Framer Motion", "Puppeteer", "GitHub Pages"],
@@ -252,14 +252,14 @@ export const projects: Project[] = [
     live: "https://code-by-panashe-sanyanga.github.io/PS-PORTFOLIO/",
     featured: false,
     problem:
-      "I wanted my projects, screenshots and demos in one site instead of scattered links. It also had to work with a keyboard and a screen reader, and calm down motion when the system asks for less of it.",
+      "My projects, screenshots and demos were spread across separate links, which is a poor way to show anyone what I have built. The site also had to be usable with a keyboard and a screen reader, and it had to stop moving things about when the operating system asks for less motion.",
     decisions: [
-      "Screenshot viewer moves keyboard focus into the dialog, keeps Tab inside it, and returns focus when you close it.",
-      "Arrow keys and Escape work while the viewer is open.",
-      "If the OS asks for less motion, autoplay stays off.",
-      "Automated checks cover page structure, one main heading per page, image text, the focus trap and reduced motion.",
-      "No CMS or database. The pages are the content. Project write-ups live as data in the site.",
-      "Built with React and Vite. Motion can be skipped.",
+      "Opening the screenshot viewer moves focus into the dialog, keeps Tab inside it while it is open, and hands focus back to where you were when it closes.",
+      "Arrow keys move between screenshots and Escape closes the viewer.",
+      "When the OS asks for reduced motion, autoplay stays off.",
+      "Puppeteer checks the things that break quietly: page structure, one main heading per page, image alt text, the focus trap and reduced motion.",
+      "There is no CMS and no database. The pages are the content, and each case study lives as data inside the site.",
+      "React and Vite, with the motion layer written so it can be skipped.",
     ],
     arch: {
       nodes: [
