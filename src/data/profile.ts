@@ -7,7 +7,7 @@ export const profile = {
   role: "Software Engineer",
   focus: "Live demos, case studies, source",
   tagline: "I design, build, test and deploy software.",
-  availability: "Open to software engineering roles",
+  availability: "Looking for a Graduate Software Engineer role starting September 2027",
   email: "panashe.sanyanga@hotmail.com",
   github: "https://github.com/code-by-panashe-sanyanga",
   githubHandle: "code-by-panashe-sanyanga",

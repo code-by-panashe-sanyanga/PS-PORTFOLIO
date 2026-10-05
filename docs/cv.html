@@ -10,6 +10,7 @@
       * { box-sizing: border-box; margin: 0; padding: 0; }
       body {
         font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        background: #fff;
         color: #111;
         line-height: 1.28;
         max-width: 780px;
@@ -80,165 +81,147 @@
 
     <h1>Panashe Sanyanga</h1>
     <p class="subtitle">
-      Salford, Manchester · 07568 450060 ·
+      Manchester, UK · 07568450060 ·
       <a href="mailto:panashe.sanyanga@hotmail.com">panashe.sanyanga@hotmail.com</a>
-      · <a href="https://github.com/code-by-panashe-sanyanga">GitHub</a>
       · <a href="https://code-by-panashe-sanyanga.github.io/PS-PORTFOLIO/">Portfolio</a>
+      · <a href="https://github.com/code-by-panashe-sanyanga">GitHub</a>
+      · <a href="https://www.linkedin.com/in/panashe-l-s">LinkedIn</a>
     </p>
 
     <h2>Profile</h2>
     <p>
-      Final year Computer Science student at Manchester Metropolitan University, building backend
-      systems in Python with FastAPI and PostgreSQL. My projects include a banking platform with a
-      double entry ledger and row level locking to keep balances consistent during transfers, a
-      football analytics tool using Monte Carlo simulations, and a real time messaging app with
-      authentication and access control. I use Git, Docker and pytest in my projects and have
-      deployed applications to Railway. I have also used the Gemini API in PremierIQ to turn match
-      data and simulation results into written match analysis. Alongside my degree I work as an IT
-      Advisor, resolving hardware, software, network and account issues for staff and students. I am
-      looking for a software engineering role where I can keep developing and take on harder
-      technical problems.
+      Final year Computer Science student at Manchester Metropolitan University with practical
+      experience building software in Python, SQL and JavaScript. I build projects in my own time,
+      including a banking API that keeps transfers consistent under concurrent requests using
+      PostgreSQL row level locking, a real time messaging app and a statistical prediction model.
+      Alongside my degree, I work in university IT supporting staff and students across hardware,
+      software, networking and account access. Looking for a Graduate Software Engineer role starting
+      in September 2027.
     </p>
 
     <h2>Technical skills</h2>
-    <p class="skills-line"><strong>Languages:</strong> Python, SQL, C#, Java, JavaScript, TypeScript</p>
-    <p class="skills-line"><strong>Backend:</strong> FastAPI, Flask, SQLAlchemy, REST APIs, JWT authentication</p>
-    <p class="skills-line"><strong>Databases:</strong> PostgreSQL, SQLite, transactions, indexing, row level locking</p>
-    <p class="skills-line"><strong>Tools:</strong> Git, GitHub, Docker, Docker Compose, pytest, Railway, Google Gemini API</p>
-    <p class="skills-line"><strong>Systems and IT:</strong> Networking, SCCM, Windows, macOS, Microsoft 365, MFA, troubleshooting</p>
+    <p class="skills-line"><strong>Languages:</strong> Python, SQL, JavaScript</p>
+    <p class="skills-line"><strong>Backend:</strong> FastAPI, Flask, REST APIs, SQLAlchemy, Socket.IO, Pytest</p>
+    <p class="skills-line"><strong>Databases:</strong> PostgreSQL, SQLite</p>
+    <p class="skills-line"><strong>Tools:</strong> Git, GitHub, Docker, Docker Compose, Railway</p>
+    <p class="skills-line"><strong>IT:</strong> SCCM, Jamf, Active Directory, Microsoft 365, Windows, macOS, Networking</p>
 
-    <h2>Projects</h2>
+    <h2>Software engineering projects</h2>
 
     <div class="entry">
       <div class="entry-title">
-        <a href="https://github.com/code-by-panashe-sanyanga/NovaBank">NovaBank</a>
-        · Python, FastAPI, SQLAlchemy, PostgreSQL, Docker Compose, Railway · 2026
+        NovaBank · Python, FastAPI, SQLAlchemy, PostgreSQL, Docker, Railway ·
+        <a href="https://novabank-api-production-2778.up.railway.app/">Live</a>
       </div>
       <p class="entry-meta">
-        Online banking application covering accounts, transfers, savings pots, spending insights and card freezing.
+        Banking API that handles account transfers and tracks customer spending.
       </p>
       <ul>
         <li>
-          Built transfers around a double entry ledger, with matching debit and credit entries written
-          in the same database transaction
+          Implemented a double entry ledger so every transfer records matching debit and credit
+          entries within a database transaction
         </li>
         <li>
-          Used PostgreSQL row level locking to stop concurrent transfers from corrupting account
-          balances, with 11 pytest tests covering the ledger and transfers
+          Used PostgreSQL row level locking to prevent race conditions when multiple transfers affect
+          the same account at the same time
         </li>
+        <li>Added idempotency keys to prevent duplicate transactions when requests are retried</li>
         <li>
-          Added JWT authentication, bcrypt password hashing and login rate limiting, then deployed
-          the backend to Railway
+          Wrote integration tests with Pytest against a live PostgreSQL database to verify transfers,
+          balances and ledger consistency
         </li>
       </ul>
     </div>
 
     <div class="entry">
       <div class="entry-title">
-        <a href="https://github.com/code-by-panashe-sanyanga/PremierIQ">PremierIQ</a>
-        · Python, FastAPI, Next.js, NumPy, Google Gemini API · 2026
+        PremierIQ · Python, FastAPI, Next.js, NumPy, Google Gemini API ·
+        <a href="https://premieriq-production.up.railway.app/">Live</a>
       </div>
       <p class="entry-meta">
-        Premier League analytics platform combining live football data with match prediction and simulation.
+        Premier League analytics application that uses historical match data to estimate outcomes for
+        upcoming fixtures.
       </p>
       <ul>
+        <li>Backtested the model on 20 past matches; it picked the correct result 75% of the time</li>
+        <li>Implemented Poisson based probability modelling and 10,000 Monte Carlo simulations per fixture</li>
         <li>
-          Built a match prediction model using recent form and home and away scoring data, then ran
-          10,000 Poisson Monte Carlo simulations per fixture
+          Added in memory caching to reduce repeated external API requests and improve response times
         </li>
         <li>
-          Built a FastAPI backend pulling from football and weather APIs, with an in process cache to
-          reduce repeated requests
-        </li>
-        <li>
-          Used the Gemini API to turn the football data and simulation results into written match
-          analysis, while keeping API credentials server side
+          Integrated the Gemini API to turn simulation results into readable explanations without
+          replacing the underlying statistical model
         </li>
       </ul>
     </div>
 
     <div class="entry">
       <div class="entry-title">
-        <a href="https://github.com/code-by-panashe-sanyanga/ChatWire">ChatWire</a>
-        · Python, Flask, Socket.IO, SQLite · 2026
+        ChatWire · Python, Flask, Socket.IO, SQLite ·
+        <a href="https://chat-wire-production.up.railway.app/">Live</a>
       </div>
       <p class="entry-meta">
-        Real time messaging application with live message delivery and persistent channel history.
+        Real time messaging application with persistent public channels and user authentication.
       </p>
       <ul>
-        <li>Used Socket.IO for live communication between users and cursor based pagination for channel history</li>
-        <li>Implemented bcrypt authentication, signed session tokens, login lockout and access control checks</li>
-        <li>Wrote 24 pytest tests covering authentication, access control and socket functionality</li>
-      </ul>
-    </div>
-
-    <div class="entry">
-      <div class="entry-title">
-        <a href="https://github.com/code-by-panashe-sanyanga/ApexIQ">ApexIQ</a>
-        · Python, FastAPI, Next.js · 2026
-      </div>
-      <p class="entry-meta">
-        Formula 1 dashboard bringing together live timing, circuit data and championship standings.
-      </p>
-      <ul>
+        <li>Used WebSockets through Flask Socket.IO to deliver messages without repeatedly polling the server</li>
+        <li>Implemented password hashing with bcrypt and signed session tokens to protect user accounts</li>
         <li>
-          Built the FastAPI backend using external F1 data sources, with live timing, circuit
-          visualisation and driver comparison features
+          Added database pagination and automated tests covering connection, authentication and
+          messaging edge cases
         </li>
-        <li>Kept API credentials server side</li>
       </ul>
     </div>
 
-    <h2>Education</h2>
-    <div class="entry">
-      <div class="entry-title">
-        BSc (Hons) Computer Science · Manchester Metropolitan University · Sep 2023 to May 2027
-      </div>
-    </div>
-    <div class="entry">
-      <div class="entry-title">
-        BTEC Level 3 Extended Diploma in Engineering (DDD) · Milton Keynes College · Sep 2013 to Jul 2015
-      </div>
-    </div>
-
-    <h2>Experience</h2>
+    <h2>Work experience</h2>
 
     <div class="entry">
       <div class="entry-title">
         IT Advisor · Manchester Metropolitan University · Sep 2025 to Present · Part time
       </div>
       <ul>
-        <li>Diagnose hardware, software, account and network issues for staff and students through the university service desk</li>
-        <li>Image and deploy Windows PCs and Macs using SCCM, and support Microsoft 365, MFA and campus printing</li>
-        <li>Manage a busy ticket queue on Freshservice while explaining technical issues clearly to users</li>
+        <li>
+          Second line support for students and staff with hardware, software, networking and account
+          access issues across the university
+        </li>
+        <li>
+          Diagnose problems involving Windows and macOS computers, printers, network connections,
+          Microsoft 365 and MFA
+        </li>
+        <li>Provision, image and deploy university devices using Microsoft SCCM</li>
+        <li>
+          Manage service requests through Freshservice, prioritising issues according to urgency and
+          service requirements
+        </li>
+        <li>
+          Work with the graduation and enrolment teams to set up and support laptops, desktops,
+          software and AV equipment for 27 graduation ceremonies over 14,000 graduates and for 5,000+
+          daily inbound calls for clearing
+        </li>
       </ul>
     </div>
 
     <div class="entry">
-      <div class="entry-title">Sales Advisor · Belstaff, Manchester · Oct 2024 to Oct 2025</div>
+      <div class="entry-title">Sales Advisor · Belstaff, Manchester · Oct 2024 to Sep 2025</div>
       <ul>
-        <li>Used SQL to query customer data and segment clients by purchase history for targeted outreach</li>
-        <li>Worked towards individual sales targets in a luxury retail environment</li>
+        <li>Used SQL to segment the customer database and decide who to invite to private sales</li>
+        <li>Advised customers on a luxury product range and kept stock records accurate</li>
+        <li>Worked with store management and head office to keep daily operations running</li>
       </ul>
     </div>
 
+    <h2>Education</h2>
     <div class="entry">
       <div class="entry-title">
-        Retail Leadership · Origin Kicks, Selfridges, UNIQLO, Anya Hindmarch, Ralph Lauren, Harding Brothers ·
-        2017 to 2024
+        BSc (Hons) Computer Science · Manchester Metropolitan University · Expected May 2027
       </div>
-      <ul>
-        <li>
-          Progressed through supervisory and loss prevention roles across luxury and high street retail,
-          including leading a sales team during cruise ship deployment
-        </li>
-        <li>Trained junior staff, managed customer facing operations and helped introduce processes to reduce stock loss</li>
-      </ul>
+      <p class="entry-meta">Predicted 2:1</p>
     </div>
-
-    <h2>Additional information</h2>
-    <ul>
-      <li>Available to start from May 2027</li>
-    </ul>
+    <div class="entry">
+      <div class="entry-title">
+        BTEC Level 3 Extended Diploma in Engineering · Milton Keynes College
+      </div>
+      <p class="entry-meta">Grade: Triple Distinction (DDD)</p>
+    </div>
   </body>
 </html>
